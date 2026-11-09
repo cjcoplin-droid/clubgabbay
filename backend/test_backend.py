@@ -1145,6 +1145,50 @@ def run_services_tests(base):
               and ('action="/%s/action"' % room).encode() in body
               and b'AOL Chat' not in body
               and b'name="color"' not in body, "status=%d" % s)
+        # MySpace Top 8 only renders when someone else is in the room;
+        # bring a second user in so the strip has a real name to show.
+        if slug == "myspace":
+            c2 = Client(base)
+            gate(c2)
+            c2.post("/" + room, {"USER": "Friend1",
+                                 "SAYS": "<b>Joins the MySpace Chat...</b>",
+                                 "HISTORY": "8", "confirm": "21"})
+            s, body, _ = c.get("/" + room)
+        # v2 (Paul's ICQ screenshot): the web-chat chrome -- Chat Rooms
+        # panel, Status + channel tabs, styled Send, the service's own
+        # chat colors/font, colored join lines, its signature bit.
+        sig = {
+            "msn": (b'value="Nudge"', "Nudge button"),
+            "yahoo": (b'value="BUZZ!"', "BUZZ! button"),
+            "icq": (b"#00A651", "flower mark"),
+            "mirc": (b"Courier New", "monospace chat"),
+            "excite": (b"Excite - Home | Chat | Mail", "portal masthead"),
+            "paltalk": (b"Video", "video strip"),
+            "lycos": (b"Lycos - Go get it", "black/yellow masthead"),
+            "palace": (b"Comic Sans MS", "playful font"),
+            "habbo": (b"background:#FFF8D0", "pale yellow chat"),
+            "powwow": (b"#663399", "voice dot"),
+            "compuserve": (b'value="GO"', "GO button"),
+            "prodigy": (b"Welcome to Prodigy Chat", "welcome strip"),
+            "xfire": (b"background:#1A1A1A", "dark chat"),
+            "myspace": (b"Top 8:", "Top 8 strip"),
+        }[slug]
+        check("services", "%s v2 chrome: Chat Rooms panel, %s tab, "
+              "styled %s Send, chat %s/%s, colored joins, %s"
+              % (slug, skin["channel"], skin["send"], skin["chat_bg"],
+                 skin["chat_font"], sig[1]),
+              b"Chat Rooms:" in body
+              and b"height:120px" in body
+              and b"Status: Online" in body
+              and skin["channel"].encode() in body
+              and ('value="%s"' % skin["send"]).encode() in body
+              and ('style="background:%s;color:%s;"'
+                   % (skin["title"], skin["fg"])).encode() in body
+              and ('background:%s;color:%s;'
+                   % (skin["chat_bg"], skin["chat_fg"])).encode() in body
+              and ('font-family:%s;' % skin["chat_font"]).encode() in body
+              and ('color="%s"' % skin["join"]).encode() in body
+              and sig[0] in body, "status=%d" % s)
 
 
 def run_board_migration_tests():

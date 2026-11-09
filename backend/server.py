@@ -249,94 +249,109 @@ SERVICES = [
              "display pictures, and adding friends by email. The sound "
              "of a friend coming online.",
      "join": "Joins MSN Chat...",
-     "skin": {}},
+     "skin": {'nudge': 'Nudge'}},
     {"slug": "yahoo", "name": "Yahoo! Chat", "room": "Yahoo! Chat",
      "bgcolor": "#6001D2",
      "desc": "Public chat rooms divided by interests, age groups, places "
              "and topics -- walk in, pick a room, talk to strangers.",
      "join": "Joins Yahoo! Chat...",
-     "skin": {}},
+     "skin": {'nudge': 'BUZZ!'}},
     {"slug": "icq", "name": "ICQ", "room": "ICQ Chat",
      "bgcolor": "#00A000",
      "desc": "One of the first instant messengers -- number-based "
              "usernames, the famous 'Uh-oh!' sound, and a flower that "
              "told you who was online.",
      "join": "Joins ICQ Chat...",
-     "skin": {'win': '#E8F5E8', 'body': '#C8E6C8'}},
+     "skin": {'win': '#E8F5E8', 'body': '#C8E6C8', 'channel': '#icq_usa', 'flower': True, 'footer_note': 'Uh-oh!'}},
     {"slug": "mirc", "name": "mIRC", "room": "mIRC Chat",
      "bgcolor": "#000080",
      "desc": "The old IRC network -- channels like #Canada, #Gaming and "
              "#Singles, where a nickname and a channel were all you "
              "needed.",
      "join": "Joins mIRC Chat...",
-     "skin": {}},
+     "skin": {'channel': '#Canada', 'chat_font': 'Courier New', 'join': '#808080', 'quit': '#808080'}},
     {"slug": "excite", "name": "Excite Chat", "room": "Excite Chat",
      "bgcolor": "#CC0000",
      "desc": "Public chat rooms where strangers could meet and talk -- "
              "one of the web's early meeting places.",
      "join": "Joins Excite Chat...",
-     "skin": {'win': '#FFF0F0', 'body': '#F0C8C8'}},
+     "skin": {'win': '#FFF0F0', 'body': '#F0C8C8', 'masthead': {'bg': '#CC0000', 'fg': 'white', 'text': 'Excite - Home | Chat | Mail'}}},
     {"slug": "paltalk", "name": "Paltalk", "room": "Paltalk Chat",
      "bgcolor": "#0099CC",
      "desc": "Voice and video chat rooms -- talk instead of type, with "
              "rooms for every interest.",
      "join": "Joins Paltalk Chat...",
-     "skin": {'win': '#E0F0F8', 'body': '#C8DCE8'}},
+     "skin": {'win': '#E0F0F8', 'body': '#C8DCE8', 'video_strip': True}},
     {"slug": "lycos", "name": "Lycos Chat", "room": "Lycos Chat",
      "bgcolor": "#FF6600",
      "desc": "Web-based chat rooms from the search-engine days -- no "
              "download, just a browser and a nickname.",
      "join": "Joins Lycos Chat...",
-     "skin": {'win': '#FFF5E8', 'body': '#F0D8B8'}},
+     "skin": {'win': '#FFF5E8', 'body': '#F0D8B8', 'masthead': {'bg': '#000000', 'fg': '#FFCC00', 'text': 'Lycos - Go get it'}}},
     {"slug": "palace", "name": "The Palace", "room": "The Palace Chat",
      "bgcolor": "#993399",
      "desc": "2D graphical chat rooms with avatars -- walk your little "
              "figure around the room and talk in bubbles.",
      "join": "Joins The Palace Chat...",
-     "skin": {'win': '#F5E8F5', 'body': '#E0C8E0'}},
+     "skin": {'win': '#F5E8F5', 'body': '#E0C8E0', 'chat_bg': '#87CEEB', 'chat_font': 'Comic Sans MS'}},
     {"slug": "habbo", "name": "Habbo Hotel", "room": "Habbo Hotel Chat",
      "bgcolor": "#E6B800",
      "desc": "A virtual hotel to hang out in -- your own little avatar, "
              "rooms to visit, people to meet.",
      "join": "Joins Habbo Hotel Chat...",
-     "skin": {'fg': 'black', 'win': '#FFF8D0', 'body': '#F0E0A0'}},
+     "skin": {'fg': 'black', 'win': '#FFF8D0', 'body': '#F0E0A0', 'chat_bg': '#FFF8D0', 'chat_font': 'Verdana'}},
     {"slug": "powwow", "name": "PowWow", "room": "PowWow Chat",
      "bgcolor": "#006666",
      "desc": "Early group messaging and voice chat -- one of the first "
              "programs that let a group talk together online.",
      "join": "Joins PowWow Chat...",
-     "skin": {'win': '#E0F0F0', 'body': '#C8E0E0'}},
+     "skin": {'win': '#E0F0F0', 'body': '#C8E0E0', 'voice_dot': True}},
     {"slug": "compuserve", "name": "CompuServe", "room": "CompuServe Chat",
      "bgcolor": "#003366",
      "desc": "One of the first online services -- forums and chat before "
              "the web took over.",
      "join": "Joins CompuServe Chat...",
-     "skin": {'win': '#E8EEF5', 'body': '#C8D8E8'}},
+     "skin": {'win': '#E8EEF5', 'body': '#C8D8E8', 'channel': 'CB Channel 1', 'chat_bg': '#000000', 'chat_fg': '#00FF00', 'chat_font': 'Courier New', 'send': 'GO'}},
     {"slug": "prodigy", "name": "Prodigy", "room": "Prodigy Chat",
      "bgcolor": "#800000",
      "desc": "An early online service with public chat -- a whole world "
              "behind a dial-up number.",
      "join": "Joins Prodigy Chat...",
-     "skin": {'win': '#F8E8E8', 'body': '#E8C8C8'}},
+     "skin": {'win': '#F8E8E8', 'body': '#E8C8C8', 'notice': 'Welcome to Prodigy Chat'}},
     {"slug": "xfire", "name": "Xfire", "room": "Xfire Chat",
      "bgcolor": "#999999",
      "desc": "Gaming friends and chat -- see what your friends are "
              "playing and jump in with them.",
      "join": "Joins Xfire Chat...",
-     "skin": {'title': '#000000', 'win': '#333333', 'body': '#222222', 'text': 'white', 'link': '#66CCFF', 'vlink': '#99CCFF'}},
+     "skin": {'title': '#000000', 'win': '#333333', 'body': '#222222', 'text': 'white', 'link': '#66CCFF', 'vlink': '#99CCFF', 'chat_bg': '#1A1A1A', 'chat_fg': '#CCCCCC'}},
     {"slug": "myspace", "name": "MySpace", "room": "MySpace Chat",
      "bgcolor": "#003399",
      "desc": "Profiles, friends, messages and comments -- the place "
              "where everyone's page had a song that started playing.",
      "join": "Joins MySpace Chat...",
-     "skin": {'win': '#E8EEF8', 'body': '#C8D8F0'}},
+     "skin": {'win': '#E8EEF8', 'body': '#C8D8F0', 'top8': True}},
 ]
 SKIN_DEFAULT = {"fg": "white", "win": "#D4D0C8", "body": "#C0C0C0",
-                "text": "black", "link": "blue", "vlink": "purple"}
+                "text": "black", "link": "blue", "vlink": "purple",
+                # messenger look, v2 (Paul, 2026-11-09, ICQ screenshot):
+                # the web-chat chrome -- chat area colors/font, join/quit
+                # line colors, the channel tab, the Send label, and the
+                # per-service signature bits (nudge/BUZZ button, notice
+                # strip, masthead band, flower mark, video strip, Top 8,
+                # voice dot, footer note). Defaults are the ICQ screenshot.
+                "chat_bg": "white", "chat_fg": "black",
+                "chat_font": "Tahoma",
+                "join": "#008000", "quit": "#FF0000",
+                "channel": None, "send": "Send",
+                "nudge": None, "notice": None, "masthead": None,
+                "flower": False, "video_strip": False, "top8": False,
+                "voice_dot": False, "footer_note": None}
 for _s in SERVICES:
     _skin = dict(SKIN_DEFAULT)
     _skin["title"] = _s["bgcolor"]
     _skin.update(_s.get("skin") or {})
+    if not _skin["channel"]:
+        _skin["channel"] = _s["room"]
     ROOMS[_s["slug"] + "-chat"] = {
         "name": _s["room"],
         "service": _s["name"],
@@ -769,11 +784,20 @@ def room_jump_links(current):
     return " | ".join(links)
 
 
-def render_msg(m):
-    """One message as an HTML line (user content always escaped)."""
+def render_msg(m, join_c=None, quit_c=None):
+    """One message as an HTML line (user content always escaped).
+    join_c/quit_c color the join/leave lines -- the messenger skins
+    pass their own (ICQ green/red from Paul's screenshot, mIRC grey);
+    None keeps the plain bold/italic rendering every other room uses."""
     if m["kind"] == "join":
+        if join_c:
+            return ('<b><font color="%s">%s %s</font></b><br>'
+                    % (join_c, esc(m["user"]), esc(m["text"])))
         return ('<b>%s %s</b><br>' % (esc(m["user"]), esc(m["text"])))
     if m["kind"] == "leave":
+        if quit_c:
+            return ('<i><font color="%s"><b>%s</b> %s</font></i><br>'
+                    % (quit_c, esc(m["user"]), esc(m["text"])))
         return ('<i><b>%s</b> %s</i><br>' % (esc(m["user"]), esc(m["text"])))
     if m["kind"] == "whisper":
         return ('<i><font color="#800080"><b>%s</b> whispers to '
@@ -1077,11 +1101,16 @@ setInterval(poll, 4000);
 
 
 def render_messenger_room_page(slug, sess, initial_msgs):
-    """Messenger skins (Paul, 2026-11-09): each retro service gets the
-    look its own messenger had -- the AOL Chat window, re-skinned with
-    the service's colors and name. Same engine underneath: poll, filter,
-    whispers (click a name to IM them), actions, history. No color/font
-    pickers -- those stay AOL-only."""
+    """Messenger skins v2 (Paul, 2026-11-09, ICQ screenshot): each retro
+    service gets the look its own messenger had -- the AOL Chat window,
+    re-skinned, now with the web-chat chrome from Paul's ICQ example:
+    Status + channel tabs, a People panel, a Chat Rooms panel listing
+    the other services, colored join/quit lines, a styled Send button,
+    and each service's own chat colors/font plus its signature bit
+    (Nudge, BUZZ!, flower, video strip, Top 8, voice dot, notice,
+    masthead). Same engine underneath: poll, filter, whispers (click a
+    name to IM them), actions, history. No color/font pickers -- those
+    stay AOL-only."""
     info = ROOMS[slug]
     skin = info["skin"]
     history_opts = "".join(
@@ -1089,42 +1118,125 @@ def render_messenger_room_page(slug, sess, initial_msgs):
         for n in (8, 16, 32))
     users = presence(slug)
     me = sess["user"]
+    others = [u.split(" (member)")[0] for u in users
+              if u.split(" (member)")[0] != me]
+    dot = ('<span style="display:inline-block;width:8px;height:8px;'
+           'background:#663399;border-radius:50%;"></span> '
+           if skin["voice_dot"] else "")
     members = "".join(
-        '<a href="#" onclick="return pmUser(this.textContent);">%s</a><br>'
-        % esc(u.split(" (member)")[0])
-        for u in users if u.split(" (member)")[0] != me)
+        dot + '<a href="#" onclick="return pmUser(this.textContent);">%s</a><br>'
+        % esc(u) for u in others)
+    # MySpace Top 8 strip: the first 8 others as small squares, click
+    # to IM (the name rides in the onclick, the square shows the initial).
+    def jsq(s):
+        return ("'" + s.replace("\\", "\\\\").replace("'", "\\'")
+                .replace('"', "&quot;") + "'")
+    top8_html = ""
+    if skin["top8"] and others:
+        squares = "".join(
+            '<a href="#" onclick="return pmUser(%s);">'
+            '<span style="display:inline-block;width:24px;height:24px;'
+            'border:1px solid #808080;background:white;text-align:center;">'
+            '%s</span></a> ' % (jsq(u), esc(u[0]))
+            for u in others[:8])
+        top8_html = '<b>Top 8:</b><br>' + squares + '<br>'
     action_opts = "".join('<option>%s</option>' % v for v in ACTION_VERBS)
-    user_opts = "".join('<option>%s</option>'
-                        % esc(u.split(" (member)")[0])
-                        for u in users
-                        if u.split(" (member)")[0] != me)
+    user_opts = "".join('<option>%s</option>' % esc(u) for u in others)
     more = " | ".join(
         '<a href="/%s.html">%s</a>' % (sv["slug"], sv["name"])
         for sv in SERVICES)
-    lines = "".join(render_msg(m) for m in initial_msgs)
+    # Chat Rooms panel (ICQ screenshot): the other services, linked.
+    my_svc = slug[:-len("-chat")]
+    rooms_html = ('<p><b>Chat Rooms:</b><br>'
+                  '<div style="height:120px;overflow:auto;">'
+                  + "".join(
+                      '<a href="/%s.html">%s</a><br>' % (sv["slug"], sv["name"])
+                      for sv in SERVICES if sv["slug"] != my_svc)
+                  + '</div></p>')
+    lines = "".join(render_msg(m, skin["join"], skin["quit"])
+                    for m in initial_msgs)
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
+    # Portal masthead band (Excite red, Lycos black/yellow).
+    masthead_html = ""
+    if skin["masthead"]:
+        mh = skin["masthead"]
+        masthead_html = ('<table width="640" border="0" cellpadding="4" '
+                         'cellspacing="0" bgcolor="%s"><tr><td>'
+                         '<font color="%s"><b>%s</b></font></td></tr></table>'
+                         % (mh["bg"], mh["fg"], esc(mh["text"])))
+    # ICQ flower mark in the title bar: a green circle, gold ring.
+    flower_html = ""
+    if skin["flower"]:
+        flower_html = ('<span style="display:inline-block;width:12px;'
+                       'height:12px;background:#00A651;border-radius:50%;'
+                       'border:2px solid #FFD700;vertical-align:middle;">'
+                       '</span> ')
+    tab_html = ('<tr><td colspan="2"><font size="-1">&nbsp;'
+                '<span style="border:1px solid #808080;background:#E0E0E0;">'
+                '&nbsp;Status: Online&nbsp;</span> &nbsp;'
+                '<span style="border:1px solid #808080;background:#E0E0E0;">'
+                '&nbsp;%s&nbsp;</span></font></td></tr>'
+                % esc(skin["channel"]))
+    # Prodigy welcome strip above the chat.
+    notice_html = ""
+    if skin["notice"]:
+        notice_html = ('<table width="100%%" bgcolor="#FFFFCC"><tr><td>'
+                       '<font size="-1"><b>%s</b></font></td></tr></table>'
+                       % esc(skin["notice"]))
+    # Paltalk video strip: grey placeholder tiles above the chat.
+    video_html = ""
+    if skin["video_strip"]:
+        video_html = ('<table width="100%%" cellpadding="2" cellspacing="0">'
+                      '<tr><td colspan="3"><font size="-1"><b>Video</b>'
+                      '</font></td></tr><tr>'
+                      '<td width="33%%" height="40" bgcolor="#C0C0C0" '
+                      'align="center"><font size="-1">video</font></td>'
+                      '<td width="33%%" height="40" bgcolor="#C0C0C0" '
+                      'align="center"><font size="-1">video</font></td>'
+                      '<td width="34%%" height="40" bgcolor="#C0C0C0" '
+                      'align="center"><font size="-1">video</font></td>'
+                      '</tr></table>')
+    chat_style = ('height:300px;overflow:auto;background:%s;color:%s;'
+                  'font-family:%s;'
+                  % (skin["chat_bg"], skin["chat_fg"], skin["chat_font"]))
+    send_btn = ('<input type="submit" value="%s" '
+                'style="background:%s;color:%s;">'
+                % (esc(skin["send"]), skin["title"], skin["fg"]))
+    nudge_html = ""
+    if skin["nudge"]:
+        nudge_html = (' <input type="button" value="%s" '
+                      'onclick="shakePane();">' % esc(skin["nudge"]))
+    footer_html = esc(info["service"])
+    if skin["footer_note"]:
+        footer_html += " -- " + esc(skin["footer_note"])
+    footer_html += " -- a fan-made tribute to the 1990s."
     return """<html><head><title>%s</title></head>
 <body bgcolor="%s" text="%s" link="%s" vlink="%s">
 <center>
+%s
 <table width="640" border="2" cellpadding="0" cellspacing="0" bgcolor="%s">
-<tr><td bgcolor="%s"><font color="%s"><b>&nbsp;%s</b></font></td>
+<tr><td bgcolor="%s"><font color="%s"><b>&nbsp;%s%s</b></font></td>
 <td bgcolor="%s" align="right"><font color="%s"><b>X&nbsp;</b></font></td></tr>
+%s
 <tr><td colspan="2">
 <table width="620" cellpadding="4" cellspacing="0"><tr>
-<td width="460" valign="top" bgcolor="white">
-<font size="-1"><i>This room is intended for adults 21 and over.</i></font><br>
-<div id="chat" style="height:300px;overflow:auto;background:white;">%s</div>
+<td width="460" valign="top" bgcolor="%s">
+<font size="-1" color="%s"><i>This room is intended for adults 21 and over.</i></font><br>
+%s%s
+<div id="chat" style="%s">%s</div>
 </td>
 <td width="150" valign="top" bgcolor="%s">
 <b>People in this room:</b><br>
+%s
 <div id="members">%s</div>
+%s
 </td>
 </tr></table>
 </td></tr>
 <tr><td colspan="2">
 <form action="/%s/post" method="post">
 <input type="text" name="text" size="50" maxlength="500">
-<input type="submit" value="Send">
+%s%s
 </form>
 </td></tr>
 <tr><td colspan="2">
@@ -1166,7 +1278,7 @@ Show last
 Messages refresh automatically every few seconds.
 Click a name on the right to send them a private message.</font></p>
 <hr noshade>
-%s -- a fan-made tribute to the 1990s.
+%s
 </td></tr>
 </table>
 </center>
@@ -1174,10 +1286,13 @@ Click a name on the right to send them a private message.</font></p>
 var lastId = %d;
 var room = "%s";
 var me = "%s";
+var joinColor = "%s";
+var quitColor = "%s";
+var voiceDot = %s;
 function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function lineHtml(m){
-  if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
-  if(m.kind==='leave') return '<i><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</i><br>';
+  if(m.kind==='join') return '<b><font color="'+joinColor+'">'+escHtml(m.user)+' '+escHtml(m.text)+'</font></b><br>';
+  if(m.kind==='leave') return '<i><font color="'+quitColor+'"><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</font></i><br>';
   if(m.kind==='whisper') return '<i><font color="#800080"><b>'+escHtml(m.user)+'</b> whispers to <b>'+escHtml(m.to)+'</b>: '+escHtml(m.text)+'</font></i><br>';
   if(m.kind==='action') return '<i>* <b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+' *</i><br>';
   return '<b>'+escHtml(m.user)+':</b> '+escHtml(m.text)+'<br>';
@@ -1187,7 +1302,8 @@ function membersHtml(list){
     .filter(function(u){return u !== me;});
   if(!others.length) return '(just you)';
   return others.map(function(u){
-    return '<a href="#" onclick="return pmUser(this.textContent);">'+escHtml(u)+'</a>';
+    var dot = voiceDot ? '<span style="display:inline-block;width:8px;height:8px;background:#663399;border-radius:50%%;"></span> ' : '';
+    return dot+'<a href="#" onclick="return pmUser(this.textContent);">'+escHtml(u)+'</a>';
   }).join('<br>');
 }
 function pmUser(name){
@@ -1200,6 +1316,14 @@ function pmUser(name){
 function closeIm(){
   document.getElementById('imbox').style.display = 'none';
   return false;
+}
+function shakePane(){
+  var c = document.getElementById('chat');
+  var n = 0;
+  var t = setInterval(function(){
+    c.style.marginLeft = (n %% 2 ? '-4px' : '4px');
+    if(++n > 5){ clearInterval(t); c.style.marginLeft = '0'; }
+  }, 60);
 }
 function poll(){
   fetch('/api/'+room+'/messages?since='+lastId, {credentials:'same-origin'})
@@ -1224,11 +1348,12 @@ setInterval(poll, 4000);
 </script>
 </body></html>
 """ % (esc(info["name"]), skin["body"], skin["text"], skin["link"],
-       skin["vlink"], skin["win"],
-       skin["title"], skin["fg"], esc(info["name"]),
-       skin["title"], skin["fg"],
-       lines, skin["win"], members,
-       slug,
+       skin["vlink"], masthead_html, skin["win"],
+       skin["title"], skin["fg"], flower_html, esc(info["name"]),
+       skin["title"], skin["fg"], tab_html,
+       skin["chat_bg"], skin["chat_fg"], notice_html, video_html,
+       chat_style, lines, skin["win"], top8_html, members, rooms_html,
+       slug, send_btn, nudge_html,
        slug, action_opts, user_opts,
        skin["win"], skin["title"], skin["fg"], skin["title"], skin["fg"],
        slug,
@@ -1236,8 +1361,9 @@ setInterval(poll, 4000);
        slug, esc(info["name"]),
        slug, esc(info["service"]), more,
        esc(sess["user"]), " (member)" if sess.get("member") else "",
-       esc(info["service"]),
-       last_id, slug, esc(sess["user"]))
+       footer_html,
+       last_id, slug, esc(sess["user"]),
+       skin["join"], skin["quit"], "true" if skin["voice_dot"] else "false")
 
 
 def render_member_page():
