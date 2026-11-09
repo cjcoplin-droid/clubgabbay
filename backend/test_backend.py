@@ -351,6 +351,9 @@ def run_tests(base):
     run_neighborhood_board_tests(base)
     # ---- AOL Chat + old-AOL-handles board (Paul, 2026-11-09)
     run_aol_tests(base)
+    # ---- third-person actions + AOL colors/fonts (Paul, 2026-11-09)
+    run_action_tests(base)
+    run_aol_style_tests(base)
     run_board_migration_tests()
     # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
     run_neighborhood_pages_tests(base)
@@ -771,6 +774,147 @@ def run_aol_tests(base):
                       "message": "this is a fuck test"})
     check("aol", "banned word in handles post is blocked (403)",
           s == 403, "status=%d" % s)
+
+
+def run_action_tests(base):
+    """Third-person actions (Paul, 2026-11-09): pick a verb and a person
+    in the room; posts '* user winks at target *'. Verb whitelisted,
+    target must be in the room (not yourself); same rate limit as posts."""
+    b = Client(base)
+    s, body, _ = b.get("/lobby")
+    # the lobby needs a session first -- join, then read the room page
+    c = Client(base)
+    c.post("/lobby", {"USER": "ActA", "SAYS": "<b>Joins The Lobby...</b>",
+                      "HISTORY": "8"})
+    s, body, _ = c.get("/lobby")
+    check("action", "lobby room page has the action form",
+          s == 200 and b'action="/lobby/action"' in body
+          and b"winks at" in body and b"Do it!" in body, "status=%d" % s)
+    a1, a2 = Client(base), Client(base)
+    for cl, u in ((a1, "ActA"), (a2, "ActB")):
+        cl.post("/lobby", {"USER": u, "SAYS": "<b>Joins The Lobby...</b>",
+                           "HISTORY": "8"})
+    time.sleep(2.1)
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "winks at", "to": "ActB"})
+    check("action", "valid action accepted",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = a1.get("/api/lobby/messages?since=0",
+                        headers={"Accept": "application/json"})
+    data = json.loads(body.decode("utf-8"))
+    got = [m for m in data.get("messages", [])
+           if m.get("kind") == "action" and m.get("text") == "winks at ActB"]
+    check("action", "action shows in the poll as kind=action",
+          len(got) == 1 and got[0].get("user") == "ActA"
+          and got[0].get("to") == "ActB", "")
+    s, body, _ = a1.get("/lobby")
+    check("action", "action renders as '* user winks at target *'",
+          b"* <b>ActA</b> winks at ActB *" in body, "")
+    time.sleep(2.1)
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "slaps", "to": "ActB"})
+    check("action", "verb outside the whitelist is rejected",
+          s in (200, 303), "status=%d" % s)
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "winks at", "to": "NobodyHere"})
+    check("action", "target not in the room is rejected",
+          s in (200, 303), "status=%d" % s)
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "winks at", "to": "ActA"})
+    check("action", "acting on yourself is rejected",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = a1.get("/api/lobby/messages?since=0",
+                        headers={"Accept": "application/json"})
+    data = json.loads(body.decode("utf-8"))
+    bad = [m for m in data.get("messages", [])
+           if m.get("kind") == "action"
+           and m.get("text") in ("slaps ActB", "winks at NobodyHere",
+                                 "winks at ActA")]
+    check("action", "rejected actions are never stored", not bad, str(bad))
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "waves at", "to": "ActB"})
+    check("action", "second valid action accepted after the wait",
+          s in (200, 303), "status=%d" % s)
+    s, _, _ = a1.post("/lobby/action",
+                      {"action": "hugs", "to": "ActB"})
+    check("action", "rate limit: 2nd action within 2s is 429",
+          s == 429, "status=%d" % s)
+    # the AOL room has the same form (same engine, AOL skin)
+    ac = Client(base)
+    ac.post("/aol", {"USER": "AolAct", "SAYS": "<b>Joins AOL Chat...</b>",
+                     "HISTORY": "8"})
+    s, body, _ = ac.get("/aol")
+    check("action", "AOL room page has the action form",
+          s == 200 and b'action="/aol/action"' in body
+          and b"winks at" in body and b"Do it!" in body, "status=%d" % s)
+
+
+def run_aol_style_tests(base):
+    """AOL colors/fonts, basic level (Paul, 2026-11-09): a color and a
+    font picker on the AOL chat box; the choice rides on the message
+    and sticks in the session. Server-side whitelists only."""
+    c = Client(base)
+    c.post("/aol", {"USER": "AolSty", "SAYS": "<b>Joins AOL Chat...</b>",
+                    "HISTORY": "8"})
+    s, body, _ = c.get("/aol")
+    check("aol-style", "AOL room page has color + font pickers",
+          s == 200 and b'name="color"' in body
+          and b'name="font"' in body
+          and b"Courier New" in body, "status=%d" % s)
+    time.sleep(2.1)
+    s, _, _ = c.post("/aol/post",
+                     {"text": "aol-style-test-12345", "color": "red",
+                      "font": "Courier New"})
+    check("aol-style", "colored post accepted",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = c.get("/api/aol/messages?since=0",
+                       headers={"Accept": "application/json"})
+    data = json.loads(body.decode("utf-8"))
+    got = [m for m in data.get("messages", [])
+           if m.get("text") == "aol-style-test-12345"]
+    check("aol-style", "API carries the color + font",
+          len(got) == 1 and got[0].get("color") == "red"
+          and got[0].get("font") == "Courier New", str(got))
+    s, body, _ = c.get("/aol")
+    check("aol-style", "colored message renders in its color + font",
+          b'<font color="red" face="Courier New">aol-style-test-12345'
+          b"</font>" in body, "")
+    check("aol-style", "the color choice sticks in the session",
+          b'<option value="red" selected>' in body
+          and b'<option selected>Courier New</option>' in body, "")
+    time.sleep(2.1)
+    s, _, _ = c.post("/aol/post",
+                     {"text": "aol-style-bad-12345",
+                      "color": 'red" onmouseover="x', "font": "Nope"})
+    check("aol-style", "injected color/font falls back to default",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = c.get("/api/aol/messages?since=0",
+                       headers={"Accept": "application/json"})
+    data = json.loads(body.decode("utf-8"))
+    got = [m for m in data.get("messages", [])
+           if m.get("text") == "aol-style-bad-12345"]
+    check("aol-style", "bad color/font stored as default (None)",
+          len(got) == 1 and got[0].get("color") is None
+          and got[0].get("font") is None, str(got))
+    s, body, _ = c.get("/aol")
+    check("aol-style", "injected markup never renders",
+          b"onmouseover" not in body, "")
+    # other rooms ignore color/font (AOL-only feature)
+    g = Client(base)
+    g.post("/lobby", {"USER": "LobbySty",
+                      "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
+    time.sleep(2.1)
+    s, _, _ = g.post("/lobby/post",
+                     {"text": "lobby-style-test-12345", "color": "red",
+                      "font": "Courier New"})
+    s, body, _ = g.get("/api/lobby/messages?since=0",
+                       headers={"Accept": "application/json"})
+    data = json.loads(body.decode("utf-8"))
+    got = [m for m in data.get("messages", [])
+           if m.get("text") == "lobby-style-test-12345"]
+    check("aol-style", "lobby posts never carry a color/font",
+          len(got) == 1 and got[0].get("color") is None
+          and got[0].get("font") is None, str(got))
 
 
 def run_board_migration_tests():

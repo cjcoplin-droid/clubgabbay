@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 13:02 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 13:15 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 332 — **332 PASS, 0 FAIL**
+- Checks run: 352 — **352 PASS, 0 FAIL**
 - Rooms walked: 17 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol)
 
 ## Per-room results
@@ -207,8 +207,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | jump posts join line in lobby | PASS |  |
 | aol | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest1698'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest1698', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest4598'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4598', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -266,6 +266,26 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | handles post does NOT leak onto the main board | PASS |  |
 | aol | API ?board=aol-handles returns the handles post | PASS |  |
 | aol | banned word in handles post is blocked (403) | PASS | status=403 |
+| action | lobby room page has the action form | PASS | status=200 |
+| action | valid action accepted | PASS | status=200 |
+| action | action shows in the poll as kind=action | PASS |  |
+| action | action renders as '* user winks at target *' | PASS |  |
+| action | verb outside the whitelist is rejected | PASS | status=200 |
+| action | target not in the room is rejected | PASS | status=200 |
+| action | acting on yourself is rejected | PASS | status=200 |
+| action | rejected actions are never stored | PASS | [] |
+| action | second valid action accepted after the wait | PASS | status=200 |
+| action | rate limit: 2nd action within 2s is 429 | PASS | status=429 |
+| action | AOL room page has the action form | PASS | status=200 |
+| aol-style | AOL room page has color + font pickers | PASS | status=200 |
+| aol-style | colored post accepted | PASS | status=200 |
+| aol-style | API carries the color + font | PASS | [{'id': 112, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794255324.193086, 'color': 'red', 'font': 'Courier New', 'time': '13:15'}] |
+| aol-style | colored message renders in its color + font | PASS |  |
+| aol-style | the color choice sticks in the session | PASS |  |
+| aol-style | injected color/font falls back to default | PASS | status=200 |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 113, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794255326.3979492, 'color': None, 'font': None, 'time': '13:15'}] |
+| aol-style | injected markup never renders | PASS |  |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 115, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794255328.7331052, 'color': None, 'font': None, 'time': '13:15'}] |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -636,6 +656,26 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - aol — handles post does NOT leak onto the main board
 - aol — API ?board=aol-handles returns the handles post
 - aol — banned word in handles post is blocked (403)
+- action — lobby room page has the action form
+- action — valid action accepted
+- action — action shows in the poll as kind=action
+- action — action renders as '* user winks at target *'
+- action — verb outside the whitelist is rejected
+- action — target not in the room is rejected
+- action — acting on yourself is rejected
+- action — rejected actions are never stored
+- action — second valid action accepted after the wait
+- action — rate limit: 2nd action within 2s is 429
+- action — AOL room page has the action form
+- aol-style — AOL room page has color + font pickers
+- aol-style — colored post accepted
+- aol-style — API carries the color + font
+- aol-style — colored message renders in its color + font
+- aol-style — the color choice sticks in the session
+- aol-style — injected color/font falls back to default
+- aol-style — bad color/font stored as default (None)
+- aol-style — injected markup never renders
+- aol-style — lobby posts never carry a color/font
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board

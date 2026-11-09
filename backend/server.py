@@ -219,6 +219,23 @@ ROOMS = {
         "join": "Joins AOL Chat...",
     },
 }
+
+# Third-person actions (Paul, 2026-11-09): the 90s chat-room dropdown --
+# pick a verb and a person in the room; posts "* user winks at target *".
+# The verb is whitelisted and the target must be in the room, so no word
+# filter is needed. "kisses" is left out on purpose -- keep it clean.
+ACTION_VERBS = ["laughs at", "winks at", "waves at", "smiles at", "hugs",
+                "pokes", "dances with", "high-fives", "bows to",
+                "cheers for"]
+
+# AOL message colors/fonts, basic level (Paul, 2026-11-09): a color and a
+# font picker on the AOL chat box; the choice rides on the message and
+# sticks in the session. Server-side whitelists only -- anything else
+# falls back to black/Arial. AOL room only.
+AOL_COLORS = ["black", "red", "blue", "green", "purple", "orange",
+              "teal", "maroon", "navy"]
+AOL_FONTS = ["Arial", "Times New Roman", "Courier New", "Verdana",
+             "Comic Sans MS"]
 # The archived Anything Goes form posts to /anything-goes; accept the
 # underscore spelling too.
 ALIASES = {"anything_goes": "anything-goes"}
@@ -277,15 +294,23 @@ def db_init(path):
         except sqlite3.OperationalError:
             pass  # column already there
         db.execute("CREATE INDEX IF NOT EXISTS idx_msg_room ON messages(room, id)")
+        # AOL message colors/fonts (Paul, 2026-11-09): nullable columns;
+        # old rows read back with None = default rendering.
+        for col in ("color TEXT", "font TEXT"):
+            try:
+                db.execute("ALTER TABLE messages ADD COLUMN %s" % col)
+            except sqlite3.OperationalError:
+                pass  # column already there
         db.commit()
 
 
-def db_add_message(room, user, kind, text, to_user=None):
+def db_add_message(room, user, kind, text, to_user=None, color=None,
+                   font=None):
     with db_lock:
         cur = db.execute(
-            "INSERT INTO messages (room, user, kind, text, to_user, ts)"
-            " VALUES (?,?,?,?,?,?)",
-            (room, user, kind, text, to_user, time.time()))
+            "INSERT INTO messages (room, user, kind, text, to_user, ts,"
+            " color, font) VALUES (?,?,?,?,?,?,?,?)",
+            (room, user, kind, text, to_user, time.time(), color, font))
         mid = cur.lastrowid
         # cap history at HISTORY_CAP per room
         db.execute(
@@ -302,21 +327,23 @@ def db_messages(room, limit, since_id=0, user=None):
     with db_lock:
         if since_id:
             rows = db.execute(
-                "SELECT id, user, kind, text, to_user, ts FROM messages"
+                "SELECT id, user, kind, text, to_user, ts, color, font"
+                " FROM messages"
                 " WHERE room=? AND id>? ORDER BY id ASC LIMIT 200",
                 (room, since_id)).fetchall()
         else:
             rows = db.execute(
-                "SELECT id, user, kind, text, to_user, ts FROM messages"
+                "SELECT id, user, kind, text, to_user, ts, color, font"
+                " FROM messages"
                 " WHERE room=? ORDER BY id DESC LIMIT ?",
                 (room, limit)).fetchall()
             rows.reverse()
     out = []
-    for mid, muser, kind, text, to_user, ts in rows:
+    for mid, muser, kind, text, to_user, ts, color, font in rows:
         if kind == "whisper" and user not in (muser, to_user):
             continue
         out.append({"id": mid, "user": muser, "kind": kind, "text": text,
-                    "to": to_user, "ts": ts,
+                    "to": to_user, "ts": ts, "color": color, "font": font,
                     "time": time.strftime("%H:%M", time.localtime(ts))})
     return out
 
@@ -638,6 +665,18 @@ def render_msg(m):
         return ('<i><font color="#800080"><b>%s</b> whispers to '
                 '<b>%s</b>: %s</font></i><br>'
                 % (esc(m["user"]), esc(m["to"]), esc(m["text"])))
+    if m["kind"] == "action":
+        return ('<i>* <b>%s</b> %s *</i><br>'
+                % (esc(m["user"]), esc(m["text"])))
+    # a plain say, possibly with an AOL color/font (basic level)
+    attrs = ""
+    if m.get("color") and m["color"] != "black":
+        attrs += ' color="%s"' % esc(m["color"])
+    if m.get("font") and m["font"] != "Arial":
+        attrs += ' face="%s"' % esc(m["font"])
+    if attrs:
+        return ('<b>%s:</b> <font%s>%s</font><br>'
+                % (esc(m["user"]), attrs, esc(m["text"])))
     return ('<b>%s:</b> %s<br>' % (esc(m["user"]), esc(m["text"])))
 
 
@@ -664,6 +703,7 @@ def render_room_page(slug, sess, initial_msgs):
     users = presence(slug)
     user_opts = "".join('<option>%s</option>' % esc(u.split(" (member)")[0])
                         for u in users if u.split(" (member)")[0] != sess["user"])
+    action_opts = "".join('<option>%s</option>' % v for v in ACTION_VERBS)
     lines = "".join(render_msg(m) for m in initial_msgs)
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
     return """<html><head><title>ClubGabbay: %s</title></head>
@@ -687,6 +727,11 @@ Whisper to <select name="to">%s</select>
 <input type="text" name="text" size="40" maxlength="500">
 <input type="submit" value="Whisper">
 </form>
+<form action="/%s/action" method="post">
+<select name="action">%s</select>
+<select name="to">%s</select>
+<input type="submit" value="Do it!">
+</form>
 <form action="/%s/history" method="post">
 Show last
 <select name="HISTORY">%s</select> messages
@@ -709,6 +754,7 @@ function lineHtml(m){
   if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
   if(m.kind==='leave') return '<i><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</i><br>';
   if(m.kind==='whisper') return '<i><font color="#800080"><b>'+escHtml(m.user)+'</b> whispers to <b>'+escHtml(m.to)+'</b>: '+escHtml(m.text)+'</font></i><br>';
+  if(m.kind==='action') return '<i>* <b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+' *</i><br>';
   return '<b>'+escHtml(m.user)+':</b> '+escHtml(m.text)+'<br>';
 }
 function poll(){
@@ -741,7 +787,8 @@ setInterval(poll, 4000);
 """ % (esc(info["name"]), body_attrs, esc(info["name"]), art,
        esc(info["desc"]), room_jump_links(slug),
        esc(", ".join(users) if users else "(just you)"), lines,
-       slug, slug, user_opts, slug, history_opts,
+       slug, slug, user_opts, slug, action_opts, user_opts,
+       slug, history_opts,
        slug, esc(info["name"]),
        esc(sess["user"]), " (member)" if sess.get("member") else "",
        last_id, slug)
@@ -762,6 +809,19 @@ def render_aol_room_page(slug, sess, initial_msgs):
         '<a href="#" onclick="return pmUser(this.textContent);">%s</a><br>'
         % esc(u.split(" (member)")[0])
         for u in users if u.split(" (member)")[0] != me)
+    color = sess.get("color", "black")
+    font = sess.get("font", "Arial")
+    color_opts = "".join('<option value="%s"%s>%s</option>'
+                         % (c, " selected" if c == color else "", c)
+                         for c in AOL_COLORS)
+    font_opts = "".join('<option%s>%s</option>'
+                        % (" selected" if f == font else "", f)
+                        for f in AOL_FONTS)
+    action_opts = "".join('<option>%s</option>' % v for v in ACTION_VERBS)
+    aol_user_opts = "".join('<option>%s</option>'
+                            % esc(u.split(" (member)")[0])
+                            for u in users
+                            if u.split(" (member)")[0] != me)
     lines = "".join(render_msg(m) for m in initial_msgs)
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
     return """<html><head><title>AOL Chat</title></head>
@@ -784,7 +844,16 @@ def render_aol_room_page(slug, sess, initial_msgs):
 <tr><td colspan="2">
 <form action="/%s/post" method="post">
 <input type="text" name="text" size="50" maxlength="500">
-<input type="submit" value="Send">
+<input type="submit" value="Send"><br>
+<font size="-1">Color: <select name="color">%s</select>
+Font: <select name="font">%s</select></font>
+</form>
+</td></tr>
+<tr><td colspan="2">
+<form action="/%s/action" method="post">
+<select name="action">%s</select>
+<select name="to">%s</select>
+<input type="submit" value="Do it!">
 </form>
 </td></tr>
 <tr><td colspan="2">
@@ -830,7 +899,15 @@ function lineHtml(m){
   if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
   if(m.kind==='leave') return '<i><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</i><br>';
   if(m.kind==='whisper') return '<i><font color="#800080"><b>'+escHtml(m.user)+'</b> whispers to <b>'+escHtml(m.to)+'</b>: '+escHtml(m.text)+'</font></i><br>';
-  return '<b>'+escHtml(m.user)+':</b> '+escHtml(m.text)+'<br>';
+  if(m.kind==='action') return '<i>* <b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+' *</i><br>';
+  return '<b>'+escHtml(m.user)+':</b> '+fontWrap(m)+'<br>';
+}
+function fontWrap(m){
+  var attrs='';
+  if(m.color && m.color!=='black') attrs+=' color="'+escHtml(m.color)+'"';
+  if(m.font && m.font!=='Arial') attrs+=' face="'+escHtml(m.font)+'"';
+  if(!attrs) return escHtml(m.text);
+  return '<font'+attrs+'>'+escHtml(m.text)+'</font>';
 }
 function membersHtml(list){
   var others = list.map(function(u){return u.split(' (member)')[0];})
@@ -876,7 +953,8 @@ function poll(){
 setInterval(poll, 4000);
 </script>
 </body></html>
-""" % (lines, members, slug, slug, slug, history_opts,
+""" % (lines, members, slug, color_opts, font_opts,
+       slug, action_opts, aol_user_opts, slug, slug, history_opts,
        slug, esc(info["name"]),
        esc(sess["user"]), " (member)" if sess.get("member") else "",
        last_id, slug, esc(sess["user"]))
@@ -1262,7 +1340,71 @@ class Handler(BaseHTTPRequestHandler):
             to = (form.get("to") or "").strip()[:MAX_NAME]
             db_add_message(slug, sess["user"], "whisper", text, to_user=to)
         else:
-            db_add_message(slug, sess["user"], "say", text)
+            # AOL colors/fonts (Paul, 2026-11-09, basic level): the
+            # choice rides on the message and sticks in the session.
+            # AOL room only -- other rooms never see these fields.
+            color = font = None
+            if ROOMS[slug].get("aol"):
+                color = (form.get("color") or sess.get("color")
+                         or "black").strip()
+                font = (form.get("font") or sess.get("font")
+                        or "Arial").strip()
+                if color not in AOL_COLORS:
+                    color = "black"
+                if font not in AOL_FONTS:
+                    font = "Arial"
+                sess["color"] = color
+                sess["font"] = font
+                if color == "black" and font == "Arial":
+                    color = font = None
+            db_add_message(slug, sess["user"], "say", text,
+                           color=color, font=font)
+        if self._wants_json():
+            self._json(200, {"ok": True})
+        else:
+            self._redirect("/" + slug)
+
+    def _handle_action(self, slug, form):
+        """POST /<room>/action -- a third-person action (Paul, 2026-11-09):
+        pick a verb and a person in the room; posts
+        "* user winks at target *". The verb is whitelisted and the
+        target must be in the room (and not yourself), so no word filter
+        is needed; a banned user still cannot act."""
+        sid, sess = get_session(self)
+        if not sess or sess.get("room") != slug:
+            if self._wants_json():
+                self._json(403, {"error": "not in this room"})
+            else:
+                self._redirect(ROOMS[slug]["entry"])
+            return
+        _, banned = strike_status(sess["user"])
+        if banned:
+            self._blocked_response(slug, banned=True)
+            return
+        verb = (form.get("action") or "").strip()
+        target = (form.get("to") or "").strip()[:MAX_NAME]
+        if verb not in ACTION_VERBS:
+            self._redirect("/" + slug)
+            return
+        here = [u.split(" (member)")[0] for u in presence(slug)]
+        if not target or target == sess["user"] or target not in here:
+            self._redirect("/" + slug)
+            return
+        now = time.time()
+        if now - sess.get("last_msg", 0) < RATE_LIMIT_SECS:
+            if self._wants_json():
+                self._json(429, {"error": "slow down — one message every "
+                                          "couple of seconds"})
+            else:
+                self._send(429, "<html><body>Slow down — one message every "
+                                "couple of seconds. "
+                                '<a href="/%s">Back to %s</a></body></html>'
+                           % (slug, esc(ROOMS[slug]["name"])))
+            return
+        sess["last_msg"] = now
+        touch(sess)
+        db_add_message(slug, sess["user"], "action", verb + " " + target,
+                       to_user=target)
         if self._wants_json():
             self._json(200, {"ok": True})
         else:
@@ -1450,6 +1592,9 @@ class Handler(BaseHTTPRequestHandler):
         if len(parts) >= 2 and parts[1] == "whisper" and self._room_or_none(parts[0]):
             self._handle_post(ALIASES.get(parts[0], parts[0]), form,
                               whisper=True)
+            return
+        if len(parts) >= 2 and parts[1] == "action" and self._room_or_none(parts[0]):
+            self._handle_action(ALIASES.get(parts[0], parts[0]), form)
             return
         if len(parts) >= 2 and parts[1] == "history" and self._room_or_none(parts[0]):
             sid, sess = get_session(self)
