@@ -1145,38 +1145,50 @@ def run_services_tests(base):
               and ('action="/%s/action"' % room).encode() in body
               and b'AOL Chat' not in body
               and b'name="color"' not in body, "status=%d" % s)
-        # MySpace Top 8 only renders when someone else is in the room;
-        # bring a second user in so the strip has a real name to show.
-        if slug == "myspace":
-            c2 = Client(base)
-            gate(c2)
-            c2.post("/" + room, {"USER": "Friend1",
-                                 "SAYS": "<b>Joins the MySpace Chat...</b>",
-                                 "HISTORY": "8", "confirm": "21"})
-            s, body, _ = c.get("/" + room)
-        # v2 (Paul's ICQ screenshot): the web-chat chrome -- Chat Rooms
-        # panel, Status + channel tabs, styled Send, the service's own
-        # chat colors/font, colored join lines, its signature bit.
+        # The member list (and the MSN display pictures, Palace avatars,
+        # Habbo room avatars, MySpace Top 8) only renders when someone
+        # else is in the room; bring a second user in for every service.
+        c2 = Client(base)
+        gate(c2)
+        c2.post("/" + room, {"USER": "Friend1",
+                             "SAYS": "<b>%s</b>" % sv["join"],
+                             "HISTORY": "8", "confirm": "21"})
+        s, body, _ = c.get("/" + room)
+        # v2 (Paul's ICQ screenshot) + v3 (the look drawn properly): the
+        # web-chat chrome -- Chat Rooms panel, Status + channel tabs,
+        # styled Send, the service's own chat colors/font, colored join
+        # lines, and its signature bits.
         sig = {
-            "msn": (b'value="Nudge"', "Nudge button"),
-            "yahoo": (b'value="BUZZ!"', "BUZZ! button"),
-            "icq": (b"#00A651", "flower mark"),
-            "mirc": (b"Courier New", "monospace chat"),
-            "excite": (b"Excite - Home | Chat | Mail", "portal masthead"),
-            "paltalk": (b"Video", "video strip"),
-            "lycos": (b"Lycos - Go get it", "black/yellow masthead"),
-            "palace": (b"Comic Sans MS", "playful font"),
-            "habbo": (b"background:#FFF8D0", "pale yellow chat"),
-            "powwow": (b"#663399", "voice dot"),
-            "compuserve": (b'value="GO"', "GO button"),
-            "prodigy": (b"Welcome to Prodigy Chat", "welcome strip"),
-            "xfire": (b"background:#1A1A1A", "dark chat"),
-            "myspace": (b"Top 8:", "Top 8 strip"),
+            "msn": [(b'value="Nudge"', "Nudge"),
+                    (b'linear-gradient(#3A7BD5', "gradient title"),
+                    (b'width:16px;height:16px', "display pictures")],
+            "yahoo": [(b'value="BUZZ!"', "BUZZ!"),
+                      (b'<svg', "smiley")],
+            "icq": [(b"#00A651", "flower mark"),
+                    (b'<ellipse', "flower petals")],
+            "mirc": [(b"Courier New", "monospace"),
+                     (b'Topic:', "topic line"),
+                     (b'status-users', "status bar")],
+            "excite": [(b"Excite - Home | Chat | Mail", "portal masthead")],
+            "paltalk": [(b"Video", "video strip")],
+            "lycos": [(b"Lycos - Go get it", "black/yellow masthead")],
+            "palace": [(b"Comic Sans MS", "playful font"),
+                       (b'data-bubble', "smiley avatars + bubbles"),
+                       (b'linear-gradient(#87CEEB', "backdrop")],
+            "habbo": [(b"background:#003399", "dark chat log"),
+                      (b'repeating-conic-gradient', "pixel floor"),
+                      (b'HC</span>', "HC sofa")],
+            "powwow": [(b"#663399", "voice dot")],
+            "compuserve": [(b'value="GO"', "GO button")],
+            "prodigy": [(b"Welcome to Prodigy Chat", "welcome strip"),
+                        (b'color:#FFCC00', "blue sidebar links")],
+            "xfire": [(b"background:#1A1A1A", "dark chat")],
+            "myspace": [(b"Top 8:", "Top 8 strip")],
         }[slug]
-        check("services", "%s v2 chrome: Chat Rooms panel, %s tab, "
+        check("services", "%s v2+v3 chrome: Chat Rooms panel, %s tab, "
               "styled %s Send, chat %s/%s, colored joins, %s"
               % (slug, skin["channel"], skin["send"], skin["chat_bg"],
-                 skin["chat_font"], sig[1]),
+                 skin["chat_font"], ", ".join(l for _, l in sig)),
               b"Chat Rooms:" in body
               and b"height:120px" in body
               and b"Status: Online" in body
@@ -1185,10 +1197,11 @@ def run_services_tests(base):
               and ('style="background:%s;color:%s;"'
                    % (skin["title"], skin["fg"])).encode() in body
               and ('background:%s;color:%s;'
-                   % (skin["chat_bg"], skin["chat_fg"])).encode() in body
+                   % (skin["chat_bg_css"] or skin["chat_bg"],
+                      skin["chat_fg"])).encode() in body
               and ('font-family:%s;' % skin["chat_font"]).encode() in body
               and ('color="%s"' % skin["join"]).encode() in body
-              and sig[0] in body, "status=%d" % s)
+              and all(n in body for n, _ in sig), "status=%d" % s)
 
 
 def run_board_migration_tests():
