@@ -1244,6 +1244,26 @@ def avatar_color(name):
                          % len(AVATAR_COLORS)]
 
 
+# Permanent join lines (Paul, 2026-11-09): Mira and 1990calling are
+# always in the chat when someone joins -- two fixed lines at the top of
+# the room, in the room's own join text and join color. Fixed in the
+# page, not stored messages, so they survive deploys and pruning and are
+# never duplicated by the poll. They are lines in the chat, not real
+# presence -- the member list stays real (who is actually in the room).
+PERMANENT_JOIN_ROOMS = {"icq-chat", "msn-chat", "yahoo-chat", "mirc-chat",
+                        "compuserve-chat", "xfire-chat", "prodigy-chat",
+                        "palace-chat", "habbo-chat"}
+
+
+def permanent_join_lines(slug, join_c=None):
+    """The two permanent join lines for one room, in the same rendering
+    as a real join (render_msg, so the color matches the room)."""
+    join = (ROOMS.get(slug) or {}).get("join", "Joins the chat...")
+    return "".join(render_msg({"kind": "join", "user": u, "text": join},
+                             join_c)
+                   for u in ("Mira", "1990calling"))
+
+
 def render_messenger_room_page(slug, sess, initial_msgs):
     """Messenger skins v3 (Paul, 2026-11-09): each retro service wears
     the look its own messenger had -- the AOL Chat window, re-skinned,
@@ -1307,6 +1327,8 @@ def render_messenger_room_page(slug, sess, initial_msgs):
                   + '</div></p>')
     lines = "".join(render_msg(m, skin["join"], skin["quit"])
                     for m in initial_msgs)
+    if slug in PERMANENT_JOIN_ROOMS:
+        lines = permanent_join_lines(slug, skin["join"]) + lines
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
     # Portal masthead band (Excite red, Lycos black/yellow).
     masthead_html = ""

@@ -1221,6 +1221,17 @@ def run_services_tests(base):
                and b"gabbay_sound" in body) if sound else
               (b'sound-toggle' not in body
                and b'playMsgSound' not in body), "status=%d" % s)
+        # permanent join lines (Paul, 2026-11-09): Mira + 1990calling are
+        # always at the top of the chat in the nine rooms he seeded, in
+        # the room's own join text; the other five stay clean.
+        check("services", "%s permanent join lines: Mira + 1990calling at the top"
+              % slug,
+              (b"Mira Joins" in body and b"1990calling Joins" in body
+               and body.index(b"Mira Joins") < body.index(b"1990calling Joins"))
+              if slug in ("icq", "msn", "yahoo", "mirc", "compuserve",
+                          "xfire", "prodigy", "palace", "habbo") else
+              (b"Mira Joins" not in body
+               and b"1990calling Joins" not in body), "status=%d" % s)
 
 
 def run_board_migration_tests():
