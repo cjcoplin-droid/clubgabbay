@@ -354,6 +354,8 @@ def run_tests(base):
     # ---- third-person actions + AOL colors/fonts (Paul, 2026-11-09)
     run_action_tests(base)
     run_aol_style_tests(base)
+    # ---- 21+ intent notice on every room (Paul, 2026-11-09)
+    run_21plus_tests(base)
     run_board_migration_tests()
     # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
     run_neighborhood_pages_tests(base)
@@ -915,6 +917,44 @@ def run_aol_style_tests(base):
     check("aol-style", "lobby posts never carry a color/font",
           len(got) == 1 and got[0].get("color") is None
           and got[0].get("font") is None, str(got))
+
+
+def run_21plus_tests(base):
+    """21+ intent notice (Paul, 2026-11-09): every room says it is
+    intended for adults 21 and over -- room pages, entry pages, and
+    both chat directories. A statement of intent, not an age gate:
+    there is no live moderation and no verification step. Anything
+    Goes' original 18+ certify button now says 21."""
+    # in-room pages (need a session per room)
+    for slug, user in (("lobby", "AgeA"), ("hollywood-chat", "AgeB"),
+                       ("aol", "AgeC")):
+        c = Client(base)
+        c.post("/" + slug, {"USER": user,
+                            "SAYS": "<b>Joins...</b>", "HISTORY": "8"})
+        s, body, _ = c.get("/" + slug)
+        check("21plus", "%s room page says 21 and over" % slug,
+              s == 200 and b"21 and over" in body, "status=%d" % s)
+    # static entry pages + directories
+    for path, needle in (
+            ("/chat.htm", b"All chat rooms here are intended for adults "
+                          b"21 and over"),
+            ("/chat2.htm", b"All chat rooms here are intended for adults "
+                           b"21 and over"),
+            ("/lobby.cfm", b"21 and over"),
+            ("/lobby2.cfm", b"21 and over"),
+            ("/anything_goes.cfm", b"I CERTIFY THAT I AM 21"),
+            ("/jokeland.cfm", b"21 and over"),
+            ("/aol.html", b"21 and over"),
+            ("/neighborhoods/chat/hollywood.html", b"21 and over"),
+            ("/neighborhoods/chat/area51.html", b"21 and over")):
+        c = Client(base)
+        s, body, _ = c.get(path)
+        check("21plus", "%s says 21 and over" % path,
+              s == 200 and needle in body, "status=%d" % s)
+    c = Client(base)
+    s, body, _ = c.get("/anything_goes.cfm")
+    check("21plus", "Anything Goes no longer says 18 anywhere",
+          b"I AM 18" not in body and b"18 AND" not in body, "")
 
 
 def run_board_migration_tests():

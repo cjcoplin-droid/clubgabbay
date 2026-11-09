@@ -148,6 +148,8 @@ def chat_entry(h):
             '<input type="hidden" name="SAYS" value="%s">\n'
             '<input type="submit" value="Enter the chat">\n'
             '</form>\n</center>\n'
+            '<center><font size="-1"><i>This room is intended for adults '
+            '21 and over.</i></font></center>\n'
             '<hr noshade>\n'
             '<center><font size="-1"><a href="/neighborhoods/%s.html">Back '
             'to %s</a> | <a href="/neighborhoods/">All neighborhoods</a> | '

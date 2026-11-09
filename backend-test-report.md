@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 13:15 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 13:23 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 352 — **352 PASS, 0 FAIL**
+- Checks run: 365 — **365 PASS, 0 FAIL**
 - Rooms walked: 17 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol)
 
 ## Per-room results
@@ -207,8 +207,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | jump posts join line in lobby | PASS |  |
 | aol | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest4598'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4598', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest4938'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4938', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -279,13 +279,26 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 112, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794255324.193086, 'color': 'red', 'font': 'Courier New', 'time': '13:15'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 112, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794255788.95798, 'color': 'red', 'font': 'Courier New', 'time': '13:23'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 113, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794255326.3979492, 'color': None, 'font': None, 'time': '13:15'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 113, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794255791.1124375, 'color': None, 'font': None, 'time': '13:23'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 115, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794255328.7331052, 'color': None, 'font': None, 'time': '13:15'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 115, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794255793.3859277, 'color': None, 'font': None, 'time': '13:23'}] |
+| 21plus | lobby room page says 21 and over | PASS | status=200 |
+| 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
+| 21plus | aol room page says 21 and over | PASS | status=200 |
+| 21plus | /chat.htm says 21 and over | PASS | status=200 |
+| 21plus | /chat2.htm says 21 and over | PASS | status=200 |
+| 21plus | /lobby.cfm says 21 and over | PASS | status=200 |
+| 21plus | /lobby2.cfm says 21 and over | PASS | status=200 |
+| 21plus | /anything_goes.cfm says 21 and over | PASS | status=200 |
+| 21plus | /jokeland.cfm says 21 and over | PASS | status=200 |
+| 21plus | /aol.html says 21 and over | PASS | status=200 |
+| 21plus | /neighborhoods/chat/hollywood.html says 21 and over | PASS | status=200 |
+| 21plus | /neighborhoods/chat/area51.html says 21 and over | PASS | status=200 |
+| 21plus | Anything Goes no longer says 18 anywhere | PASS |  |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -676,6 +689,19 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - aol-style — bad color/font stored as default (None)
 - aol-style — injected markup never renders
 - aol-style — lobby posts never carry a color/font
+- 21plus — lobby room page says 21 and over
+- 21plus — hollywood-chat room page says 21 and over
+- 21plus — aol room page says 21 and over
+- 21plus — /chat.htm says 21 and over
+- 21plus — /chat2.htm says 21 and over
+- 21plus — /lobby.cfm says 21 and over
+- 21plus — /lobby2.cfm says 21 and over
+- 21plus — /anything_goes.cfm says 21 and over
+- 21plus — /jokeland.cfm says 21 and over
+- 21plus — /aol.html says 21 and over
+- 21plus — /neighborhoods/chat/hollywood.html says 21 and over
+- 21plus — /neighborhoods/chat/area51.html says 21 and over
+- 21plus — Anything Goes no longer says 18 anywhere
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board

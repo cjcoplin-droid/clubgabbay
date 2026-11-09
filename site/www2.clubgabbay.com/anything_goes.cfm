@@ -23,7 +23,7 @@ Name:
 <input name="USER" size=12 maxlength=12> 
 <input type=hidden name="SAYS" value="<b>Joins Anything Goes...</b>">
 <input type=hidden name="HISTORY" value="8">
-<input type=submit value=" I CERTIFY THAT I AM 18 AND I'LL TAKE MY CHANCES"> 
+<input type=submit value=" I CERTIFY THAT I AM 21 AND I'LL TAKE MY CHANCES"> 
 <hr>
 </form> 
 <form action="chat.htm" method=post target="_main">

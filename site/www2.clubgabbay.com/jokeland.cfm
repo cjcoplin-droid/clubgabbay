@@ -17,6 +17,7 @@ Name:<input name="USER" size=12 maxlength=12>
 <input type=submit value="Enter"> 
 <hr>
 </form> 
+<center><font size="-1"><i>This room is intended for adults 21 and over.</i></font></center>
 <hr noshade>
 Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body>

@@ -711,6 +711,7 @@ def render_room_page(slug, sess, initial_msgs):
 <center><h2>ClubGabbay: %s</h2></center>
 %s
 <blockquote>%s</blockquote>
+<p><font size="-1"><i>This room is intended for adults 21 and over.</i></font></p>
 <center>
 <font size="-1">Jump to another room:<br>%s</font>
 </center>
@@ -833,6 +834,7 @@ def render_aol_room_page(slug, sess, initial_msgs):
 <tr><td colspan="2">
 <table width="620" cellpadding="4" cellspacing="0"><tr>
 <td width="460" valign="top" bgcolor="white">
+<font size="-1"><i>This room is intended for adults 21 and over.</i></font><br>
 <div id="chat" style="height:300px;overflow:auto;background:white;">%s</div>
 </td>
 <td width="150" valign="top" bgcolor="#D4D0C8">
@@ -970,6 +972,7 @@ def render_member_page():
 Members enter here. Type your member name and password to join the Lobby
 as a member. Guests, please use the Guest Entrance on the Lobby page.
 </blockquote>
+<p><font size="-1"><i>This room is intended for adults 21 and over.</i></font></p>
 <center>
 <form action="/lobby" method="post">
 Name: <input type="text" name="USER" size="12" maxlength="12"><br>

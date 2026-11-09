@@ -16,6 +16,7 @@ fountain that greets your entrance, its gentle waterfalls soothing your soul
 as you drink in the atmosphere and the excitement.  Complimentary cocktails
 await to the left, and behind them a delicious assortment of appetizers.
 </blockquote>
+<center><font size="-1"><i>This room is intended for adults 21 and over.</i></font></center>
 <center>
 
 
