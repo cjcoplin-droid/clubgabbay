@@ -764,11 +764,11 @@ def render_aol_room_page(slug, sess, initial_msgs):
         for u in users if u.split(" (member)")[0] != me)
     lines = "".join(render_msg(m) for m in initial_msgs)
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
-    return """<html><head><title>ClubGabbay: %s</title></head>
+    return """<html><head><title>AOL Chat</title></head>
 <body bgcolor="#C0C0C0" text="black" link="blue" vlink="purple">
 <center>
 <table width="640" border="2" cellpadding="0" cellspacing="0" bgcolor="#D4D0C8">
-<tr><td bgcolor="#000080"><font color="white"><b>&nbsp;AOL Chat -- Club Gabbay</b></font></td>
+<tr><td bgcolor="#000080"><font color="white"><b>&nbsp;AOL Chat</b></font></td>
 <td bgcolor="#000080" align="right"><font color="white"><b>X&nbsp;</b></font></td></tr>
 <tr><td colspan="2">
 <table width="620" cellpadding="4" cellspacing="0"><tr>
@@ -803,8 +803,6 @@ def render_aol_room_page(slug, sess, initial_msgs):
 </div>
 </td></tr>
 <tr><td colspan="2">
-<font size="-1">Jump to another room:<br>%s</font>
-<hr noshade>
 <form action="/%s/history" method="post">
 Show last
 <select name="HISTORY">%s</select> messages
@@ -812,7 +810,6 @@ Show last
 </form>
 <p><font size="-1">
 <a href="/%s/leave">Leave %s</a> |
-<a href="/chat.htm">Chat Directory</a> |
 <a href="/aol-handles/board/">Old AOL handles board</a> |
 <a href="#" onclick="location.reload(); return false;">Refresh</a>
 </font></p>
@@ -820,7 +817,7 @@ Show last
 Messages refresh automatically every few seconds.
 Click a name on the right to send them a private message.</font></p>
 <hr noshade>
-Club Gabbay -- a fan-run homage to the 1996-1999 original.
+AOL Chat -- a fan-made tribute to the 1990s.
 </td></tr>
 </table>
 </center>
@@ -879,8 +876,7 @@ function poll(){
 setInterval(poll, 4000);
 </script>
 </body></html>
-""" % (esc(info["name"]), lines, members, slug, slug,
-       room_jump_links(slug), slug, history_opts,
+""" % (lines, members, slug, slug, slug, history_opts,
        slug, esc(info["name"]),
        esc(sess["user"]), " (member)" if sess.get("member") else "",
        last_id, slug, esc(sess["user"]))
@@ -951,6 +947,7 @@ STANDALONE_BOARDS = {
         "back": "/aol.html",
         "back_label": "Back to AOL Chat",
         "bg": "/images/neighborhoods/background.gif",
+        "footer": "AOL Chat -- a fan-made tribute to the 1990s.",
     },
 }
 
@@ -1051,20 +1048,19 @@ def render_board_page(board="clubgabbay"):
         return ('<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">\n<html>\n<head>\n'
                 '<meta http-equiv="Content-Type" content="text/html; '
                 'charset=iso-8859-1">\n'
-                '<title>%s message board -- Club Gabbay</title>\n</head>\n'
+                '<title>%s message board</title>\n</head>\n'
                 '<body background="%s">\n'
                 '<center><font size="+2"><strong>%s message board</strong>'
                 '</font></center>\n'
                 '<p><font size="+1">%s</font></p>\n'
                 '%s%s'
                 '<hr>\n<p><a href="%s">%s</a> | '
-                '<a href="/">Club Gabbay Home</a> | '
                 '<a href="/fine-print.html">Fine print</a></p>\n'
-                '<font color=gray size=2>Club Gabbay -- a fan-run homage to the '
-                '1996-1999 original.</font>\n'
+                '<font color=gray size=2>%s</font>\n'
                 '</body></html>\n'
                 % (info["name"], info["bg"], info["name"], info["intro"],
-                   form, body, info["back"], info["back_label"]))
+                   form, body, info["back"], info["back_label"],
+                   info["footer"]))
     name = NEIGHBORHOODS[board]
     body = new_html or ('<center><i>No messages yet — be the first to '
                         'leave one.</i></center>\n')

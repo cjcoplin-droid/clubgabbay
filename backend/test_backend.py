@@ -700,7 +700,8 @@ def run_aol_tests(base):
     check("aol", "AOL entry page serves with its handle form",
           s == 200 and b'action="/aol"' in body
           and b'name="USER"' in body
-          and b"aol-handles/board/" in body, "status=%d" % s)
+          and b"aol-handles/board/" in body
+          and b"Club Gabbay" not in body, "status=%d" % s)
     s, _, h = raw_get(base, "/aol")
     check("aol", "GET /aol w/o session redirects to entry page",
           s in (301, 302, 303) and "aol.html" in h.get("Location", ""),
@@ -710,13 +711,14 @@ def run_aol_tests(base):
                     "HISTORY": "8"})
     s, body, _ = c.get("/aol")
     check("aol", "room page is the AOL skin with click-to-PM",
-          s == 200 and b"AOL Chat -- Club Gabbay" in body
+          s == 200 and b"AOL Chat" in body
           and b"People in this room:" in body
           and b'id="imbox"' in body
           and b'action="/aol/whisper"' in body
           and b"pmUser(this.textContent)" in body
           and b'value="Send"' in body
-          and b"aol-handles/board/" in body, "status=%d" % s)
+          and b"aol-handles/board/" in body
+          and b"Club Gabbay" not in body, "status=%d" % s)
     # PM round-trip in the AOL room: sender + recipient only
     w1, w2, w3 = Client(base), Client(base), Client(base)
     for cl, u in ((w1, "AolA"), (w2, "AolB"), (w3, "AolC")):
@@ -745,7 +747,8 @@ def run_aol_tests(base):
           s == 200
           and b'action="/aol-handles/board/post"' in body
           and b"Old AOL handles message board" in body
-          and b"screen name" in body, "status=%d" % s)
+          and b"screen name" in body
+          and b"Club Gabbay" not in body, "status=%d" % s)
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/aol-handles/board/post",
                      {"to": "", "from": "AolPoster", "subject": "hi",
