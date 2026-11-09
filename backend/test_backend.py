@@ -184,6 +184,17 @@ def run_tests(base):
           s == 200 and b"Bulletin Board" in body
           and b"linkexchange" not in body.lower(),
           "status=%d" % s)
+    # Calendar footer: Web Dates + Mall links removed (Paul 2026-11-09);
+    # the webdates.html stub page is gone too.
+    s, body, _ = anon.get("/www.clubgabbay.com/htmls/calendar.html")
+    check("site", "calendar footer has no webdates/mall links",
+          s == 200 and b"Calendar of Events" in body
+          and b"Web Dates" not in body
+          and b"Have It All Mall" not in body,
+          "status=%d" % s)
+    s, body, _ = anon.get("/htmls/webdates.html")
+    check("site", "/htmls/webdates.html removed 404 (Paul 2026-11-09)",
+          s == 404, "status=%d" % s)
     s, body, _ = anon.get("/chat.htm")
     check("site", "/chat.htm directory 200", s == 200 and b"Lobby" in body,
           "status=%d" % s)
