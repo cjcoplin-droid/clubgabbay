@@ -1,0 +1,131 @@
+<! -- Copyright 1996 Mohave Mirage Company, Long Beach, CA 90814 (310) 433-9303 >
+<! DYNAMIC Database Driven Website Development>
+<HTML>
+<HEAD><TITLE>Virtual Store</TITLE></HEAD>
+<BODY background=http://www.clubgabbay.com/images/bg/home_bg.jpg>
+
+<CENTER><H1>Virtual Flower Shop </H1></CENTER>
+
+
+
+<FORM ACTION="Vstore_send.CFM" METHOD="POST">
+
+<INPUT TYPE=HIDDEN NAME="to_email_required" VALUE="You must supply an EMAIL ADDRESS for the recipient of your message">
+<INPUT TYPE=HIDDEN NAME="vcode" VALUE=1>
+<INPUT TYPE=HIDDEN NAME="site" VALUE="clubgabbayy">
+<INPUT TYPE=HIDDEN NAME="vscode" VALUE=3>
+<INPUT TYPE=HIDDEN NAME="vicode" VALUE=6>
+<INPUT TYPE=HIDDEN NAME="date_sent" VALUE="{ts '1997-07-09 13:56:36'}">
+<INPUT TYPE=hidden NAME="msgid" VALUE="9135636">
+
+<INPUT TYPE=HIDDEN NAME="memberid" VALUE=0>
+
+
+
+<TABLE>
+<TR><TD ALIGN="right"><strong>Your Name: </strong></TD><TD><INPUT TYPE="text" NAME="from_name" SIZE="50" MAXLENGTH="40"></TD></TR>
+<TR><TD ALIGN="right"><strong>Your Email Address: </strong></TD><TD><INPUT TYPE="text" NAME="from_email" SIZE="50" MAXLENGTH="40"></TD></TR>
+<TR><TD ALIGN="right"><strong>Recipient's Name: </strong></TD><TD><INPUT TYPE="text" NAME="to_name" SIZE="50" MAXLENGTH="40"></TD></TR>
+<TR><TD ALIGN="right"><strong>Recipient's Email Address: </strong></TD><TD><INPUT TYPE="text" NAME="to_email" SIZE="50" MAXLENGTH="40"></TD></TR>
+<TR><TD ALIGN="right"><strong>Banner Color: </strong></TD>
+
+<TD><SELECT NAME="banner_bgcolor">
+<OPTION Value="Blue">Blue
+<OPTION Value="Cyan">Cyan
+<OPTION Value="Darkgray">Dark Gray
+<OPTION Value="gray">Gray
+<OPTION Value="green">Green
+<OPTION Value="lightgray">Light Gray
+<OPTION Value="Magenta">Magenta
+<OPTION Value="orange">Orange
+<OPTION Value="pink">Pink	
+<OPTION Value="red">Red
+</select>
+</TD>
+</TR>
+<TR><TD ALIGN="right"><strong>Banner Message 1: </strong></TD><TD><INPUT TYPE="text" NAME="banner1" SIZE="20" MAXLENGTH="30"></TD></TR>
+<TR><TD ALIGN="right"><strong>Banner Message 2: </strong></TD><TD><INPUT TYPE="text" NAME="banner2" SIZE="20" MAXLENGTH="30"></TD></TR>
+<TR><TD ALIGN="right"><strong>Banner Message 3: </strong></TD><TD><INPUT TYPE="text" NAME="banner3" SIZE="20" MAXLENGTH="30"></TD></TR>
+<TR><TD ALIGN="right"><strong>Greeting: </strong></TD><TD><INPUT TYPE="text" NAME="greeting" SIZE="15" MAXLENGTH="20"><strong>(Dear, Darling, etc.- don't add a comma) </strong></TD></TR>
+<TR><TD ALIGN="right"><strong>Your Special Message: </strong></TD><TD>
+<strong>DON'T use double-quotes (") in your message, but you may use single-quotes (')</strong><BR>
+<textarea NAME="message" ROWS="6" COLS="40" WRAP=VIRTUAL></textarea>
+</TD></TR>
+<TR><TD ALIGN="right"><strong>Signed: </strong></TD><TD><INPUT TYPE="text" NAME="signed" SIZE="20" MAXLENGTH="50"><strong>(Sincerely, Love, etc. - don't add a comma) </strong></TD></TR>
+
+
+<TR>
+<TD align=right><strong>Background Sound:</strong></TD>
+<TD>
+<SELECT NAME="sound">
+
+<OPTION VALUE="batoutofhell.mid">Bat Out Of Hell
+
+<OPTION VALUE="bethoven_3rd.mid">Bethoven
+
+<OPTION VALUE="Cheers1.mid">Cheers
+
+<OPTION VALUE="crazy.mid">Crazy
+
+<OPTION VALUE="desparado.mid">Desparado
+
+<OPTION VALUE="easylover.mid">Easy Lover
+
+<OPTION VALUE="endlesslove.mid">Endless Love
+
+<OPTION VALUE="evergreen.mid">Evergreen
+
+<OPTION VALUE="faithfully.mid">Faithfully
+
+<OPTION VALUE="fever.mid">Fever
+
+<OPTION VALUE="happy_birthday.mid">Happy Birthday
+
+<OPTION VALUE="ThruTheGrapevine.mid">I Heard It Thru The Grapevine
+
+<OPTION VALUE="IloveSaturday.mid">I Love Saturday
+
+<OPTION VALUE="imagine.mid">Imagine
+
+<OPTION VALUE="macarena.mid">Macarena
+
+<OPTION VALUE="poweroflove.mid">Power of Love
+
+<OPTION VALUE="rocky.mid">Rocky
+
+<OPTION VALUE="romanceWithoutWords.mid">Romance Without Words
+
+<OPTION VALUE="RussianARhapsodyForTwoPianos.mid">Russian Rhapsody
+
+<OPTION VALUE="sonata#11.mid">Sonata #11
+
+<OPTION VALUE="spanishFlea.mid">Spanish Flea
+
+<OPTION VALUE="stairwayToHeaven.mid">Stairway To Heaven
+
+<OPTION VALUE="strangelove.mid">Strange Love
+
+<OPTION VALUE="streetsofphiladelphia.mid">Streets of Philadelphia
+
+<OPTION VALUE="totalEclipseOfTheHeart.mid">Total Eclipse Of The Heart
+
+<OPTION VALUE="unchainedMelody.mid">Unchained Melody
+
+<OPTION VALUE="upOnTheRoof.mid">Up On The Roof
+
+<OPTION VALUE="WeAreTheWorld.mid">We Are The World
+
+<OPTION VALUE="YouOughtaKnow.mid">You Oughta Know
+
+</SELECT>
+</TD>
+</TR>
+</TABLE>
+<center>
+<INPUT TYPE="submit" VALUE="  Send My Message  "> <INPUT TYPE="submit" NAME="display" VALUE="  Show My Message  ">
+</center>
+
+</FORM>
+</BODY>
+</HTML>
+

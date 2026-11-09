@@ -1,0 +1,299 @@
+<!---- SWD'97 ----><!---- MAIN ----><html><head>
+
+
+
+<title>main</title></head>
+
+
+
+<body><body background="home_bg.jpg" link="blue" text="black">
+
+<SCRIPT LANGUAGE="JavaScript">
+
+
+
+<!--
+
+
+
+// set speed of banner (pause in milliseconds between characters)
+
+var speed = 100 // decrease value to increase speed (must be positive)
+
+
+
+// set pause between completion of message and beginning of following message
+
+var pause = 1000 // increase value to increase pause
+
+
+
+// set initial values
+
+var timerID = null
+
+var bannerRunning = false
+
+
+
+// create global array
+
+var ar = new Array()
+
+
+
+// assign the strings to the array's elements
+
+ar[0] = "Welcome to the sparkle section of clubgabbay. This section is designed and programmed by sparkleweb design"
+
+ar[1] = "For this section and for the club as a whole to grow and expand we need your help."
+
+ar[2] = "The club survives upon your input. So why not get more invloved and become part of the club team!!"
+
+ar[3] = "click on the club journallist link below and find out just one of many ways you can play a part in "
+
+ar[4] = "making clubgabbay the greatest internet site in cyberspace!!!!"
+
+ar[5] = "............coming up whats new and exciting at clubgabbay's sparkling section!!!.................."
+
+ar[6] = "NEW   NEW   NEW   NEW!!!!......the club bookstore is open to you the public!"
+
+ar[7] = "in the store for you is the opportunity to purchase books from the greatest writers around online..."
+
+ar[8] = "obtaining your fravourite novels to read couldnt be more easier than THIS!!!..........follow the links to" 
+
+ar[9] = "the hall of fame and proceed to the club bookstore ......there you will find the latest books for you to"
+
+ar[10] = "read.......ALSO BUY NOW AND GET A MASSIVE 20% DISCOUNT......YES THE SUMMER SALE IS HERE!!!!!"
+
+ar[11] = ".....the club bookstore........brought to you in association with www.bookshop.co.uk........."
+
+ar[12] = "                                                      "
+
+// set index of first message to be displayed first
+
+var currentMessage = 0
+
+
+
+// set index of last character to be displayed first
+
+var offset = 0
+
+
+
+// stop the banner if it is currently running
+
+function stopBanner() {
+
+        // if banner is currently running
+
+        if (bannerRunning)
+
+                // stop the banner
+
+                clearTimeout(timerID)
+
+
+
+        // timer is now stopped
+
+        bannerRunning = false
+
+}
+
+
+
+// start the banner
+
+function startBanner() {
+
+        // make sure the banner is stopped
+
+        stopBanner()
+
+
+
+        // start the banner from the current position
+
+        showBanner()
+
+}
+
+
+
+// type-in the current message
+
+function showBanner() {
+
+        // assign current message to variable
+
+        var text = ar[currentMessage]
+
+
+
+        // if current message has not finished being displayed
+
+        if (offset < text.length) {
+
+                // if last character of current message is a space
+
+                if (text.charAt(offset) == " ")
+
+                        // skip the current character
+
+                        offset++                        
+
+
+
+                // assign the up-to-date to-be-displayed substring
+
+                // second argument of method accepts index of last character plus one
+
+                var partialMessage = text.substring(0, offset + 1) 
+
+
+
+                // display partial message in text field
+
+                document.bannerForm.bannerField.value = partialMessage
+
+
+
+                // increment index of last character to be displayed
+
+                offset++ // IE sometimes has trouble with "++offset"
+
+
+
+                // recursive call after specified time
+
+                timerID = setTimeout("showBanner()", speed)
+
+
+
+                // banner is running
+
+                bannerRunning = true
+
+        } else {
+
+                // reset offset
+
+                offset = 0
+
+
+
+                // increment subscript (index) of current message
+
+                currentMessage++
+
+
+
+                // if subscript of current message is out of range
+
+                if (currentMessage == ar.length)
+
+                        // wrap around (start from beginning)
+
+                        currentMessage = 0
+
+
+
+                // recursive call after specified time
+
+                timerID = setTimeout("showBanner()", pause)
+
+
+
+                // banner is running
+
+                bannerRunning = true
+
+        }
+
+}
+
+
+
+// -->
+
+
+
+</SCRIPT>
+
+</HEAD>
+
+<BODY>
+
+<FORM NAME="bannerForm">
+
+<INPUT TYPE="text" NAME="bannerField" VALUE="Click here for the latest updates at clubgabbay..." SIZE=100 onFocus="if (!bannerRunning) { startBanner() }">
+
+</FORM>
+
+
+
+<center><TABLE ALIGN="CENTER" VALIGN="TOP" WDITH=100%>
+
+<p><TR><TD ALIGN="CENTER" VALIGN="TOP">
+
+<a href="clubhoro.htm"><img src="button1.gif" ALT="Club Horoscopes Link" border=0></a>
+
+<p><TD ALIGN="CENTER" VALIGN="TOP"><a href="clubfood.htm"><img src="button2.gif" ALT="Club Food & Drink Link" border=0></a>
+
+<p></TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=30></TD></TR>
+
+<TR><TD ALIGN="CENTER" VALIGN="TOP"><a href="clubfame.htm"><img src="button3.gif" ALT="Club Hall of Fame Link" border=0></a>
+
+<p><TD ALIGN="CENTER" VALIGN="TOP"><a href="help.htm"><img src="button5.gif" ALT="WRITE FOR THE CLUB!!!!" border=0></a>
+
+<p></TD></TR><TR><TD ALIGN="CENTER" VALIGN="TOP"><a href="clubspor.htm"><img src="button6.gif" ALT="Club Sports link" border=0></a>
+
+<p><TD ALIGN="CENTER" VALIGN="TOP"><a href="//www2.clubgabbay.com/main.htm"><img src="button4.gif" ALT="ClubGabbay Main section and chat rooms link" border=0></a>
+
+<p></td></TABLE><TABLE><p><TR>
+
+<CENTER><BR><BR><td align="center" valign="middle"><strong>Designed & Programmed by 
+
+<a href="//www.sparkle.home.ml.org"><img src="swd.gif" border=0>
+
+</a> for ClubGabbay<p>
+
+<!--BEGIN TEXT VOTING LINK-->
+
+                                   Click on the graphic below to vote for this <BR>page as a
+
+                                   <a href="http://www.stpt.com">Starting Point</a> Hot Site
+
+                                   <BR> <FORM METHOD=POST
+
+                                   ACTION="http://www.stpt.com/cgi-bin/general/vote.cgi">
+
+                                   <INPUT TYPE=HIDDEN NAME=category VALUE=entrtain> 
+
+                                   <INPUT TYPE=HIDDEN NAME=vote
+
+                                   VALUE="http://clubgabbay.com">
+
+                                   <INPUT TYPE=HIDDEN NAME=title
+
+                                   VALUE="clubgabbay">
+
+                                   <INPUT TYPE=HIDDEN NAME=email
+
+                                   VALUE=clubeditor@clubgabbay.com> 
+
+                                   <INPUT BORDER=NONE TYPE=IMAGE
+
+                                   SRC="http://www.stpt.com/vote.gif" HEIGHT=60
+
+                                   WIDTH=60> </FORM> 
+
+                                   <!--END TEXT VOTING LINK--></CENTER></TD></TR></TABLE>
+<p>
+<center>
+<a href="http://icount.com/cgi-bin/icount?1843010664.count">
+<img src="http://icount.com/1843010664.count" border=0></a> 
+<p>
+</body></html>

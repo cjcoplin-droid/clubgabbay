@@ -1,0 +1,16 @@
+# Club Gabbay mirror — Render free-tier web service.
+# Stdlib-only Python: no build step, no requirements.txt, no external
+# storage. PORT is provided automatically by Render; the server reads
+# it (default 8124 when unset). Chat history lives in SQLite next to
+# the code — Render's disk is ephemeral, so history resets when the
+# free instance restarts. That is known and accepted for the proof of
+# concept; the service sleeps after 15 minutes with no traffic and
+# wakes on the next visit.
+services:
+  - type: web
+    name: clubgabbay
+    env: python
+    plan: free
+    buildCommand: echo "stdlib only — nothing to install"
+    startCommand: python backend/server.py --host 0.0.0.0
+    healthCheckPath: /

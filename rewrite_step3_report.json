@@ -1,0 +1,639 @@
+{
+ "files_changed": [
+  "chat.clubgabbay.com/htmls/lobby.html",
+  "chat.clubgabbay.com/index.html",
+  "clubgabbay.com/htmls/blue.html",
+  "clubgabbay.com/htmls/classical.html",
+  "clubgabbay.com/htmls/denim.html",
+  "clubgabbay.com/htmls/hard.html",
+  "clubgabbay.com/htmls/jive.html",
+  "clubgabbay.com/htmls/lobby.html",
+  "clubgabbay.com/htmls/paradise.html",
+  "clubgabbay.com/htmls/soul.html",
+  "clubgabbay.com/htmls/speakeasy.html",
+  "members.clubgabbay.com/New_members_form.cfm",
+  "members.clubgabbay.com/chat2.htm",
+  "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi",
+  "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi_",
+  "www.clubgabbay.com/cgi-bin/clubgabbay/guestbook",
+  "www.clubgabbay.com/destiny/context.html",
+  "www.clubgabbay.com/htmls/blue.html",
+  "www.clubgabbay.com/htmls/classical.html",
+  "www.clubgabbay.com/htmls/denim.html",
+  "www.clubgabbay.com/htmls/hard.html",
+  "www.clubgabbay.com/htmls/jive.html",
+  "www.clubgabbay.com/htmls/lobby.html",
+  "www.clubgabbay.com/htmls/paradise.html",
+  "www.clubgabbay.com/htmls/samples.html",
+  "www.clubgabbay.com/htmls/soul.html",
+  "www.clubgabbay.com/htmls/speakeasy.html",
+  "www.clubgabbay.com/index.html",
+  "www2.clubgabbay.com/anything_goes.cfm",
+  "www2.clubgabbay.com/chat.htm",
+  "www2.clubgabbay.com/chat2.htm",
+  "www2.clubgabbay.com/events.html",
+  "www2.clubgabbay.com/index.html",
+  "www2.clubgabbay.com/jokeland.cfm",
+  "www2.clubgabbay.com/lobby.cfm",
+  "www2.clubgabbay.com/login_update.htm",
+  "www2.clubgabbay.com/member_pages_list.cfm",
+  "www2.clubgabbay.com/member_update.htm",
+  "www2.clubgabbay.com/memberpages/carsten/index.htm",
+  "www2.clubgabbay.com/memberpages/carsten/index.html",
+  "www2.clubgabbay.com/memberpages/sparkle/clubfame.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/clubfood.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/clubhoro.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/clubspor.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/food1.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/help.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/horo1.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/horo2.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/index.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/index.html",
+  "www2.clubgabbay.com/memberpages/sparkle/recipie.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/soon.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/soon2.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/stories.htm",
+  "www2.clubgabbay.com/memberpages/sparkle/submit.htm",
+  "www2.clubgabbay.com/members.htm",
+  "www2.clubgabbay.com/menu.cfm",
+  "www2.clubgabbay.com/messages.htm",
+  "www2.clubgabbay.com/network.html",
+  "www2.clubgabbay.com/new_members_form.cfm",
+  "www2.clubgabbay.com/opportunities.htm",
+  "www2.clubgabbay.com/q_and_a.html",
+  "www2.clubgabbay.com/vstore_getcat.cfm_vcode_1_vdesc_Virtual+Flower+Shop",
+  "www2.clubgabbay.com/vstore_getcat.cfm_vcode_2_vdesc_Virtual+Bakery+",
+  "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_1",
+  "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_2",
+  "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_3",
+  "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_6",
+  "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_7",
+  "www2.clubgabbay.com/vstore_getstore.cfm",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_13",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_2",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_3",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_7",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_8",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_10",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_11",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_12",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_9",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_4",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_6",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_14",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_15",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_16",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_18",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_19",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_20",
+  "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_21",
+  "www2.clubgabbay.com/webdates.cfm",
+  "www2.clubgabbay.com/welcome.htm"
+ ],
+ "rewritten": 196,
+ "chat_routes": [
+  {
+   "file": "clubgabbay.com/htmls/blue.html",
+   "url": "http://198.147.75.30:2010/",
+   "to": "../../blue"
+  },
+  {
+   "file": "clubgabbay.com/htmls/classical.html",
+   "url": "http://198.147.75.30:2070/",
+   "to": "../../classical"
+  },
+  {
+   "file": "clubgabbay.com/htmls/denim.html",
+   "url": "http://198.147.75.30:2030/",
+   "to": "../../denim"
+  },
+  {
+   "file": "clubgabbay.com/htmls/hard.html",
+   "url": "http://198.147.75.30:2040/",
+   "to": "../../hard"
+  },
+  {
+   "file": "clubgabbay.com/htmls/jive.html",
+   "url": "http://198.147.75.30:2060/",
+   "to": "../../jive"
+  },
+  {
+   "file": "clubgabbay.com/htmls/lobby.html",
+   "url": "http://198.147.75.30:2000/",
+   "to": "../../lobby"
+  },
+  {
+   "file": "clubgabbay.com/htmls/paradise.html",
+   "url": "http://198.147.75.30:2080/",
+   "to": "../../paradise"
+  },
+  {
+   "file": "clubgabbay.com/htmls/soul.html",
+   "url": "http://198.147.75.30:2050/",
+   "to": "../../soul"
+  },
+  {
+   "file": "clubgabbay.com/htmls/speakeasy.html",
+   "url": "http://198.147.75.30:2020/",
+   "to": "../../speakeasy"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi",
+   "url": "http://chat.clubgabbay.com:88/cgi-bin/guestbook",
+   "to": "../guestbook"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/blue.html",
+   "url": "http://204.7.247.51:2001/",
+   "to": "../../blue"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/classical.html",
+   "url": "http://204.7.247.51:2007/",
+   "to": "../../classical"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/denim.html",
+   "url": "http://chat.clubgabbay.com:2003/",
+   "to": "../../denim"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/hard.html",
+   "url": "http://204.7.247.51:2004/",
+   "to": "../../hard"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/jive.html",
+   "url": "http://204.7.247.51:2006/",
+   "to": "../../jive"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/lobby.html",
+   "url": "http://www.clubgabbay.com:2000/",
+   "to": "../../lobby"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/paradise.html",
+   "url": "http://204.7.247.51:2008/",
+   "to": "../../paradise"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/soul.html",
+   "url": "http://204.7.247.51:2050/",
+   "to": "../../soul"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/speakeasy.html",
+   "url": "http://204.7.247.51:2020/",
+   "to": "../../speakeasy"
+  },
+  {
+   "file": "www2.clubgabbay.com/anything_goes.cfm",
+   "url": "http://204.7.247.51:2010/",
+   "to": "../anything-goes"
+  },
+  {
+   "file": "www2.clubgabbay.com/jokeland.cfm",
+   "url": "http://chat.clubgabbay.com:2011/",
+   "to": "../jokeland"
+  },
+  {
+   "file": "www2.clubgabbay.com/lobby.cfm",
+   "url": "http://chat.clubgabbay.com:2000/",
+   "to": "../lobby"
+  },
+  {
+   "file": "chat.clubgabbay.com/htmls/lobby.html",
+   "url": "http://www.clubgabbay.com:2000/",
+   "to": "../../lobby"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi_",
+   "url": "http://chat.clubgabbay.com:88/cgi-bin/guestbook",
+   "to": "../guestbook"
+  }
+ ],
+ "cross_host": [
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/guestbook",
+   "url": "http://members.clubgabbay.com/lobby.cfm",
+   "to": "www2.clubgabbay.com/lobby.cfm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/chat.htm",
+   "to": "www2.clubgabbay.com/chat.htm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/members.htm",
+   "to": "www2.clubgabbay.com/members.htm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/messages.htm",
+   "to": "www2.clubgabbay.com/messages.htm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/directory_search.cfm",
+   "to": "www2.clubgabbay.com/directory_search.cfm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/webdates.cfm",
+   "to": "www2.clubgabbay.com/webdates.cfm"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/vstore_getstore.cfm",
+   "to": "www2.clubgabbay.com/vstore_getstore.cfm"
+  },
+  {
+   "file": "www2.clubgabbay.com/index.html",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/index.html",
+   "url": "http://www.clubgabbay.com/home.jpg",
+   "to": "clubgabbay.com/home.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/chat.htm",
+   "url": "http://www.clubgabbay.com/images/bg/lobby_bg.jpg",
+   "to": "clubgabbay.com/images/bg/lobby_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/chat2.htm",
+   "url": "http://www.clubgabbay.com/images/bg/lobby_bg.jpg",
+   "to": "clubgabbay.com/images/bg/lobby_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/events.html",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/lobby.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/lobby_bg.jpg",
+   "to": "clubgabbay.com/images/bg/lobby_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/lobby.cfm",
+   "url": "http://www.clubgabbay.com/images/lobby.jpg",
+   "to": "clubgabbay.com/images/lobby.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/login_update.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/member_pages_list.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/member_update.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/members.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/messages.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/network.html",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/new_members_form.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/opportunities.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/q_and_a.html",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getstore.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdates.cfm",
+   "url": "http://www.clubgabbay.com/images/webdates.jpg",
+   "to": "clubgabbay.com/images/webdates.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/welcome.htm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "members.clubgabbay.com/chat2.htm",
+   "url": "http://www.clubgabbay.com/images/bg/lobby_bg.jpg",
+   "to": "clubgabbay.com/images/bg/lobby_bg.jpg"
+  },
+  {
+   "file": "members.clubgabbay.com/New_members_form.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getcat.cfm_vcode_1_vdesc_Virtual+Flower+Shop",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getcat.cfm_vcode_2_vdesc_Virtual+Bakery+",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_1",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_2",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_3",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_6",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_7",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_10",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_11",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_12",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_13",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_2",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_3",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_4",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_6",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_7",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_8",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_9",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_14",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_15",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_16",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_18",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_19",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_20",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  },
+  {
+   "file": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_21",
+   "url": "http://www.clubgabbay.com/images/bg/home_bg.jpg",
+   "to": "clubgabbay.com/images/bg/home_bg.jpg"
+  }
+ ],
+ "unresolved": [
+  {
+   "file": "clubgabbay.com/otherhalf.html",
+   "url": "http://www.clubgabbay.com/otherhalf.gif",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/index.html",
+   "url": "http://www.clubgabbay.com/otherhalf.gif",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/otherhalf.html",
+   "url": "http://www.clubgabbay.com/otherhalf.gif",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/guestbook",
+   "url": "http://members.clubgabbay.com/",
+   "why": "ambiguous across hosts: chat.clubgabbay.com/index.html, clubgabbay.com/index.html, www.clubgabbay.com/index.html, www2.clubgabbay.com/index.html"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/guestbook",
+   "url": "http://members.clubgabbay.com/webdates.htm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi_",
+   "url": "http://www2.clubgabbay.com/main.cfm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi_",
+   "url": "http://www.clubgabbay.com/destiny/",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi",
+   "url": "http://www2.clubgabbay.com/main.cfm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi",
+   "url": "http://www.clubgabbay.com/destiny/",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/destiny/context.html",
+   "url": "http://members.clubgabbay.com/vip_form.htm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www.clubgabbay.com/htmls/samples.html",
+   "url": "http://members.clubgabbay.com/vip_form.htm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/chat2.htm",
+   "url": "http://www.clubgabbay.com/images/anything_goes_sm.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/chat2.htm",
+   "url": "http://www.clubgabbay.com/images/jakies_jokeland_sm.gif",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/deargabby.htm",
+   "url": "http://www.clubgabbay.com/images/bg/webdates_bg.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/deargabby.htm",
+   "url": "http://www.clubgabbay.com/images/gabby.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/deargabby.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/clubgabbay/queue/queue?forum=webdates",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/member_pages_list.cfm",
+   "url": "http://www2.clubgabbay.com/member_pages.cfm",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/menu.cfm",
+   "url": "http://www.clubgabbay.com/cgi-bin/club_store/store",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/menu.cfm",
+   "url": "http://www.clubgabbay.com/cgi-bin/calendar/events",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/shop.htm",
+   "url": "http://www.clubgabbay.com/images/bg/webdates_bg.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/shop.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/clubgabbay/queue/queue?forum=webdates",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdate_browse_search.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/webdates_bg.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdates.cfm",
+   "url": "http://www.clubgabbay.com/images/bg/webdates_bg.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdates_intro.htm",
+   "url": "http://www.clubgabbay.com/images/bg/webdates_bg.jpg",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdates_intro.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/clubgabbay/queue/queue?forum=webdates",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/webdates_intro.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/clubgabbay/queue/queue?forum=webdates",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/welcome.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/clubgabbay/lost_found/queue?forum=lost_found",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "www2.clubgabbay.com/welcome.htm",
+   "url": "http://www.clubgabbay.com/cgi-bin/club_store/store",
+   "why": "no inventory entry and no file on disk"
+  },
+  {
+   "file": "members.clubgabbay.com/chat2.htm",
+   "url": "http://www.clubgabbay.com/images/anything_goes_sm.jpg",
+   "why": "no inventory entry and no file on disk"
+  }
+ ],
+ "absolute_clubgabbay_urls_before": 225,
+ "absolute_clubgabbay_urls_after": 29,
+ "notes": "Totals verified by diffing site/ against the pre-step3 backup: 196 absolute clubgabbay.com URLs rewritten (99+30+67 across 3 passes); 29 absolute occurrences remain, all unarchived targets. The 23 'new broken' relative links are the intentional backend room routes (/lobby, /blue, ...); the :88 guestbook route resolves to a real file. Pre-existing broken relative links (112) unchanged. Cross-host count de-duplicated to 54 (29 run-2 + 25 run-3)."
+}

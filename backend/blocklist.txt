@@ -1,0 +1,71 @@
+# Club Gabbay mirror — automated word filter blocklist (PRIVATE).
+#
+# Public room messages ONLY. Whispers are never monitored or filtered
+# (Paul, 2026-11-07) — they bypass the filter entirely.
+#
+# Matching (see server.py): case-insensitive; leet-speak digits are
+# mapped to letters and non-letters are stripped, so spaced-out or
+# dotted evasions ("f u c k", "f.u.c.k") are still caught. Words that
+# appear inside innocent words (class, peacock, analysis, cucumber)
+# are matched as whole tokens only, never as substrings.
+#
+# This file lives under backend/ — the static resolver only serves
+# site/, so it is never reachable over HTTP, and it is never rendered
+# in any page. Do not publish the list: keeping it private is what
+# stops people gaming it with misspellings.
+#
+# One entry per line. Lines starting with # are comments. Phrases are
+# matched with their spaces removed ("click here" catches "clickhere").
+
+# --- racial / ethnic slurs ---
+nigger
+nigga
+kike
+chink
+gook
+raghead
+towelhead
+wetback
+beaner
+
+# --- homophobic / transphobic slurs ---
+faggot
+tranny
+dyke
+
+# --- ableist slur ---
+retard
+
+# --- explicit sexual terms ---
+fuck
+shit
+cunt
+pussy
+bitch
+whore
+slut
+blowjob
+handjob
+cocksucker
+motherfucker
+wank
+jerkoff
+porn
+
+# --- short words matched as whole tokens only (appear in innocent words) ---
+ass
+fag
+dick
+cock
+cum
+anal
+spic
+coon
+
+# --- spam / link abuse ---
+viagra
+cialis
+casino
+click here
+buy now
+make money

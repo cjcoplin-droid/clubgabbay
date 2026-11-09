@@ -1,0 +1,2482 @@
+[
+ {
+  "url": "http://clubgabbay.com:80/",
+  "timestamp": "19961031151457",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_index.html",
+  "site_path": "clubgabbay.com/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/",
+  "timestamp": "19970405073733",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_index.html",
+  "site_path": "www.clubgabbay.com/index.html",
+  "winner_url": "http://clubgabbay.com:80/"
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/",
+  "timestamp": "19970709200631",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_index.html",
+  "site_path": "www2.clubgabbay.com/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/anything_goes.cfm",
+  "timestamp": "19970709201759",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_anything_goes.cfm",
+  "site_path": "www2.clubgabbay.com/anything_goes.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/anything_goes.jpg",
+  "timestamp": "19970709202549",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_anything_goes.jpg",
+  "site_path": "www2.clubgabbay.com/anything_goes.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/blue.cfm",
+  "timestamp": "19970709202556",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_blue.cfm",
+  "site_path": "www2.clubgabbay.com/blue.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/blue_sm.jpg",
+  "timestamp": "19970709202613",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_blue_sm.jpg",
+  "site_path": "www2.clubgabbay.com/blue_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/browse.gif",
+  "timestamp": "19970709201131",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_browse.gif",
+  "site_path": "www2.clubgabbay.com/browse.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/browse_on.gif",
+  "timestamp": "19970709202049",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_browse_on.gif",
+  "site_path": "www2.clubgabbay.com/browse_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/cgi-bin/clubgabbay/board/index.cgi?",
+  "timestamp": "19991127180724",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_cgi-bin_clubgabbay_board_index.cgi_",
+  "site_path": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi_",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/cgi-bin/clubgabbay/board/index.cgi",
+  "timestamp": "19991221163447",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_cgi-bin_clubgabbay_board_index.cgi",
+  "site_path": "www.clubgabbay.com/cgi-bin/clubgabbay/board/index.cgi",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/cgi-bin/clubgabbay/guestbook",
+  "timestamp": "19990421111344",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_cgi-bin_clubgabbay_guestbook",
+  "site_path": "www.clubgabbay.com/cgi-bin/clubgabbay/guestbook",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/chat.gif",
+  "timestamp": "19970709201340",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_chat.gif",
+  "site_path": "www2.clubgabbay.com/chat.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/chat.htm",
+  "timestamp": "19970709200831",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_chat.htm",
+  "site_path": "www2.clubgabbay.com/chat.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/chat2.htm",
+  "timestamp": "19970709201816",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_chat2.htm",
+  "site_path": "www2.clubgabbay.com/chat2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/chat_on.gif",
+  "timestamp": "19970709202103",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_chat_on.gif",
+  "site_path": "www2.clubgabbay.com/chat_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/classical.cfm",
+  "timestamp": "19970709203002",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_classical.cfm",
+  "site_path": "www2.clubgabbay.com/classical.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/classical_sm.jpg",
+  "timestamp": "19970709203015",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_classical_sm.jpg",
+  "site_path": "www2.clubgabbay.com/classical_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/clear_cookie.cfm",
+  "timestamp": "19970709202448",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_clear_cookie.cfm",
+  "site_path": "www2.clubgabbay.com/clear_cookie.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/deargabby.gif",
+  "timestamp": "19970709201420",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_deargabby.gif",
+  "site_path": "www2.clubgabbay.com/deargabby.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/deargabby.htm",
+  "timestamp": "19970709201406",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_deargabby.htm",
+  "site_path": "www2.clubgabbay.com/deargabby.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/deargabby_off.gif",
+  "timestamp": "19970709202517",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_deargabby_off.gif",
+  "site_path": "www2.clubgabbay.com/deargabby_off.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/deargabby_on.gif",
+  "timestamp": "19970709202202",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_deargabby_on.gif",
+  "site_path": "www2.clubgabbay.com/deargabby_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/denim.cfm",
+  "timestamp": "19970709202816",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_denim.cfm",
+  "site_path": "www2.clubgabbay.com/denim.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/denim_sm.jpg",
+  "timestamp": "19970709202826",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_denim_sm.jpg",
+  "site_path": "www2.clubgabbay.com/denim_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/destiny/context.html",
+  "timestamp": "19990427033513",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_destiny_context.html",
+  "site_path": "www.clubgabbay.com/destiny/context.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/destiny/new_club.html",
+  "timestamp": "19990219200359",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_destiny_new_club.html",
+  "site_path": "www.clubgabbay.com/destiny/new_club.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/directory_search.cfm",
+  "timestamp": "19970709200908",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_directory_search.cfm",
+  "site_path": "www2.clubgabbay.com/directory_search.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/enter.gif",
+  "timestamp": "19970709200820",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_enter.gif",
+  "site_path": "www2.clubgabbay.com/enter.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/events.html",
+  "timestamp": "19970709201051",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_events.html",
+  "site_path": "www2.clubgabbay.com/events.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/gabbay_txt.gif",
+  "timestamp": "19970709201024",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_gabbay_txt.gif",
+  "site_path": "www2.clubgabbay.com/gabbay_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/hard.cfm",
+  "timestamp": "19970709202840",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_hard.cfm",
+  "site_path": "www2.clubgabbay.com/hard.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/home.jpg",
+  "timestamp": "19961031151521",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_home.jpg",
+  "site_path": "clubgabbay.com/home.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/allimages.html",
+  "timestamp": "19961031151547",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_allimages.html",
+  "site_path": "clubgabbay.com/htmls/allimages.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/allimages.html",
+  "timestamp": "19990504212715",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_allimages.html",
+  "site_path": "www.clubgabbay.com/htmls/allimages.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/allimages.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/blue.html",
+  "timestamp": "19961031151627",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_blue.html",
+  "site_path": "clubgabbay.com/htmls/blue.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/blue.html",
+  "timestamp": "19990828193212",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_blue.html",
+  "site_path": "www.clubgabbay.com/htmls/blue.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/blue.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/calendar.html",
+  "timestamp": "19961031151635",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_calendar.html",
+  "site_path": "clubgabbay.com/htmls/calendar.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/calendar.html",
+  "timestamp": "19981203153217",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_calendar.html",
+  "site_path": "www.clubgabbay.com/htmls/calendar.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/calendar.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/classical.html",
+  "timestamp": "19961031151650",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_classical.html",
+  "site_path": "clubgabbay.com/htmls/classical.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/classical.html",
+  "timestamp": "19990828194937",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_classical.html",
+  "site_path": "www.clubgabbay.com/htmls/classical.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/classical.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/denim.html",
+  "timestamp": "19961031151657",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_denim.html",
+  "site_path": "clubgabbay.com/htmls/denim.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/denim.html",
+  "timestamp": "19990828195715",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_denim.html",
+  "site_path": "www.clubgabbay.com/htmls/denim.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/denim.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/directory.html",
+  "timestamp": "19961031151612",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_directory.html",
+  "site_path": "clubgabbay.com/htmls/directory.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/download.html",
+  "timestamp": "19961031151539",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_download.html",
+  "site_path": "clubgabbay.com/htmls/download.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/download.html",
+  "timestamp": "19991006015636",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_download.html",
+  "site_path": "www.clubgabbay.com/htmls/download.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/download.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/hard.html",
+  "timestamp": "19961031151704",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_hard.html",
+  "site_path": "clubgabbay.com/htmls/hard.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/hard.html",
+  "timestamp": "19990828201418",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_hard.html",
+  "site_path": "www.clubgabbay.com/htmls/hard.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/hard.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/jive.html",
+  "timestamp": "19961031151712",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_jive.html",
+  "site_path": "clubgabbay.com/htmls/jive.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/jive.html",
+  "timestamp": "19991110215155",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_jive.html",
+  "site_path": "www.clubgabbay.com/htmls/jive.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/jive.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/lobby.html",
+  "timestamp": "19961031151556",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_lobby.html",
+  "site_path": "clubgabbay.com/htmls/lobby.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/lobby.html",
+  "timestamp": "19981203153205",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_lobby.html",
+  "site_path": "www.clubgabbay.com/htmls/lobby.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/lobby.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/mall.html",
+  "timestamp": "19961031151720",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_mall.html",
+  "site_path": "clubgabbay.com/htmls/mall.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/mall.html",
+  "timestamp": "19991006040828",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_mall.html",
+  "site_path": "www.clubgabbay.com/htmls/mall.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/mall.html"
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/mall/Woodland/index.html",
+  "timestamp": "19990922032319",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_mall_Woodland_index.html",
+  "site_path": "www.clubgabbay.com/htmls/mall/Woodland/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/message.html",
+  "timestamp": "19961031151726",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_message.html",
+  "site_path": "clubgabbay.com/htmls/message.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/message.html",
+  "timestamp": "19981202141025",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_message.html",
+  "site_path": "www.clubgabbay.com/htmls/message.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/message.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/paradise.html",
+  "timestamp": "19961031151733",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_paradise.html",
+  "site_path": "clubgabbay.com/htmls/paradise.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/paradise.html",
+  "timestamp": "19990828205452",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_paradise.html",
+  "site_path": "www.clubgabbay.com/htmls/paradise.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/paradise.html"
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/samples.html",
+  "timestamp": "19990508105924",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_samples.html",
+  "site_path": "www.clubgabbay.com/htmls/samples.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/soul.html",
+  "timestamp": "19961031151740",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_soul.html",
+  "site_path": "clubgabbay.com/htmls/soul.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/soul.html",
+  "timestamp": "19990828210804",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_soul.html",
+  "site_path": "www.clubgabbay.com/htmls/soul.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/soul.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/speakeasy.html",
+  "timestamp": "19961031151746",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_speakeasy.html",
+  "site_path": "clubgabbay.com/htmls/speakeasy.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/speakeasy.html",
+  "timestamp": "19990828212548",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_speakeasy.html",
+  "site_path": "www.clubgabbay.com/htmls/speakeasy.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/speakeasy.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/htmls/webdates.html",
+  "timestamp": "19961031151752",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_htmls_webdates.html",
+  "site_path": "clubgabbay.com/htmls/webdates.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/htmls/webdates.html",
+  "timestamp": "19990828214305",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_htmls_webdates.html",
+  "site_path": "www.clubgabbay.com/htmls/webdates.html",
+  "winner_url": "http://clubgabbay.com:80/htmls/webdates.html"
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/ad.gif",
+  "timestamp": "19961031151758",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_ad.gif",
+  "site_path": "clubgabbay.com/images/ad.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/classical_bg.jpg",
+  "timestamp": "19961031151807",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_classical_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/classical_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/denim_bg.jpg",
+  "timestamp": "19961031151824",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_denim_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/denim_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/home_bg.jpg",
+  "timestamp": "19961031151855",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_home_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/home_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/lobby_bg.jpg",
+  "timestamp": "19961031151906",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_lobby_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/lobby_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/mall_bg.jpg",
+  "timestamp": "19961031151941",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_mall_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/mall_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/bg/speak_bg.jpg",
+  "timestamp": "19961031152023",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_bg_speak_bg.jpg",
+  "site_path": "clubgabbay.com/images/bg/speak_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/blue.jpg",
+  "timestamp": "19961031152032",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_blue.jpg",
+  "site_path": "clubgabbay.com/images/blue.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/calendar_txt.gif",
+  "timestamp": "19961031152042",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_calendar_txt.gif",
+  "site_path": "clubgabbay.com/images/calendar_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/classical.jpg",
+  "timestamp": "19961031152056",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_classical.jpg",
+  "site_path": "clubgabbay.com/images/classical.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/denim.jpg",
+  "timestamp": "19961031152311",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_denim.jpg",
+  "site_path": "clubgabbay.com/images/denim.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/directory_txt.gif",
+  "timestamp": "19961031152319",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_directory_txt.gif",
+  "site_path": "clubgabbay.com/images/directory_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/friday_txt.jpg",
+  "timestamp": "19961031152330",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_friday_txt.jpg",
+  "site_path": "clubgabbay.com/images/friday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/gabbay_txt.gif",
+  "timestamp": "19961031152339",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_gabbay_txt.gif",
+  "site_path": "clubgabbay.com/images/gabbay_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/happy_txt.jpg",
+  "timestamp": "19961031152346",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_happy_txt.jpg",
+  "site_path": "clubgabbay.com/images/happy_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/jive_talkin.jpg",
+  "timestamp": "19961031152407",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_jive_talkin.jpg",
+  "site_path": "clubgabbay.com/images/jive_talkin.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/line.gif",
+  "timestamp": "19961031152423",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_line.gif",
+  "site_path": "clubgabbay.com/images/line.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/lobby.jpg",
+  "timestamp": "19961031152434",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_lobby.jpg",
+  "site_path": "clubgabbay.com/images/lobby.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/lobby_txt.gif",
+  "timestamp": "19961031152453",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_lobby_txt.gif",
+  "site_path": "clubgabbay.com/images/lobby_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/mall.jpg",
+  "timestamp": "19961031152517",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_mall.jpg",
+  "site_path": "clubgabbay.com/images/mall.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/message_txt.gif",
+  "timestamp": "19961031152533",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_message_txt.gif",
+  "site_path": "clubgabbay.com/images/message_txt.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/michael.jpg",
+  "timestamp": "19961031152543",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_michael.jpg",
+  "site_path": "clubgabbay.com/images/michael.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/monday_txt.jpg",
+  "timestamp": "19961031152831",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_monday_txt.jpg",
+  "site_path": "clubgabbay.com/images/monday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/paradise.jpg",
+  "timestamp": "19961031152851",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_paradise.jpg",
+  "site_path": "clubgabbay.com/images/paradise.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/rock.jpg",
+  "timestamp": "19961031153016",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_rock.jpg",
+  "site_path": "clubgabbay.com/images/rock.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/saturday_txt.jpg",
+  "timestamp": "19961031153034",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_saturday_txt.jpg",
+  "site_path": "clubgabbay.com/images/saturday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/soul_searching.jpg",
+  "timestamp": "19961031153043",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_soul_searching.jpg",
+  "site_path": "clubgabbay.com/images/soul_searching.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/speakeasy.jpg",
+  "timestamp": "19961031153107",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_speakeasy.jpg",
+  "site_path": "clubgabbay.com/images/speakeasy.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/sunday_txt.jpg",
+  "timestamp": "19961031153122",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_sunday_txt.jpg",
+  "site_path": "clubgabbay.com/images/sunday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/thursday_txt.jpg",
+  "timestamp": "19961031153132",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_thursday_txt.jpg",
+  "site_path": "clubgabbay.com/images/thursday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/tuesday_txt.jpg",
+  "timestamp": "19961031153143",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_tuesday_txt.jpg",
+  "site_path": "clubgabbay.com/images/tuesday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/webdates.jpg",
+  "timestamp": "19961031153151",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_webdates.jpg",
+  "site_path": "clubgabbay.com/images/webdates.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/images/wednesday_txt.jpg",
+  "timestamp": "19961031153211",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_images_wednesday_txt.jpg",
+  "site_path": "clubgabbay.com/images/wednesday_txt.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/index.html",
+  "timestamp": "19961031153222",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_index.html",
+  "site_path": "clubgabbay.com/index.html",
+  "winner_url": "http://clubgabbay.com:80/"
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/index.html",
+  "timestamp": "19990828215617",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_index.html",
+  "site_path": "www.clubgabbay.com/index.html",
+  "winner_url": "http://clubgabbay.com:80/"
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/jive.cfm",
+  "timestamp": "19970709202943",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_jive.cfm",
+  "site_path": "www2.clubgabbay.com/jive.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/jive_talkin_sm.jpg",
+  "timestamp": "19970709202952",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_jive_talkin_sm.jpg",
+  "site_path": "www2.clubgabbay.com/jive_talkin_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/jokeland.cfm",
+  "timestamp": "19970709203058",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_jokeland.cfm",
+  "site_path": "www2.clubgabbay.com/jokeland.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/lobby.cfm",
+  "timestamp": "19970709201443",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_lobby.cfm",
+  "site_path": "www2.clubgabbay.com/lobby.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/login_update.htm",
+  "timestamp": "19970709202425",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_login_update.htm",
+  "site_path": "www2.clubgabbay.com/login_update.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/main.htm",
+  "timestamp": "19970709200702",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_main.htm",
+  "site_path": "www2.clubgabbay.com/main.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/match.gif",
+  "timestamp": "19970709201151",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_match.gif",
+  "site_path": "www2.clubgabbay.com/match.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/match_on.gif",
+  "timestamp": "19970709202056",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_match_on.gif",
+  "site_path": "www2.clubgabbay.com/match_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/member_login.cfm",
+  "timestamp": "19970709202432",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_member_login.cfm",
+  "site_path": "www2.clubgabbay.com/member_login.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/member_pages_list.cfm",
+  "timestamp": "19970709200842",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_member_pages_list.cfm",
+  "site_path": "www2.clubgabbay.com/member_pages_list.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/member_update.htm",
+  "timestamp": "19970709202352",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_member_update.htm",
+  "site_path": "www2.clubgabbay.com/member_update.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/1234/",
+  "timestamp": "19970709201852",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_1234_",
+  "site_path": "www2.clubgabbay.com/memberpages/1234/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/",
+  "timestamp": "19970709201824",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/back1.jpg",
+  "timestamp": "19970709203109",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_back1.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/back1.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/backpage.jpg",
+  "timestamp": "19970709204640",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_backpage.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/backpage.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/board.jpg",
+  "timestamp": "19970709204446",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_board.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/board.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/bugfix.htm",
+  "timestamp": "19970709203232",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_bugfix.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/bugfix.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/bugfix.jpg",
+  "timestamp": "19970709203221",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_bugfix.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/bugfix.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/bughead.jpg",
+  "timestamp": "19970709204702",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_bughead.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/bughead.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/cd.jpg",
+  "timestamp": "19970709210554",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_cd.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/cd.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/control.jpg",
+  "timestamp": "19970709204617",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_control.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/control.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/corner.jpg",
+  "timestamp": "19970709203127",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_corner.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/corner.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/forwpage.jpg",
+  "timestamp": "19970709204647",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_forwpage.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/forwpage.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/gfx.jpg",
+  "timestamp": "19970709210547",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_gfx.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/gfx.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/hdd.jpg",
+  "timestamp": "19970709204608",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_hdd.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/hdd.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/index.htm",
+  "timestamp": "19970709204631",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_index.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/index.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/logo.jpg",
+  "timestamp": "19970709201839",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_logo.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/logo.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/modem.jpg",
+  "timestamp": "19970709210621",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_modem.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/modem.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/monitor.jpg",
+  "timestamp": "19970709210638",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_monitor.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/monitor.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/ram.jpg",
+  "timestamp": "19970709204515",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_ram.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/ram.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/snd.jpg",
+  "timestamp": "19970709210614",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_snd.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/snd.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/testhead.jpg",
+  "timestamp": "19970709204655",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_testhead.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/testhead.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/testing.htm",
+  "timestamp": "19970709203212",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_testing.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/testing.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/testing.jpg",
+  "timestamp": "19970709203153",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_testing.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/testing.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/upghead.jpg",
+  "timestamp": "19970709204423",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_upghead.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/upghead.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/upgrade.htm",
+  "timestamp": "19970709203145",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_upgrade.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/upgrade.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/upgrade.jpg",
+  "timestamp": "19970709203136",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_upgrade.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/upgrade.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/carsten/upgrade2.htm",
+  "timestamp": "19970709204438",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_carsten_upgrade2.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/carsten/upgrade2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/",
+  "timestamp": "19970709201911",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/02461268.jpg",
+  "timestamp": "19970709211604",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_02461268.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/02461268.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/07475185.jpg",
+  "timestamp": "19970709211652",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_07475185.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/07475185.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/07475339.jpg",
+  "timestamp": "19970709211514",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_07475339.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/07475339.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/18528664.jpg",
+  "timestamp": "19970709211523",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_18528664.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/18528664.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/18572345.jpg",
+  "timestamp": "19970709211641",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_18572345.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/18572345.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/38228931.jpg",
+  "timestamp": "19970709211554",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_38228931.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/38228931.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/ad2.gif",
+  "timestamp": "19970709211415",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_ad2.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/ad2.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/aniibs.gif",
+  "timestamp": "19970709211502",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_aniibs.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/aniibs.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/athletic.gif",
+  "timestamp": "19970709211039",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_athletic.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/athletic.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/b1.gif",
+  "timestamp": "19970709210806",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_b1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/b1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/b1a.gif",
+  "timestamp": "19970709211429",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_b1a.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/b1a.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/banner1.gif",
+  "timestamp": "19970709210852",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_banner1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/banner1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/bkbutton.gif",
+  "timestamp": "19970709205132",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_bkbutton.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/bkbutton.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/book1.htm",
+  "timestamp": "19970709210917",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_book1.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/book1.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/book2.htm",
+  "timestamp": "19970709211632",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_book2.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/book2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/book9.gif",
+  "timestamp": "19970709211436",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_book9.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/book9.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button1.gif",
+  "timestamp": "19970709203505",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button2.gif",
+  "timestamp": "19970709203526",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button2.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button2.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button3.gif",
+  "timestamp": "19970709203557",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button3.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button3.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button4.gif",
+  "timestamp": "19970709204135",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button4.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button4.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button5.gif",
+  "timestamp": "19970709203918",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button5.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button5.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/button6.gif",
+  "timestamp": "19970709204117",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_button6.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/button6.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/chbutton.gif",
+  "timestamp": "19970709205029",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_chbutton.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/chbutton.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubbook.htm",
+  "timestamp": "19970709205039",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubbook.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubbook.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubfame.htm",
+  "timestamp": "19970709203537",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubfame.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubfame.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubfood.htm",
+  "timestamp": "19970709203515",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubfood.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubfood.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubgabb.gif",
+  "timestamp": "19970709205221",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubgabb.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubgabb.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubhoro.htm",
+  "timestamp": "19970709203423",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubhoro.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubhoro.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/clubspor.htm",
+  "timestamp": "19970709203932",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_clubspor.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/clubspor.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/danger.gif",
+  "timestamp": "19970709211053",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_danger.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/danger.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/dot.gif",
+  "timestamp": "19970709205008",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_dot.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/dot.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/fd1.gif",
+  "timestamp": "19970709204928",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_fd1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/fd1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/fd1a.gif",
+  "timestamp": "19970709210717",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_fd1a.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/fd1a.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/field.gif",
+  "timestamp": "19970709211113",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_field.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/field.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/food1.htm",
+  "timestamp": "19970709204935",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_food1.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/food1.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/foot2.gif",
+  "timestamp": "19970709204917",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_foot2.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/foot2.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/foot2a.gif",
+  "timestamp": "19970709205214",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_foot2a.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/foot2a.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/h1.gif",
+  "timestamp": "19970709204952",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_h1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/h1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/health.gif",
+  "timestamp": "19970709211135",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_health.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/health.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/help.htm",
+  "timestamp": "19970709203605",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_help.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/help.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/hlink1.gif",
+  "timestamp": "19970709204733",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_hlink1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/hlink1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/hlink2.gif",
+  "timestamp": "19970709204758",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_hlink2.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/hlink2.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/home_bg.jpg",
+  "timestamp": "19970709203251",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_home_bg.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/home_bg.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/horo1.htm",
+  "timestamp": "19970709204723",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_horo1.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/horo1.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/horo2.htm",
+  "timestamp": "19970709204747",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_horo2.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/horo2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/HOROBG.JPG",
+  "timestamp": "19970709210656",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_HOROBG.JPG",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/HOROBG.JPG",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/hr1.gif",
+  "timestamp": "19970709204713",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_hr1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/hr1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/hr1a.gif",
+  "timestamp": "19970709210706",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_hr1a.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/hr1a.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/index.htm",
+  "timestamp": "19970709204806",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_index.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/index.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/indoor.gif",
+  "timestamp": "19970709211158",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_indoor.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/indoor.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/logo.jpg",
+  "timestamp": "19970709201930",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_logo.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/logo.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/martial.gif",
+  "timestamp": "19970709211212",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_martial.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/martial.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/motor.gif",
+  "timestamp": "19970709211227",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_motor.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/motor.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/olympic.gif",
+  "timestamp": "19970709211243",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_olympic.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/olympic.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/orderbut.gif",
+  "timestamp": "19970709211545",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_orderbut.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/orderbut.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/partners.jpg",
+  "timestamp": "19970709210823",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_partners.jpg",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/partners.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/phbutton.gif",
+  "timestamp": "19970709205143",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_phbutton.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/phbutton.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/recipie.htm",
+  "timestamp": "19970709210738",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_recipie.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/recipie.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/shoot.gif",
+  "timestamp": "19970709211258",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_shoot.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/shoot.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/soon.gif",
+  "timestamp": "19970709210750",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_soon.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/soon.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/soon.htm",
+  "timestamp": "19970709205022",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_soon.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/soon.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/soon2.htm",
+  "timestamp": "19970709210727",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_soon2.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/soon2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/sp1.gif",
+  "timestamp": "19970709205256",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_sp1.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/sp1.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/sp1a.gif",
+  "timestamp": "19970709211422",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_sp1a.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/sp1a.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/spice.gif",
+  "timestamp": "19970709211453",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_spice.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/spice.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/sportcon.htm",
+  "timestamp": "19970709205328",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_sportcon.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/sportcon.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/stbutton.gif",
+  "timestamp": "19970709205204",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_stbutton.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/stbutton.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/stories.htm",
+  "timestamp": "19970709205156",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_stories.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/stories.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/story2.gif",
+  "timestamp": "19970709210945",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_story2.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/story2.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/submit.htm",
+  "timestamp": "19970709210958",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_submit.htm",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/submit.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/swd.gif",
+  "timestamp": "19970709204153",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_swd.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/swd.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/water.gif",
+  "timestamp": "19970709211318",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_water.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/water.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpages/sparkle/winter.gif",
+  "timestamp": "19970709211346",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpages_sparkle_winter.gif",
+  "site_path": "www2.clubgabbay.com/memberpages/sparkle/winter.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/memberpics_form.cfm",
+  "timestamp": "19970709202401",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_memberpics_form.cfm",
+  "site_path": "www2.clubgabbay.com/memberpics_form.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/members.htm",
+  "timestamp": "19970709200938",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_members.htm",
+  "site_path": "www2.clubgabbay.com/members.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/menu.cfm",
+  "timestamp": "19970709200741",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_menu.cfm",
+  "site_path": "www2.clubgabbay.com/menu.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/messages/",
+  "timestamp": "19961031153231",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_messages_",
+  "site_path": "clubgabbay.com/messages/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/messages/",
+  "timestamp": "19981202162925",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_messages_",
+  "site_path": "www.clubgabbay.com/messages/index.html",
+  "winner_url": "http://clubgabbay.com:80/messages/"
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/messages.htm",
+  "timestamp": "19970709200901",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_messages.htm",
+  "site_path": "www2.clubgabbay.com/messages.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/michael.jpg",
+  "timestamp": "19970709201014",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_michael.jpg",
+  "site_path": "www2.clubgabbay.com/michael.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/msgcenter_maillist_edit.cfm",
+  "timestamp": "19970709201940",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_msgcenter_maillist_edit.cfm",
+  "site_path": "www2.clubgabbay.com/msgcenter_maillist_edit.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/msgcenter_sendmail_form.cfm",
+  "timestamp": "19970709201950",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_msgcenter_sendmail_form.cfm",
+  "site_path": "www2.clubgabbay.com/msgcenter_sendmail_form.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/msgcenter_viewer.cfm",
+  "timestamp": "19970709201959",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_msgcenter_viewer.cfm",
+  "site_path": "www2.clubgabbay.com/msgcenter_viewer.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/network.html",
+  "timestamp": "19970709201032",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_network.html",
+  "site_path": "www2.clubgabbay.com/network.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/new_members_form.cfm",
+  "timestamp": "19970709202344",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_new_members_form.cfm",
+  "site_path": "www2.clubgabbay.com/new_members_form.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/opportunities.gif",
+  "timestamp": "19970709201435",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_opportunities.gif",
+  "site_path": "www2.clubgabbay.com/opportunities.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/opportunities.htm",
+  "timestamp": "19970709201001",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_opportunities.htm",
+  "site_path": "www2.clubgabbay.com/opportunities.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/opps_on.gif",
+  "timestamp": "19970709202228",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_opps_on.gif",
+  "site_path": "www2.clubgabbay.com/opps_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/order.html",
+  "timestamp": "19990828223122",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_order.html",
+  "site_path": "www.clubgabbay.com/order.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://clubgabbay.com:80/otherhalf.html",
+  "timestamp": "19990824051653",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_otherhalf.html",
+  "site_path": "clubgabbay.com/otherhalf.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/otherhalf.html",
+  "timestamp": "19991006091623",
+  "log_status": "SKIP",
+  "flat_file": "clubgabbay.com_otherhalf.html",
+  "site_path": "www.clubgabbay.com/otherhalf.html",
+  "winner_url": "http://clubgabbay.com:80/otherhalf.html"
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/paradise.cfm",
+  "timestamp": "19970709203025",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_paradise.cfm",
+  "site_path": "www2.clubgabbay.com/paradise.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/paradise_sm.jpg",
+  "timestamp": "19970709203042",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_paradise_sm.jpg",
+  "site_path": "www2.clubgabbay.com/paradise_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/profile.gif",
+  "timestamp": "19970709201114",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_profile.gif",
+  "site_path": "www2.clubgabbay.com/profile.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/profile_on.gif",
+  "timestamp": "19970709202042",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_profile_on.gif",
+  "site_path": "www2.clubgabbay.com/profile_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/q_and_a.html",
+  "timestamp": "19970709201043",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_q_and_a.html",
+  "site_path": "www2.clubgabbay.com/q_and_a.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/queue.gif",
+  "timestamp": "19970709201359",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_queue.gif",
+  "site_path": "www2.clubgabbay.com/queue.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/queue_on.gif",
+  "timestamp": "19970709202132",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_queue_on.gif",
+  "site_path": "www2.clubgabbay.com/queue_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/register.html",
+  "timestamp": "19981203153158",
+  "log_status": "OK",
+  "flat_file": "clubgabbay.com_register.html",
+  "site_path": "www.clubgabbay.com/register.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/rock_sm.jpg",
+  "timestamp": "19970709202908",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_rock_sm.jpg",
+  "site_path": "www2.clubgabbay.com/rock_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/shop.gif",
+  "timestamp": "19970709201428",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_shop.gif",
+  "site_path": "www2.clubgabbay.com/shop.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/shop.htm",
+  "timestamp": "19970709200927",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_shop.htm",
+  "site_path": "www2.clubgabbay.com/shop.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/shop_off.gif",
+  "timestamp": "19970709202212",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_shop_off.gif",
+  "site_path": "www2.clubgabbay.com/shop_off.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/shop_on.gif",
+  "timestamp": "19970709202527",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_shop_on.gif",
+  "site_path": "www2.clubgabbay.com/shop_on.gif",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/soul.cfm",
+  "timestamp": "19970709202915",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_soul.cfm",
+  "site_path": "www2.clubgabbay.com/soul.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/soul_searching_sm.jpg",
+  "timestamp": "19970709202926",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_soul_searching_sm.jpg",
+  "site_path": "www2.clubgabbay.com/soul_searching_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/speakeasy.cfm",
+  "timestamp": "19970709202622",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_speakeasy.cfm",
+  "site_path": "www2.clubgabbay.com/speakeasy.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/speakeasy_sm.jpg",
+  "timestamp": "19970709202806",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_speakeasy_sm.jpg",
+  "site_path": "www2.clubgabbay.com/speakeasy_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getcat.cfm?vcode=1&vdesc=Virtual+Flower+Shop",
+  "timestamp": "19970709202025",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getcat.cfm_vcode_1_vdesc_Virtual+Flower+Shop",
+  "site_path": "www2.clubgabbay.com/vstore_getcat.cfm_vcode_1_vdesc_Virtual+Flower+Shop",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getcat.cfm?vcode=2&vdesc=Virtual+Bakery+",
+  "timestamp": "19970709202008",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getcat.cfm_vcode_2_vdesc_Virtual+Bakery+",
+  "site_path": "www2.clubgabbay.com/vstore_getcat.cfm_vcode_2_vdesc_Virtual+Bakery+",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getitem.cfm?vcode=1&vscode=1",
+  "timestamp": "19970709204356",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getitem.cfm_vcode_1_vscode_1",
+  "site_path": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_1",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getitem.cfm?vcode=1&vscode=2",
+  "timestamp": "19970709204310",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getitem.cfm_vcode_1_vscode_2",
+  "site_path": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_2",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getitem.cfm?vcode=1&vscode=3",
+  "timestamp": "19970709204255",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getitem.cfm_vcode_1_vscode_3",
+  "site_path": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_1_vscode_3",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getitem.cfm?vcode=2&vscode=6",
+  "timestamp": "19970709204200",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getitem.cfm_vcode_2_vscode_6",
+  "site_path": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_6",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getitem.cfm?vcode=2&vscode=7",
+  "timestamp": "19970709204219",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getitem.cfm_vcode_2_vscode_7",
+  "site_path": "www2.clubgabbay.com/vstore_getitem.cfm_vcode_2_vscode_7",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_getstore.cfm",
+  "timestamp": "19970709200917",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_getstore.cfm",
+  "site_path": "www2.clubgabbay.com/vstore_getstore.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=2&vicode=10",
+  "timestamp": "19970709210211",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_2_vicode_10",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_10",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=2&vicode=11",
+  "timestamp": "19970709210047",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_2_vicode_11",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_11",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=2&vicode=12",
+  "timestamp": "19970709210254",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_2_vicode_12",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_12",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=1&vicode=13",
+  "timestamp": "19970709210356",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_1_vicode_13",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_13",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=1&vicode=2",
+  "timestamp": "19970709210506",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_1_vicode_2",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_2",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=1&vicode=3",
+  "timestamp": "19970709210526",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_1_vicode_3",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_3",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=3&vicode=4",
+  "timestamp": "19970709205943",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_3_vicode_4",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_4",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=3&vicode=6",
+  "timestamp": "19970709205837",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_3_vicode_6",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_3_vicode_6",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=1&vicode=7",
+  "timestamp": "19970709210312",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_1_vicode_7",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_7",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=1&vicode=8",
+  "timestamp": "19970709210333",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_1_vicode_8",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_1_vicode_8",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=1&vscode=2&vicode=9",
+  "timestamp": "19970709210240",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_1_vscode_2_vicode_9",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_1_vscode_2_vicode_9",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=6&vicode=14",
+  "timestamp": "19970709205421",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_6_vicode_14",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_14",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=6&vicode=15",
+  "timestamp": "19970709205446",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_6_vicode_15",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_6_vicode_15",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=7&vicode=16",
+  "timestamp": "19970709205557",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_7_vicode_16",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_16",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=7&vicode=18",
+  "timestamp": "19970709205625",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_7_vicode_18",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_18",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=7&vicode=19",
+  "timestamp": "19970709205728",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_7_vicode_19",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_19",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=7&vicode=20",
+  "timestamp": "19970709205531",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_7_vicode_20",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_20",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstore_send_form.cfm?vcode=2&vscode=7&vicode=21",
+  "timestamp": "19970709205512",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstore_send_form.cfm_vcode_2_vscode_7_vicode_21",
+  "site_path": "www2.clubgabbay.com/vstore_send_form.cfm_vcode_2_vscode_7_vicode_21",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/064.jpg",
+  "timestamp": "19970709202033",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_064.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/064.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/063_sm.jpg",
+  "timestamp": "19970709204412",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_063_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/063_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/13/redroses_sm.jpg",
+  "timestamp": "19970709210412",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_13_redroses_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/13/redroses_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/2/063_sm.jpg",
+  "timestamp": "19970709210517",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_2_063_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/2/063_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/3/064_sm.jpg",
+  "timestamp": "19970709210537",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_3_064_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/3/064_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/7/056_sm.jpg",
+  "timestamp": "19970709210325",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_7_056_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/7/056_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/1/8/057_sm.jpg",
+  "timestamp": "19970709210341",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_1_8_057_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/1/8/057_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/2/061_sm.jpg",
+  "timestamp": "19970709204339",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_2_061_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/2/061_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/2/10/059_sm.jpg",
+  "timestamp": "19970709210222",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_2_10_059_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/2/10/059_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/2/11/045_sm.jpg",
+  "timestamp": "19970709210118",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_2_11_045_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/2/11/045_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/2/12/061_sm.jpg",
+  "timestamp": "19970709210304",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_2_12_061_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/2/12/061_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/2/9/058_sm.jpg",
+  "timestamp": "19970709210247",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_2_9_058_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/2/9/058_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/3/043_sm.jpg",
+  "timestamp": "19970709204302",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_3_043_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/3/043_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/1/3/6/053_sm.jpg",
+  "timestamp": "19970709205931",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_1_3_6_053_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/1/3/6/053_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/6/14/cake_birthday_sm.jpg",
+  "timestamp": "19970709205433",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_6_14_cake_birthday_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/6/14/cake_birthday_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/6/15/cake2_sm.jpg",
+  "timestamp": "19970709205458",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_6_15_cake2_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/6/15/cake2_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/6/cake_birthday_sm.jpg",
+  "timestamp": "19970709204210",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_6_cake_birthday_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/6/cake_birthday_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/16/choc2_sm.jpg",
+  "timestamp": "19970709205614",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_16_choc2_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/16/choc2_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/18/choc3_sm.jpg",
+  "timestamp": "19970709205633",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_18_choc3_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/18/choc3_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/19/jellybeans_sm.JPG",
+  "timestamp": "19970709205820",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_19_jellybeans_sm.JPG",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/19/jellybeans_sm.JPG",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/20/candycorn_sm.JPG",
+  "timestamp": "19970709205543",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_20_candycorn_sm.JPG",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/20/candycorn_sm.JPG",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/21/candy_sm.jpg",
+  "timestamp": "19970709205523",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_21_candy_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/21/candy_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/7/choc2_sm.jpg",
+  "timestamp": "19970709204239",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_7_choc2_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/7/choc2_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/vstores/2/cake_birthday_sm.jpg",
+  "timestamp": "19970709202017",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_vstores_2_cake_birthday_sm.jpg",
+  "site_path": "www2.clubgabbay.com/vstores/2/cake_birthday_sm.jpg",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdate_browse_search.cfm",
+  "timestamp": "19970709201122",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdate_browse_search.cfm",
+  "site_path": "www2.clubgabbay.com/webdate_browse_search.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdate_chat.cfm",
+  "timestamp": "19970709201158",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdate_chat.cfm",
+  "site_path": "www2.clubgabbay.com/webdate_chat.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdate_profile.cfm",
+  "timestamp": "19970709201103",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdate_profile.cfm",
+  "site_path": "www2.clubgabbay.com/webdate_profile.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdate_search.cfm",
+  "timestamp": "19970709201140",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdate_search.cfm",
+  "site_path": "www2.clubgabbay.com/webdate_search.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdates.cfm",
+  "timestamp": "19970709200722",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdates.cfm",
+  "site_path": "www2.clubgabbay.com/webdates.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/webdates_intro.htm",
+  "timestamp": "19970709200810",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_webdates_intro.htm",
+  "site_path": "www2.clubgabbay.com/webdates_intro.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www2.clubgabbay.com:80/welcome.htm",
+  "timestamp": "19970709200756",
+  "log_status": "OK",
+  "flat_file": "www2.clubgabbay.com_welcome.htm",
+  "site_path": "www2.clubgabbay.com/welcome.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://chat.clubgabbay.com:80/",
+  "timestamp": "19980111133133",
+  "log_status": "OK",
+  "flat_file": "chat.clubgabbay.com_index.html",
+  "site_path": "chat.clubgabbay.com/index.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://chat.clubgabbay.com:80/htmls/lobby.html",
+  "timestamp": "19991009000007",
+  "log_status": "OK",
+  "flat_file": "chat.clubgabbay.com_htmls_lobby.html",
+  "site_path": "chat.clubgabbay.com/htmls/lobby.html",
+  "winner_url": null
+ },
+ {
+  "url": "http://members.clubgabbay.com:80/chat2.htm",
+  "timestamp": "19981203051817",
+  "log_status": "OK",
+  "flat_file": "members.clubgabbay.com_chat2.htm",
+  "site_path": "members.clubgabbay.com/chat2.htm",
+  "winner_url": null
+ },
+ {
+  "url": "http://members.clubgabbay.com:80/New_members_form.cfm",
+  "timestamp": "19981202010550",
+  "log_status": "OK",
+  "flat_file": "members.clubgabbay.com_New_members_form.cfm",
+  "site_path": "members.clubgabbay.com/New_members_form.cfm",
+  "winner_url": null
+ },
+ {
+  "url": "http://www.clubgabbay.com:80/destiny/part10.html",
+  "timestamp": "20001006",
+  "log_status": "RECOVERED",
+  "flat_file": "clubgabbay.com_destiny_part10.html",
+  "site_path": "www.clubgabbay.com/destiny/part10.html",
+  "winner_url": null
+ }
+]

@@ -1,0 +1,32 @@
+<! -- Copyright 1996 Mohave Mirage Company, Long Beach, CA 90814 (310) 433-9303 >
+<! DYNAMIC Database Driven Website Development><HTML>
+<HEAD><TITLE>Virtual Stores</TITLE></HEAD>
+<BODY background=http://www.clubgabbay.com/images/bg/home_bg.jpg>
+<CENTER><H1>Select An Item</H1></CENTER>
+
+
+
+<CENTER>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=6&vicode=14">
+
+
+<IMG SRC="vstores/2/6/14/cake_birthday_sm.jpg" ALT="Birthday Cake"></A>
+
+
+</A>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=6&vicode=15">
+
+
+<IMG SRC="vstores/2/6/15/cake2_sm.jpg" ALT="Elegant "></A>
+
+
+</A>
+
+</CENTER>
+
+</BODY>
+</HTML>
+
+

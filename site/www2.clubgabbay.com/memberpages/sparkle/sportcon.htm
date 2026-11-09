@@ -1,0 +1,129 @@
+<!---- SWD'97 ---->
+
+<!---- SPORT LINKS ---->
+
+<HTML>
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide from JavaScript-Impaired Browsers
+/* First, if you load fewer or more than 5 sponsors
+   into your rotator, change the "sponnr" variable
+   to the actual number of sponsor .gifs you plan to
+   load. */
+number_of_sponsors=5;
+
+var sctr=0;
+var halt=0;
+var isn=new Array();
+for (i=0;i<number_of_sponsors;i++){
+ isn[i]=new Image();
+}
+
+/* The sponsor .gif names are loaded into the isn[x]
+   sponsor images array.  You may load any number of
+   sponsor images (.gif or .jpg or both) into this
+   array. They must all be the same size, however.
+   Substitute your own .gif filenames for the ones
+   shown here. Note that the first .gif must appear
+   in the isn[0] array element. */
+isn[0].src="ad1.gif ";
+isn[1].src="ad2.gif ";
+isn[2].src="SWBAN.GIF";
+isn[3].src="ad4.gif ";
+isn[4].src="STARS.GIF";
+/* Finally, replace the URL's below with those of
+   your sponsors IN THE SAME ORDER. */
+var durl=new Array();
+durl[0]="help.htm";
+durl[1]="//www.sparkle.home.ml.org";
+durl[2]="//www.sparkle.home.ml.org";
+durl[3]="//www2.clubgabbay.com/main.htm";
+durl[4]="help.htm";
+
+/* This script is set to rotate every 10 seconds.
+   (5000=5 seconds, so 30000 would equal 30, etc)
+   You should change the number in the setTimeout()
+   call below for the number of seconds you wish. */
+function rotateIt(){
+ if (halt!=1){
+  sctr++;
+  if (sctr>number_of_sponsors-1){
+   sctr=0;
+   }
+  document.sponsor.src=isn[sctr].src;
+  setTimeout("rotateIt()",7000);
+  }
+ }
+
+/* This code will work just fine with or without
+   frames.  However, if you are in frames and wish
+   to replicate the TARGET="_top" call to remove
+   frames, change the location.href call to:
+    parent.location.href=durl[sctr];
+   below. */
+function doIt(){
+ halt=1;
+ location.href=durl[sctr];
+ }
+
+function dispIt(){
+ parent.window.status=durl[sctr];
+ }
+// End Hiding -->
+</SCRIPT>
+
+
+<TITLE>SPORTS MENU</TITLE>
+
+</HEAD>
+
+<BODY>
+<body background="home_bg.jpg" link="blue" text="black">
+<TABLE ALIGN="LEFT" CELLSPACING="0" CELLPADDING="0" WIDTH="90">
+<TR>
+
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="ath_menu.htm"  ><IMG SRC="athletic.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="dan_menu.htm"  ><IMG SRC="danger.gif" BORDER=0></A>
+</TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="fie_menu.htm" ><IMG SRC="field.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="fit_menu.htm" ><IMG SRC="health.gif" BORDER=0></A>
+<TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="ind_menu.htm" ><IMG SRC="indoor.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="mar_menu.htm"  ><IMG SRC="martial.gif" BORDER=0></A>
+<TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="mot_menu.htm" ><IMG SRC="motor.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="oly_menu.htm" ><IMG SRC="olympic.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="sho_menu.htm" ><IMG SRC="shoot.gif" BORDER=0></A>
+<TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="wat_menu.htm"  ><IMG SRC="water.gif" BORDER=0></A>
+ </TD></TR><TR>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=90><A HREF="win_menu.htm" ><IMG SRC="winter.gif" BORDER=0></A>
+ </TD></TR><TR>
+<p><P><P>
+<TD ALIGN="LEFT" VALIGN="TOP">
+<a href="clubsport.html">back</a>|<a href="clubgabbay.html">home</a>|<a href="//www2.clubgabbay.com/main.htm">chat</a>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+<TR><TD><A HREF="help.htm" onClick="doIt();return false" onMouseover="dispIt();return true;">
+<IMG SRC="ad2.gif" HEIGHT=80 WIDTH=80 NAME="sponsor" BORDER=0></TD></TR>
+</TABLE>
+
+</TD></TR></table><table align="center" valign="top" width="90%">
+<tr><td align="center" ></td><td align="center"><img src="sp1a.gif"></td>
+</tr></table>
+<center><H5>
+For further information please email <a href="mailto:comments@clubgabbay.com"><i>comments@clubgabbay.com</i></a>
+</H5></center>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide JavaScript from Java-Impaired Browsers
+sctr=0;
+rotateIt();
+// End Hiding -->
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<! -- Copyright 1996 Mohave Mirage Company, Long Beach, CA 90814 (310) 433-9303 >
+<! DYNAMIC Database Driven Website Development><HTML>
+<HEAD><TITLE>Virtual Stores</TITLE></HEAD>
+<BODY background=http://www.clubgabbay.com/images/bg/home_bg.jpg>
+<CENTER><H1>Select An Item</H1></CENTER>
+
+
+
+<CENTER>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=7&vicode=21">
+
+
+<IMG SRC="vstores/2/7/21/candy_sm.jpg" ALT="Candy"></A>
+
+
+</A>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=7&vicode=20">
+
+
+<IMG SRC="vstores/2/7/20/candycorn_sm.JPG" ALT="Candy Corn"></A>
+
+
+</A>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=7&vicode=16">
+
+
+<IMG SRC="vstores/2/7/16/choc2_sm.jpg" ALT="Chocolates #1"></A>
+
+
+</A>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=7&vicode=18">
+
+
+<IMG SRC="vstores/2/7/18/choc3_sm.jpg" ALT="Chocolates #2"></A>
+
+
+</A>
+
+<A href="vstore_send_form.cfm?vcode=2&vscode=7&vicode=19">
+
+
+<IMG SRC="vstores/2/7/19/jellybeans_sm.JPG" ALT="JellyBeans"></A>
+
+
+</A>
+
+</CENTER>
+
+</BODY>
+</HTML>
+
+

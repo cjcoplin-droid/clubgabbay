@@ -1,0 +1,40 @@
+<! -- Copyright 1996 Mohave Mirage Company, Long Beach, CA 90814 (310) 433-9303 >
+<! DYNAMIC Database Driven Website Development>
+<HTML><HEAD>
+<TITLE>ClubGabbay: The Lobby</TITLE></HEAD>
+<body background="http://www.clubgabbay.com/images/bg/lobby_bg.jpg">
+<center>
+<img src="http://www.clubgabbay.com/images/lobby.jpg">
+</center>
+<blockquote>
+Any concern that the interior couldn't live up to expectations fade away as
+you enter the sprawling foyer. This place is classy and cool, from its
+oak-lined walls and vaulted ceiling to the overstuffed furniture and tasteful
+floral displays. The feeling is a satisfying mix of fashion and function, and
+the mood is warm, inviting and sophisticated. You're taken by the exquisite
+fountain that greets your entrance, its gentle waterfalls soothing your soul
+as you drink in the atmosphere and the excitement.  Complimentary cocktails
+await to the left, and behind them a delicious assortment of appetizers.
+</blockquote>
+<center>
+
+
+<form action="lobby2.cfm" method=post target="_top">
+<input type=submit value="Members Enter Lobby Here">
+</form>
+
+
+<!-- GUEST ENTRANCE>
+<form action="http://chat.clubgabbay.com:2000/" method=post target="_top">
+
+<INPUT TYPE=hidden NAME="USER" VALUE="Guest1251">
+
+<input type=hidden name="SAYS" value="<b>Joins The Lobby...</b>">
+<input type=hidden name="HISTORY" value="8">
+<input type=submit value="Guest Entrance Here"> 
+<hr>
+</form> 
+<hr noshade>
+All Rights Reserved, Copyright 1996 ClubGabbay
+</body>
+</html>
