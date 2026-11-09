@@ -1,12 +1,12 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 12:22 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 12:40 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 308 — **308 PASS, 0 FAIL**
-- Rooms walked: 16 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat)
+- Checks run: 330 — **330 PASS, 0 FAIL**
+- Rooms walked: 17 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol)
 
 ## Per-room results
 
@@ -192,12 +192,23 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | westhollywood-chat | poll API returns posted message | PASS | found=1 |
 | westhollywood-chat | presence lists the chatter | PASS |  |
 | westhollywood-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
-| westhollywood-chat | jump to /lobby keeps session, redirects | PASS | status=200 |
-| westhollywood-chat | jump posts join line in lobby | PASS |  |
-| westhollywood-chat | leave lobby redirects to chat directory | PASS | status=200 |
+| westhollywood-chat | jump to /aol keeps session, redirects | PASS | status=200 |
+| westhollywood-chat | jump posts join line in aol | PASS |  |
+| westhollywood-chat | leave aol redirects to chat directory | PASS | status=200 |
+| aol | entry page /aol.html 200 | PASS | status=200 |
+| aol | GET /aol w/o session redirects to entry page | PASS | status=303 loc=/aol.html |
+| aol | guest entry POST redirects to /aol | PASS | status=200 |
+| aol | chat pane shows join line + room name | PASS | status=200 |
+| aol | post a message (303 back to room) | PASS | status=200 |
+| aol | poll API returns posted message | PASS | found=1 |
+| aol | presence lists the chatter | PASS |  |
+| aol | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| aol | jump to /lobby keeps session, redirects | PASS | status=200 |
+| aol | jump posts join line in lobby | PASS |  |
+| aol | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Twestholly', 'Twestholly', 'Guest6220'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6220', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest2462'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest2462', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -242,6 +253,17 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | API ?board=siliconvalley does not return it | PASS |  |
 | board | banned word in neighborhood post is blocked (403) | PASS | status=403 |
 | board | post to an unknown neighborhood board is 404 | PASS | status=404 |
+| aol | AOL entry page serves with its handle form | PASS | status=200 |
+| aol | GET /aol w/o session redirects to entry page | PASS | status=303 loc=/aol.html |
+| aol | room page is the AOL skin with click-to-PM | PASS | status=200 |
+| aol | PM visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
+| aol | chat directory lists AOL Chat | PASS | status=200 |
+| aol | handles board page serves with its own form | PASS | status=200 |
+| aol | handles board post accepted | PASS | status=200 |
+| aol | handles post shows on its own board | PASS |  |
+| aol | handles post does NOT leak onto the main board | PASS |  |
+| aol | API ?board=aol-handles returns the handles post | PASS |  |
+| aol | banned word in handles post is blocked (403) | PASS | status=403 |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -322,7 +344,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | homepage carries the approved blurb | PASS |  |
 | homepage notes monitoring / 18+ / private whispers | PASS |  |
 | link check / (5 links): server matches archive | PASS | all resolve |
-| link check /chat.htm (18 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
+| link check /chat.htm (19 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
 | link check /chat2.htm (33 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
 
@@ -538,9 +560,20 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - westhollywood-chat — poll API returns posted message
 - westhollywood-chat — presence lists the chatter
 - westhollywood-chat — HISTORY=8 caps initial pane at 8
-- westhollywood-chat — jump to /lobby keeps session, redirects
-- westhollywood-chat — jump posts join line in lobby
-- westhollywood-chat — leave lobby redirects to chat directory
+- westhollywood-chat — jump to /aol keeps session, redirects
+- westhollywood-chat — jump posts join line in aol
+- westhollywood-chat — leave aol redirects to chat directory
+- aol — entry page /aol.html 200
+- aol — GET /aol w/o session redirects to entry page
+- aol — guest entry POST redirects to /aol
+- aol — chat pane shows join line + room name
+- aol — post a message (303 back to room)
+- aol — poll API returns posted message
+- aol — presence lists the chatter
+- aol — HISTORY=8 caps initial pane at 8
+- aol — jump to /lobby keeps session, redirects
+- aol — jump posts join line in lobby
+- aol — leave lobby redirects to chat directory
 - lobby — guest form (archived Guest1251) redirects to /lobby
 - lobby — guest gets fresh auto-name GuestNNNN (not literal 1251)
 - lobby — member entry flagged (member) in presence
@@ -588,6 +621,17 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - board — API ?board=siliconvalley does not return it
 - board — banned word in neighborhood post is blocked (403)
 - board — post to an unknown neighborhood board is 404
+- aol — AOL entry page serves with its handle form
+- aol — GET /aol w/o session redirects to entry page
+- aol — room page is the AOL skin with click-to-PM
+- aol — PM visible to sender + recipient only, not others
+- aol — chat directory lists AOL Chat
+- aol — handles board page serves with its own form
+- aol — handles board post accepted
+- aol — handles post shows on its own board
+- aol — handles post does NOT leak onto the main board
+- aol — API ?board=aol-handles returns the handles post
+- aol — banned word in handles post is blocked (403)
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board
@@ -632,7 +676,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
 - site — link check / (5 links): server matches archive
-- site — link check /chat.htm (18 links): server matches archive
+- site — link check /chat.htm (19 links): server matches archive
 - site — link check /chat2.htm (33 links): server matches archive
 - site — message survives server restart (SQLite persistence)
 - board — board post survives server restart (stays up)

@@ -113,7 +113,7 @@ def stop_server(proc):
 ROOMS = ["lobby", "blue", "speakeasy", "denim", "hard", "soul", "jive",
          "classical", "paradise", "anything-goes", "jokeland",
          "hollywood-chat", "siliconvalley-chat", "sunsetstrip-chat",
-         "area51-chat", "westhollywood-chat"]
+         "area51-chat", "westhollywood-chat", "aol"]
 ENTRY_PAGE = {
     "lobby": "/www2.clubgabbay.com/lobby.cfm",
     "blue": "/www.clubgabbay.com/htmls/blue.html",
@@ -131,6 +131,7 @@ ENTRY_PAGE = {
     "sunsetstrip-chat": "/neighborhoods/chat/sunsetstrip.html",
     "area51-chat": "/neighborhoods/chat/area51.html",
     "westhollywood-chat": "/neighborhoods/chat/westhollywood.html",
+    "aol": "/aol.html",
 }
 JOIN_TEXT = {
     "lobby": "Joins The Lobby", "blue": "Joins Blue Notes",
@@ -145,6 +146,7 @@ JOIN_TEXT = {
     "sunsetstrip-chat": "Joins The SunsetStrip Chat",
     "area51-chat": "Joins The Area51 Chat",
     "westhollywood-chat": "Joins The WestHollywood Chat",
+    "aol": "Joins AOL Chat",
 }
 # The originals (Wayback, Dec 1996): four neighborhoods shared GeoCities'
 # background.gif; Area51 had its own area_glow.gif on a black page.
@@ -347,6 +349,8 @@ def run_tests(base):
     run_board_restore_tests()
     # ---- neighborhood boards: one per portal (Paul, 2026-11-09)
     run_neighborhood_board_tests(base)
+    # ---- AOL Chat + old-AOL-handles board (Paul, 2026-11-09)
+    run_aol_tests(base)
     run_board_migration_tests()
     # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
     run_neighborhood_pages_tests(base)
@@ -673,6 +677,85 @@ def run_neighborhood_board_tests(base):
                       "message": "hood-board-test-nope-12345"})
     check("board", "post to an unknown neighborhood board is 404",
           s == 404, "status=%d" % s)
+
+
+def run_aol_tests(base):
+    """AOL Chat (Paul, 2026-11-09): the same room engine in an AOL 4.0
+    skin -- click a name in the member list to PM them, otherwise just
+    read along. Plus the old-AOL-handles board."""
+    b = Client(base)
+    s, body, _ = b.get("/aol.html")
+    check("aol", "AOL entry page serves with its handle form",
+          s == 200 and b'action="/aol"' in body
+          and b'name="USER"' in body
+          and b"aol-handles/board/" in body, "status=%d" % s)
+    s, _, h = raw_get(base, "/aol")
+    check("aol", "GET /aol w/o session redirects to entry page",
+          s in (301, 302, 303) and "aol.html" in h.get("Location", ""),
+          "status=%d loc=%s" % (s, h.get("Location", "")))
+    c = Client(base)
+    c.post("/aol", {"USER": "AolSkin", "SAYS": "<b>Joins AOL Chat...</b>",
+                    "HISTORY": "8"})
+    s, body, _ = c.get("/aol")
+    check("aol", "room page is the AOL skin with click-to-PM",
+          s == 200 and b"AOL Chat -- Club Gabbay" in body
+          and b"People in this room:" in body
+          and b'id="imbox"' in body
+          and b'action="/aol/whisper"' in body
+          and b"pmUser(this.textContent)" in body
+          and b'value="Send"' in body
+          and b"aol-handles/board/" in body, "status=%d" % s)
+    # PM round-trip in the AOL room: sender + recipient only
+    w1, w2, w3 = Client(base), Client(base), Client(base)
+    for cl, u in ((w1, "AolA"), (w2, "AolB"), (w3, "AolC")):
+        cl.post("/aol", {"USER": u, "SAYS": "<b>Joins AOL Chat...</b>",
+                         "HISTORY": "8"})
+    time.sleep(2.1)
+    w1.post("/aol/whisper", {"to": "AolB", "text": "aol-pm-for-b-only"})
+    time.sleep(0.2)
+    seen = {}
+    for label, cl in (("sender", w1), ("recipient", w2), ("other", w3)):
+        s, body, _ = cl.get("/api/aol/messages?since=0",
+                            headers={"Accept": "application/json"})
+        seen[label] = "aol-pm-for-b-only" in body.decode("utf-8", "replace")
+    check("aol", "PM visible to sender + recipient only, not others",
+          seen["sender"] and seen["recipient"] and not seen["other"],
+          str(seen))
+    # chat directory lists AOL Chat (the handles board is linked from
+    # the AOL entry page and the room, not the directory -- the link
+    # check requires directory links to be files in the archive)
+    s, body, _ = b.get("/chat.htm")
+    check("aol", "chat directory lists AOL Chat",
+          s == 200 and b"aol.html" in body, "status=%d" % s)
+    # the old-AOL-handles board
+    s, body, _ = b.get("/aol-handles/board/")
+    check("aol", "handles board page serves with its own form",
+          s == 200
+          and b'action="/aol-handles/board/post"' in body
+          and b"Old AOL handles message board" in body
+          and b"screen name" in body, "status=%d" % s)
+    time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
+    s, _, _ = b.post("/aol-handles/board/post",
+                     {"to": "", "from": "AolPoster", "subject": "hi",
+                      "message": "aol-handles-test-12345"})
+    check("aol", "handles board post accepted",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = b.get("/aol-handles/board/")
+    check("aol", "handles post shows on its own board",
+          b"aol-handles-test-12345" in body, "")
+    s, body, _ = b.get("/messages/")
+    check("aol", "handles post does NOT leak onto the main board",
+          b"aol-handles-test-12345" not in body, "")
+    s, body, _ = b.get("/api/board/posts?board=aol-handles")
+    data = json.loads(body.decode("utf-8"))
+    check("aol", "API ?board=aol-handles returns the handles post",
+          any(p.get("message") == "aol-handles-test-12345"
+              for p in data.get("posts", [])), "")
+    s, _, _ = b.post("/aol-handles/board/post",
+                     {"to": "", "from": "AolFilter", "subject": "",
+                      "message": "this is a fuck test"})
+    check("aol", "banned word in handles post is blocked (403)",
+          s == 403, "status=%d" % s)
 
 
 def run_board_migration_tests():

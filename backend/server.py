@@ -203,6 +203,21 @@ ROOMS = {
         "entry": "/neighborhoods/chat/westhollywood.html",
         "join": "Joins The WestHollywood Chat...",
     },
+    # AOL-style chat (Paul, 2026-11-09): a landing page with a chat box
+    # that looks like AOL -- click a name in the member list to PM them,
+    # otherwise just read along. Same engine as every other room (live
+    # poll, handles, whispers, same word filter + strikes); only the
+    # skin is different (render_aol_room_page, AOL 4.0 chat-room look).
+    "aol": {
+        "name": "AOL Chat",
+        "aol": True,
+        "bg": None, "bgcolor": "#C0C0C0",
+        "art": None,
+        "desc": "You've got chat!!! Talk with your old AOL neighbors -- "
+                "click a name on the right to send them a private message.",
+        "entry": "/aol.html",
+        "join": "Joins AOL Chat...",
+    },
 }
 # The archived Anything Goes form posts to /anything-goes; accept the
 # underscore spelling too.
@@ -701,6 +716,145 @@ setInterval(poll, 4000);
        last_id, slug)
 
 
+def render_aol_room_page(slug, sess, initial_msgs):
+    """AOL Chat (Paul, 2026-11-09): the same room engine in an AOL 4.0
+    chat-room skin -- blue title bar, chat on the left, member list on
+    the right, click a name to open a private-message box to them. The
+    poll, the filter and the whisper delivery are the shared ones."""
+    info = ROOMS[slug]
+    history_opts = "".join(
+        '<option value="%d"%s>%d</option>' % (n, " selected" if n == sess["history"] else "", n)
+        for n in (8, 16, 32))
+    users = presence(slug)
+    me = sess["user"]
+    members = "".join(
+        '<a href="#" onclick="return pmUser(this.textContent);">%s</a><br>'
+        % esc(u.split(" (member)")[0])
+        for u in users if u.split(" (member)")[0] != me)
+    lines = "".join(render_msg(m) for m in initial_msgs)
+    last_id = initial_msgs[-1]["id"] if initial_msgs else 0
+    return """<html><head><title>ClubGabbay: %s</title></head>
+<body bgcolor="#C0C0C0" text="black" link="blue" vlink="purple">
+<center>
+<table width="640" border="2" cellpadding="0" cellspacing="0" bgcolor="#D4D0C8">
+<tr><td bgcolor="#000080"><font color="white"><b>&nbsp;AOL Chat -- Club Gabbay</b></font></td>
+<td bgcolor="#000080" align="right"><font color="white"><b>X&nbsp;</b></font></td></tr>
+<tr><td colspan="2">
+<table width="620" cellpadding="4" cellspacing="0"><tr>
+<td width="460" valign="top" bgcolor="white">
+<div id="chat" style="height:300px;overflow:auto;background:white;">%s</div>
+</td>
+<td width="150" valign="top" bgcolor="#D4D0C8">
+<b>People in this room:</b><br>
+<div id="members">%s</div>
+</td>
+</tr></table>
+</td></tr>
+<tr><td colspan="2">
+<form action="/%s/post" method="post">
+<input type="text" name="text" size="50" maxlength="500">
+<input type="submit" value="Send">
+</form>
+</td></tr>
+<tr><td colspan="2">
+<div id="imbox" style="display:none;">
+<table width="620" border="1" cellpadding="2" cellspacing="0" bgcolor="#D4D0C8">
+<tr><td bgcolor="#000080"><font color="white"><b>Instant Message to <span id="im-to-name"></span></b></font></td>
+<td bgcolor="#000080" align="right"><a href="#" onclick="return closeIm();"><font color="white">X</font></a></td></tr>
+<tr><td colspan="2">
+<form action="/%s/whisper" method="post">
+<input type="hidden" name="to" id="im-to" value="">
+<input type="text" name="text" id="im-text" size="45" maxlength="500">
+<input type="submit" value="Send">
+</form>
+</td></tr>
+</table>
+</div>
+</td></tr>
+<tr><td colspan="2">
+<font size="-1">Jump to another room:<br>%s</font>
+<hr noshade>
+<form action="/%s/history" method="post">
+Show last
+<select name="HISTORY">%s</select> messages
+<input type="submit" value="Change">
+</form>
+<p><font size="-1">
+<a href="/%s/leave">Leave %s</a> |
+<a href="/chat.htm">Chat Directory</a> |
+<a href="/aol-handles/board/">Old AOL handles board</a> |
+<a href="#" onclick="location.reload(); return false;">Refresh</a>
+</font></p>
+<p><font size="-1">You are chatting as <b>%s</b>%s.
+Messages refresh automatically every few seconds.
+Click a name on the right to send them a private message.</font></p>
+<hr noshade>
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
+</td></tr>
+</table>
+</center>
+<script>
+var lastId = %d;
+var room = "%s";
+var me = "%s";
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function lineHtml(m){
+  if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
+  if(m.kind==='leave') return '<i><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</i><br>';
+  if(m.kind==='whisper') return '<i><font color="#800080"><b>'+escHtml(m.user)+'</b> whispers to <b>'+escHtml(m.to)+'</b>: '+escHtml(m.text)+'</font></i><br>';
+  return '<b>'+escHtml(m.user)+':</b> '+escHtml(m.text)+'<br>';
+}
+function membersHtml(list){
+  var others = list.map(function(u){return u.split(' (member)')[0];})
+    .filter(function(u){return u !== me;});
+  if(!others.length) return '(just you)';
+  return others.map(function(u){
+    return '<a href="#" onclick="return pmUser(this.textContent);">'+escHtml(u)+'</a>';
+  }).join('<br>');
+}
+function pmUser(name){
+  document.getElementById('im-to').value = name;
+  document.getElementById('im-to-name').textContent = name;
+  document.getElementById('imbox').style.display = 'block';
+  document.getElementById('im-text').focus();
+  return false;
+}
+function closeIm(){
+  document.getElementById('imbox').style.display = 'none';
+  return false;
+}
+function poll(){
+  fetch('/api/'+room+'/messages?since='+lastId, {credentials:'same-origin'})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var chat=document.getElementById('chat');
+      var added=0;
+      data.messages.forEach(function(m){
+        chat.innerHTML += lineHtml(m);
+        if(m.id>lastId) lastId=m.id;
+        added++;
+      });
+      document.getElementById('members').innerHTML = membersHtml(data.presence);
+      // Only follow new messages when the reader is already near the
+      // bottom of the chat box. Never yank it while someone is typing
+      // or reading back (Paul, 2026-11-09).
+      if(added>0){
+        var nearBottom = (chat.scrollHeight - chat.scrollTop - chat.clientHeight) < 120;
+        if(nearBottom) chat.scrollTop = chat.scrollHeight;
+      }
+    })
+    .catch(function(){});
+}
+setInterval(poll, 4000);
+</script>
+</body></html>
+""" % (esc(info["name"]), lines, members, slug, slug,
+       room_jump_links(slug), slug, history_opts,
+       slug, esc(info["name"]),
+       esc(sess["user"]), " (member)" if sess.get("member") else "",
+       last_id, slug, esc(sess["user"]))
+
+
 def render_member_page():
     """Member entry (lobby2.cfm / login.cfm) — new code, lobby look.
     v1: any password is accepted; no member accounts are provisioned yet."""
@@ -755,16 +909,35 @@ NEIGHBORHOODS = {
 }
 
 
+# Standalone boards (Paul, 2026-11-09): boards that are not a
+# neighborhood's -- same form + posts + filter + backup as the rest.
+STANDALONE_BOARDS = {
+    "aol-handles": {
+        "name": "Old AOL handles",
+        "intro": ("Were you on AOL back in the day? Leave your old screen "
+                  "name -- say what your handle was, what rooms you hung "
+                  "out in, and who you remember."),
+        "back": "/aol.html",
+        "back_label": "Back to AOL Chat",
+        "bg": "/images/neighborhoods/background.gif",
+    },
+}
+
+
 def board_url(board):
     """Public URL of a board page."""
     if board == "clubgabbay":
         return "/messages/"
+    if board in STANDALONE_BOARDS:
+        return "/%s/board/" % board
     return "/neighborhoods/%s/board/" % board
 
 
 def board_post_url(board):
     if board == "clubgabbay":
         return "/messages/post"
+    if board in STANDALONE_BOARDS:
+        return "/%s/board/post" % board
     return "/neighborhoods/%s/board/post" % board
 
 
@@ -840,6 +1013,27 @@ def render_board_page(board="clubgabbay"):
         if posts:
             new_html += '<center><b>— Messages from 1997 —</b></center>\n'
         return head + sep + "\n" + form + new_html + archive + "</body></html>\n"
+    if board in STANDALONE_BOARDS:
+        info = STANDALONE_BOARDS[board]
+        body = new_html or ('<center><i>No messages yet — be the first to '
+                            'leave one.</i></center>\n')
+        return ('<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">\n<html>\n<head>\n'
+                '<meta http-equiv="Content-Type" content="text/html; '
+                'charset=iso-8859-1">\n'
+                '<title>%s message board -- Club Gabbay</title>\n</head>\n'
+                '<body background="%s">\n'
+                '<center><font size="+2"><strong>%s message board</strong>'
+                '</font></center>\n'
+                '<p><font size="+1">%s</font></p>\n'
+                '%s%s'
+                '<hr>\n<p><a href="%s">%s</a> | '
+                '<a href="/">Club Gabbay Home</a> | '
+                '<a href="/fine-print.html">Fine print</a></p>\n'
+                '<font color=gray size=2>Club Gabbay -- a fan-run homage to the '
+                '1996-1999 original.</font>\n'
+                '</body></html>\n'
+                % (info["name"], info["bg"], info["name"], info["intro"],
+                   form, body, info["back"], info["back_label"]))
     name = NEIGHBORHOODS[board]
     body = new_html or ('<center><i>No messages yet — be the first to '
                         'leave one.</i></center>\n')
@@ -966,7 +1160,10 @@ class Handler(BaseHTTPRequestHandler):
             return
         touch(sess)
         msgs = db_messages(slug, sess["history"], user=sess["user"])
-        self._send(200, render_room_page(slug, sess, msgs))
+        if info.get("aol"):
+            self._send(200, render_aol_room_page(slug, sess, msgs))
+        else:
+            self._send(200, render_room_page(slug, sess, msgs))
 
     def _handle_leave(self, slug):
         sid, sess = get_session(self)
@@ -1050,7 +1247,8 @@ class Handler(BaseHTTPRequestHandler):
         new board message. Same word filter + strikes as public chat;
         board posts are public, so they are filtered. No login: the
         poster types their own From name."""
-        if board != "clubgabbay" and board not in NEIGHBORHOODS:
+        if board != "clubgabbay" and board not in NEIGHBORHOODS \
+                and board not in STANDALONE_BOARDS:
             self._send(404, render_404(self.path))
             return
         back = board_url(board)
@@ -1151,7 +1349,8 @@ class Handler(BaseHTTPRequestHandler):
             # ?board=<slug> filters to one board; no param returns all.
             b = query.get("board", [None])[0]
             if b is not None and b != "clubgabbay" \
-                    and b not in NEIGHBORHOODS:
+                    and b not in NEIGHBORHOODS \
+                    and b not in STANDALONE_BOARDS:
                 self._json(404, {"error": "no such board"})
                 return
             self._json(200, {"posts": db_board_posts(board=b)})
@@ -1172,6 +1371,12 @@ class Handler(BaseHTTPRequestHandler):
                 self._handle_leave(ALIASES.get(base, base))
                 return
         parts = [p for p in path.split("/") if p]
+        if len(parts) == 2 and parts[1] == "board" \
+                and parts[0] in STANDALONE_BOARDS:
+            # a standalone board (Paul, 2026-11-09, AOL handles): same
+            # form + posts as the rest, no archive
+            self._send(200, render_board_page(parts[0]))
+            return
         if len(parts) == 3 and parts[0] == "neighborhoods" \
                 and parts[2] == "board" and parts[1] in NEIGHBORHOODS:
             # a neighborhood's own board (Paul, 2026-11-09): same form +
@@ -1202,6 +1407,10 @@ class Handler(BaseHTTPRequestHandler):
         form = self._read_form()
         if parts == ["messages", "post"]:
             self._handle_board_post(form, "clubgabbay")
+            return
+        if len(parts) == 3 and parts[1] == "board" and parts[2] == "post" \
+                and parts[0] in STANDALONE_BOARDS:
+            self._handle_board_post(form, parts[0])
             return
         if len(parts) == 4 and parts[0] == "neighborhoods" \
                 and parts[2] == "board" and parts[3] == "post" \
