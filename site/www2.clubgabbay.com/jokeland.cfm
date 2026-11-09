@@ -18,6 +18,6 @@ Name:<input name="USER" size=12 maxlength=12>
 <hr>
 </form> 
 <hr noshade>
-All Rights Reserved, Copyright 1997 ClubGabbay
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body>
 </html>

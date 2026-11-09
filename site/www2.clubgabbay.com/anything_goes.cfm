@@ -31,6 +31,6 @@ Name:
 </form>
 
 <hr noshade>
-All Rights Reserved, Copyright 1996 ClubGabbay
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body>
 </html>

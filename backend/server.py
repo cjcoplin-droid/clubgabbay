@@ -576,7 +576,7 @@ Show last
 <p><font size="-1">You are chatting as <b>%s</b>%s.
 Messages refresh automatically every few seconds.</font></p>
 <hr noshade>
-All Rights Reserved, Copyright 1996 ClubGabbay
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
 <script>
 var lastId = %d;
 var room = "%s";
@@ -648,7 +648,7 @@ Password: <input type="password" name="PASSWORD" size="12" maxlength="12"><br>
 provisioned yet — any password is accepted and you are flagged as a member
 for this visit.)</font></p>
 <hr noshade>
-All Rights Reserved, Copyright 1996 ClubGabbay
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body></html>
 """
 
@@ -661,7 +661,7 @@ def render_404(path):
 (1996–1999). Try the <a href="/">ClubGabbay homepage</a> or the
 <a href="/chat.htm">Chat Directory</a>.</p>
 <hr noshade>
-All Rights Reserved, Copyright 1996 ClubGabbay
+Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body></html>""" % esc(path)
 
 
