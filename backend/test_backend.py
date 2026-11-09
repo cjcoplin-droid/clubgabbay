@@ -1058,6 +1058,9 @@ def run_landing_tests(base):
     check("landing", "homepage links all fourteen service pages",
           all(('href="/%s.html"' % sv["slug"]).encode() in body
               for sv in SERVICES), "")
+    check("landing", "homepage has a Have Discord? link (Paul, 2026-11-09)",
+          b"Have Discord?" in body
+          and b"discord.com/invite/" in body, "")
     s, body, _ = anon.get("/under21.html")
     check("landing", "under-21 stop page serves",
           s == 200 and b"adults 21 and over" in body
