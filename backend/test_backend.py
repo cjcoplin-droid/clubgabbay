@@ -448,6 +448,18 @@ def run_filter_tests(base):
     s, _, _ = f.post("/lobby/post", {"text": "f u c k"})
     check("filter", "spaced-out evasion is still caught (403)",
           s == 403, "status=%d" % s)
+    # innocent phrase across a word boundary is NOT blocked (Paul,
+    # 2026-11-09): "who remembers" squashes to "whoremembers" and
+    # tripped "whore" -- two strikes on his own handle before the fix
+    time.sleep(2.1)  # the "I love my class" post set the rate-limit clock
+    s, _, _ = f.post("/lobby/post",
+                     {"text": "who remembers the old AOL days?"})
+    check("filter", "innocent phrase across a word boundary passes",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = f.get("/api/lobby/messages?since=0",
+                       headers={"Accept": "application/json"})
+    check("filter", "innocent phrase is stored/shown",
+          b"who remembers the old AOL days?" in body, "")
     # 3 strikes -> banned from public posting
     b = Client(base)
     b.post("/lobby", {"USER": "StrikeTest",

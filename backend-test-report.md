@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 12:40 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 12:46 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 330 — **330 PASS, 0 FAIL**
+- Checks run: 332 — **332 PASS, 0 FAIL**
 - Rooms walked: 17 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol)
 
 ## Per-room results
@@ -207,8 +207,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | jump posts join line in lobby | PASS |  |
 | aol | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest2462'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest2462', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest1029'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest1029', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -219,6 +219,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | filter | clean message is stored | PASS |  |
 | filter | innocent word (class) is not blocked | PASS | status=200 |
 | filter | spaced-out evasion is still caught (403) | PASS | status=403 |
+| filter | innocent phrase across a word boundary passes | PASS | status=200 |
+| filter | innocent phrase is stored/shown | PASS |  |
 | filter | three blocked posts all return 403 | PASS | statuses=[403, 403, 403] |
 | filter | 3 strikes -> banned: clean message rejected (403) | PASS | status=403 |
 | filter | banned user's clean message never stored | PASS |  |
@@ -587,6 +589,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - filter — clean message is stored
 - filter — innocent word (class) is not blocked
 - filter — spaced-out evasion is still caught (403)
+- filter — innocent phrase across a word boundary passes
+- filter — innocent phrase is stored/shown
 - filter — three blocked posts all return 403
 - filter — 3 strikes -> banned: clean message rejected (403)
 - filter — banned user's clean message never stored

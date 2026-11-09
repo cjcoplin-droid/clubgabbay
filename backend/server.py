@@ -468,6 +468,7 @@ _LEET = str.maketrans({"0": "o", "1": "i", "3": "e", "4": "a", "5": "s",
 TOKEN_ONLY = {"ass", "fag", "dick", "cock", "cum", "anal", "spic", "coon"}
 _block_sub = set()     # normalised entries, substring-matched
 _block_tok = set()     # normalised entries, whole-token matched
+_block_phrase = set()  # normalised multi-word entries ("click here")
 
 
 def _normalize(s):
@@ -476,8 +477,8 @@ def _normalize(s):
 
 
 def load_blocklist(path=BLOCKLIST_PATH):
-    global _block_sub, _block_tok
-    sub, tok = set(), set()
+    global _block_sub, _block_tok, _block_phrase
+    sub, tok, phrase = set(), set(), set()
     try:
         with open(path, encoding="utf-8", errors="ignore") as fh:
             for line in fh:
@@ -487,16 +488,38 @@ def load_blocklist(path=BLOCKLIST_PATH):
                 n = _normalize(w)
                 if not n:
                     continue
-                if n in TOKEN_ONLY or len(n) < 4:
+                if " " in w:
+                    # a phrase ("click here"): its words legitimately
+                    # span a space, so it is never a boundary false
+                    # positive -- substring-match it as-is
+                    phrase.add(n)
+                    sub.add(n)
+                elif n in TOKEN_ONLY or len(n) < 4:
                     tok.add(n)
                 else:
                     sub.add(n)
     except OSError:
         pass
-    _block_sub, _block_tok = sub, tok
+    _block_sub, _block_tok, _block_phrase = sub, tok, phrase
 
 
 load_blocklist()
+
+
+def _sub_spans_words(low_leet, w):
+    """True if the leftmost occurrence of w in low_leet (letters may be
+    separated by non-letters) spans two whole words -- the first and
+    last letter-runs inside the match are each at least two letters.
+    An innocent phrase like "who remembers" squashes to "whoremembers"
+    and would otherwise trip "whore" (Paul, 2026-11-09: two strikes on
+    his own handle from a handles-board test post). Spaced-out single
+    letters ("f u c k") are still caught: their runs are one letter."""
+    pat = "[^a-z]*".join(re.escape(ch) for ch in w)
+    m = re.search(pat, low_leet)
+    if not m:
+        return False
+    runs = re.findall(r"[a-z]+", m.group(0))
+    return len(runs) >= 2 and len(runs[0]) >= 2 and len(runs[-1]) >= 2
 
 
 def text_blocked(text):
@@ -508,9 +531,17 @@ def text_blocked(text):
     if "http://" in low or "https://" in low or "www." in low:
         return "link"
     squashed = _normalize(text)
+    low_leet = text.lower().translate(_LEET)
     for w in _block_sub:
-        if w in squashed:
+        if w not in squashed:
+            continue
+        if w in _block_phrase:
             return w
+        # A substring hit that spans two whole words in the original is
+        # an innocent phrase, not the blocked word -- skip it.
+        if _sub_spans_words(low_leet, w):
+            continue
+        return w
     for tok in re.split(r"[^a-z]+", low.translate(_LEET)):
         if tok and tok in _block_tok:
             return tok
