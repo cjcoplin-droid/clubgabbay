@@ -32,6 +32,7 @@ await to the left, and behind them a delicious assortment of appetizers.
 
 <input type=hidden name="SAYS" value="<b>Joins The Lobby...</b>">
 <input type=hidden name="HISTORY" value="8">
+<input type="checkbox" name="confirm" value="21"> I am 21 or older<br>
 <input type=submit value="Guest Entrance Here"> 
 <hr>
 </form> 

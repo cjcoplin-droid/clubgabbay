@@ -146,6 +146,8 @@ def chat_entry(h):
             '<option value="16">16</option>'
             '<option value="32">32</option></select> messages<br>\n'
             '<input type="hidden" name="SAYS" value="%s">\n'
+            '<input type="checkbox" name="confirm" value="21"> I am 21 '
+            'or older<br>\n'
             '<input type="submit" value="Enter the chat">\n'
             '</form>\n</center>\n'
             '<center><font size="-1"><i>This room is intended for adults '

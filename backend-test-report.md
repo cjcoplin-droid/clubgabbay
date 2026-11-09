@@ -1,12 +1,12 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 13:23 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 14:05 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 365 — **365 PASS, 0 FAIL**
-- Rooms walked: 17 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol)
+- Checks run: 589 — **589 PASS, 0 FAIL**
+- Rooms walked: 31 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol, msn-chat, yahoo-chat, icq-chat, mirc-chat, excite-chat, paltalk-chat, lycos-chat, palace-chat, habbo-chat, powwow-chat, compuserve-chat, prodigy-chat, xfire-chat, myspace-chat)
 
 ## Per-room results
 
@@ -203,12 +203,166 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | poll API returns posted message | PASS | found=1 |
 | aol | presence lists the chatter | PASS |  |
 | aol | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
-| aol | jump to /lobby keeps session, redirects | PASS | status=200 |
-| aol | jump posts join line in lobby | PASS |  |
-| aol | leave lobby redirects to chat directory | PASS | status=200 |
+| aol | jump to /msn-chat keeps session, redirects | PASS | status=200 |
+| aol | jump posts join line in msn-chat | PASS |  |
+| aol | leave msn-chat redirects to chat directory | PASS | status=200 |
+| msn-chat | entry page /msn.html 200 | PASS | status=200 |
+| msn-chat | GET /msn-chat w/o session redirects to entry page | PASS | status=303 loc=/msn.html |
+| msn-chat | guest entry POST redirects to /msn-chat | PASS | status=200 |
+| msn-chat | chat pane shows join line + room name | PASS | status=200 |
+| msn-chat | post a message (303 back to room) | PASS | status=200 |
+| msn-chat | poll API returns posted message | PASS | found=1 |
+| msn-chat | presence lists the chatter | PASS |  |
+| msn-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| msn-chat | jump to /yahoo-chat keeps session, redirects | PASS | status=200 |
+| msn-chat | jump posts join line in yahoo-chat | PASS |  |
+| msn-chat | leave yahoo-chat redirects to chat directory | PASS | status=200 |
+| yahoo-chat | entry page /yahoo.html 200 | PASS | status=200 |
+| yahoo-chat | GET /yahoo-chat w/o session redirects to entry page | PASS | status=303 loc=/yahoo.html |
+| yahoo-chat | guest entry POST redirects to /yahoo-chat | PASS | status=200 |
+| yahoo-chat | chat pane shows join line + room name | PASS | status=200 |
+| yahoo-chat | post a message (303 back to room) | PASS | status=200 |
+| yahoo-chat | poll API returns posted message | PASS | found=1 |
+| yahoo-chat | presence lists the chatter | PASS |  |
+| yahoo-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| yahoo-chat | jump to /icq-chat keeps session, redirects | PASS | status=200 |
+| yahoo-chat | jump posts join line in icq-chat | PASS |  |
+| yahoo-chat | leave icq-chat redirects to chat directory | PASS | status=200 |
+| icq-chat | entry page /icq.html 200 | PASS | status=200 |
+| icq-chat | GET /icq-chat w/o session redirects to entry page | PASS | status=303 loc=/icq.html |
+| icq-chat | guest entry POST redirects to /icq-chat | PASS | status=200 |
+| icq-chat | chat pane shows join line + room name | PASS | status=200 |
+| icq-chat | post a message (303 back to room) | PASS | status=200 |
+| icq-chat | poll API returns posted message | PASS | found=1 |
+| icq-chat | presence lists the chatter | PASS |  |
+| icq-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| icq-chat | jump to /mirc-chat keeps session, redirects | PASS | status=200 |
+| icq-chat | jump posts join line in mirc-chat | PASS |  |
+| icq-chat | leave mirc-chat redirects to chat directory | PASS | status=200 |
+| mirc-chat | entry page /mirc.html 200 | PASS | status=200 |
+| mirc-chat | GET /mirc-chat w/o session redirects to entry page | PASS | status=303 loc=/mirc.html |
+| mirc-chat | guest entry POST redirects to /mirc-chat | PASS | status=200 |
+| mirc-chat | chat pane shows join line + room name | PASS | status=200 |
+| mirc-chat | post a message (303 back to room) | PASS | status=200 |
+| mirc-chat | poll API returns posted message | PASS | found=1 |
+| mirc-chat | presence lists the chatter | PASS |  |
+| mirc-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| mirc-chat | jump to /excite-chat keeps session, redirects | PASS | status=200 |
+| mirc-chat | jump posts join line in excite-chat | PASS |  |
+| mirc-chat | leave excite-chat redirects to chat directory | PASS | status=200 |
+| excite-chat | entry page /excite.html 200 | PASS | status=200 |
+| excite-chat | GET /excite-chat w/o session redirects to entry page | PASS | status=303 loc=/excite.html |
+| excite-chat | guest entry POST redirects to /excite-chat | PASS | status=200 |
+| excite-chat | chat pane shows join line + room name | PASS | status=200 |
+| excite-chat | post a message (303 back to room) | PASS | status=200 |
+| excite-chat | poll API returns posted message | PASS | found=1 |
+| excite-chat | presence lists the chatter | PASS |  |
+| excite-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| excite-chat | jump to /paltalk-chat keeps session, redirects | PASS | status=200 |
+| excite-chat | jump posts join line in paltalk-chat | PASS |  |
+| excite-chat | leave paltalk-chat redirects to chat directory | PASS | status=200 |
+| paltalk-chat | entry page /paltalk.html 200 | PASS | status=200 |
+| paltalk-chat | GET /paltalk-chat w/o session redirects to entry page | PASS | status=303 loc=/paltalk.html |
+| paltalk-chat | guest entry POST redirects to /paltalk-chat | PASS | status=200 |
+| paltalk-chat | chat pane shows join line + room name | PASS | status=200 |
+| paltalk-chat | post a message (303 back to room) | PASS | status=200 |
+| paltalk-chat | poll API returns posted message | PASS | found=1 |
+| paltalk-chat | presence lists the chatter | PASS |  |
+| paltalk-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| paltalk-chat | jump to /lycos-chat keeps session, redirects | PASS | status=200 |
+| paltalk-chat | jump posts join line in lycos-chat | PASS |  |
+| paltalk-chat | leave lycos-chat redirects to chat directory | PASS | status=200 |
+| lycos-chat | entry page /lycos.html 200 | PASS | status=200 |
+| lycos-chat | GET /lycos-chat w/o session redirects to entry page | PASS | status=303 loc=/lycos.html |
+| lycos-chat | guest entry POST redirects to /lycos-chat | PASS | status=200 |
+| lycos-chat | chat pane shows join line + room name | PASS | status=200 |
+| lycos-chat | post a message (303 back to room) | PASS | status=200 |
+| lycos-chat | poll API returns posted message | PASS | found=1 |
+| lycos-chat | presence lists the chatter | PASS |  |
+| lycos-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| lycos-chat | jump to /palace-chat keeps session, redirects | PASS | status=200 |
+| lycos-chat | jump posts join line in palace-chat | PASS |  |
+| lycos-chat | leave palace-chat redirects to chat directory | PASS | status=200 |
+| palace-chat | entry page /palace.html 200 | PASS | status=200 |
+| palace-chat | GET /palace-chat w/o session redirects to entry page | PASS | status=303 loc=/palace.html |
+| palace-chat | guest entry POST redirects to /palace-chat | PASS | status=200 |
+| palace-chat | chat pane shows join line + room name | PASS | status=200 |
+| palace-chat | post a message (303 back to room) | PASS | status=200 |
+| palace-chat | poll API returns posted message | PASS | found=1 |
+| palace-chat | presence lists the chatter | PASS |  |
+| palace-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| palace-chat | jump to /habbo-chat keeps session, redirects | PASS | status=200 |
+| palace-chat | jump posts join line in habbo-chat | PASS |  |
+| palace-chat | leave habbo-chat redirects to chat directory | PASS | status=200 |
+| habbo-chat | entry page /habbo.html 200 | PASS | status=200 |
+| habbo-chat | GET /habbo-chat w/o session redirects to entry page | PASS | status=303 loc=/habbo.html |
+| habbo-chat | guest entry POST redirects to /habbo-chat | PASS | status=200 |
+| habbo-chat | chat pane shows join line + room name | PASS | status=200 |
+| habbo-chat | post a message (303 back to room) | PASS | status=200 |
+| habbo-chat | poll API returns posted message | PASS | found=1 |
+| habbo-chat | presence lists the chatter | PASS |  |
+| habbo-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| habbo-chat | jump to /powwow-chat keeps session, redirects | PASS | status=200 |
+| habbo-chat | jump posts join line in powwow-chat | PASS |  |
+| habbo-chat | leave powwow-chat redirects to chat directory | PASS | status=200 |
+| powwow-chat | entry page /powwow.html 200 | PASS | status=200 |
+| powwow-chat | GET /powwow-chat w/o session redirects to entry page | PASS | status=303 loc=/powwow.html |
+| powwow-chat | guest entry POST redirects to /powwow-chat | PASS | status=200 |
+| powwow-chat | chat pane shows join line + room name | PASS | status=200 |
+| powwow-chat | post a message (303 back to room) | PASS | status=200 |
+| powwow-chat | poll API returns posted message | PASS | found=1 |
+| powwow-chat | presence lists the chatter | PASS |  |
+| powwow-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| powwow-chat | jump to /compuserve-chat keeps session, redirects | PASS | status=200 |
+| powwow-chat | jump posts join line in compuserve-chat | PASS |  |
+| powwow-chat | leave compuserve-chat redirects to chat directory | PASS | status=200 |
+| compuserve-chat | entry page /compuserve.html 200 | PASS | status=200 |
+| compuserve-chat | GET /compuserve-chat w/o session redirects to entry page | PASS | status=303 loc=/compuserve.html |
+| compuserve-chat | guest entry POST redirects to /compuserve-chat | PASS | status=200 |
+| compuserve-chat | chat pane shows join line + room name | PASS | status=200 |
+| compuserve-chat | post a message (303 back to room) | PASS | status=200 |
+| compuserve-chat | poll API returns posted message | PASS | found=1 |
+| compuserve-chat | presence lists the chatter | PASS |  |
+| compuserve-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| compuserve-chat | jump to /prodigy-chat keeps session, redirects | PASS | status=200 |
+| compuserve-chat | jump posts join line in prodigy-chat | PASS |  |
+| compuserve-chat | leave prodigy-chat redirects to chat directory | PASS | status=200 |
+| prodigy-chat | entry page /prodigy.html 200 | PASS | status=200 |
+| prodigy-chat | GET /prodigy-chat w/o session redirects to entry page | PASS | status=303 loc=/prodigy.html |
+| prodigy-chat | guest entry POST redirects to /prodigy-chat | PASS | status=200 |
+| prodigy-chat | chat pane shows join line + room name | PASS | status=200 |
+| prodigy-chat | post a message (303 back to room) | PASS | status=200 |
+| prodigy-chat | poll API returns posted message | PASS | found=1 |
+| prodigy-chat | presence lists the chatter | PASS |  |
+| prodigy-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| prodigy-chat | jump to /xfire-chat keeps session, redirects | PASS | status=200 |
+| prodigy-chat | jump posts join line in xfire-chat | PASS |  |
+| prodigy-chat | leave xfire-chat redirects to chat directory | PASS | status=200 |
+| xfire-chat | entry page /xfire.html 200 | PASS | status=200 |
+| xfire-chat | GET /xfire-chat w/o session redirects to entry page | PASS | status=303 loc=/xfire.html |
+| xfire-chat | guest entry POST redirects to /xfire-chat | PASS | status=200 |
+| xfire-chat | chat pane shows join line + room name | PASS | status=200 |
+| xfire-chat | post a message (303 back to room) | PASS | status=200 |
+| xfire-chat | poll API returns posted message | PASS | found=1 |
+| xfire-chat | presence lists the chatter | PASS |  |
+| xfire-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| xfire-chat | jump to /myspace-chat keeps session, redirects | PASS | status=200 |
+| xfire-chat | jump posts join line in myspace-chat | PASS |  |
+| xfire-chat | leave myspace-chat redirects to chat directory | PASS | status=200 |
+| myspace-chat | entry page /myspace.html 200 | PASS | status=200 |
+| myspace-chat | GET /myspace-chat w/o session redirects to entry page | PASS | status=303 loc=/myspace.html |
+| myspace-chat | guest entry POST redirects to /myspace-chat | PASS | status=200 |
+| myspace-chat | chat pane shows join line + room name | PASS | status=200 |
+| myspace-chat | post a message (303 back to room) | PASS | status=200 |
+| myspace-chat | poll API returns posted message | PASS | found=1 |
+| myspace-chat | presence lists the chatter | PASS |  |
+| myspace-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| myspace-chat | jump to /lobby keeps session, redirects | PASS | status=200 |
+| myspace-chat | jump posts join line in lobby | PASS |  |
+| myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Taol', 'Taol', 'Guest4938'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4938', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest5942'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest5942', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -279,13 +433,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 112, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794255788.95798, 'color': 'red', 'font': 'Courier New', 'time': '13:23'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794258324.3832266, 'color': 'red', 'font': 'Courier New', 'time': '14:05'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 113, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794255791.1124375, 'color': None, 'font': None, 'time': '13:23'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794258326.5363026, 'color': None, 'font': None, 'time': '14:05'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 115, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794255793.3859277, 'color': None, 'font': None, 'time': '13:23'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794258328.766267, 'color': None, 'font': None, 'time': '14:05'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
@@ -299,6 +453,76 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | 21plus | /neighborhoods/chat/hollywood.html says 21 and over | PASS | status=200 |
 | 21plus | /neighborhoods/chat/area51.html says 21 and over | PASS | status=200 |
 | 21plus | Anything Goes no longer says 18 anywhere | PASS |  |
+| landing | homepage is the new landing page: ADULTS ONLY gate | PASS | status=200 |
+| landing | homepage says 21, never 18; no fake counts, no Netscape | PASS |  |
+| landing | homepage links all fourteen service pages | PASS |  |
+| landing | under-21 stop page serves | PASS | status=200 |
+| landing | fine print carries the 21+ note + terms of entry | PASS | status=200 |
+| landing | age gate without confirm bounces to / | PASS | status=303 loc=/ |
+| landing | no flag: directory bounces home (landing page) | PASS | status=200 |
+| landing | age gate with confirm goes to /chat.htm | PASS | status=303 loc=/chat.htm |
+| landing | flag set: directory 200 | PASS | status=200 |
+| landing | /chat.htm without the flag bounces to / | PASS | status=303 loc=/ |
+| landing | /chat2.htm without the flag bounces to / | PASS | status=303 loc=/ |
+| landing | room entry without confirm bounces home | PASS |  |
+| landing | room entry with confirm reaches the room | PASS | status=200 |
+| landing | entry set the flag: directory 200 after | PASS | status=200 |
+| services | msn landing page serves with gate + handle form | PASS | status=200 |
+| services | msn page links all fourteen services | PASS |  |
+| services | msn entry without confirm bounces home | PASS |  |
+| services | msn entry with confirm reaches the room | PASS | status=200 |
+| services | yahoo landing page serves with gate + handle form | PASS | status=200 |
+| services | yahoo page links all fourteen services | PASS |  |
+| services | yahoo entry without confirm bounces home | PASS |  |
+| services | yahoo entry with confirm reaches the room | PASS | status=200 |
+| services | icq landing page serves with gate + handle form | PASS | status=200 |
+| services | icq page links all fourteen services | PASS |  |
+| services | icq entry without confirm bounces home | PASS |  |
+| services | icq entry with confirm reaches the room | PASS | status=200 |
+| services | mirc landing page serves with gate + handle form | PASS | status=200 |
+| services | mirc page links all fourteen services | PASS |  |
+| services | mirc entry without confirm bounces home | PASS |  |
+| services | mirc entry with confirm reaches the room | PASS | status=200 |
+| services | excite landing page serves with gate + handle form | PASS | status=200 |
+| services | excite page links all fourteen services | PASS |  |
+| services | excite entry without confirm bounces home | PASS |  |
+| services | excite entry with confirm reaches the room | PASS | status=200 |
+| services | paltalk landing page serves with gate + handle form | PASS | status=200 |
+| services | paltalk page links all fourteen services | PASS |  |
+| services | paltalk entry without confirm bounces home | PASS |  |
+| services | paltalk entry with confirm reaches the room | PASS | status=200 |
+| services | lycos landing page serves with gate + handle form | PASS | status=200 |
+| services | lycos page links all fourteen services | PASS |  |
+| services | lycos entry without confirm bounces home | PASS |  |
+| services | lycos entry with confirm reaches the room | PASS | status=200 |
+| services | palace landing page serves with gate + handle form | PASS | status=200 |
+| services | palace page links all fourteen services | PASS |  |
+| services | palace entry without confirm bounces home | PASS |  |
+| services | palace entry with confirm reaches the room | PASS | status=200 |
+| services | habbo landing page serves with gate + handle form | PASS | status=200 |
+| services | habbo page links all fourteen services | PASS |  |
+| services | habbo entry without confirm bounces home | PASS |  |
+| services | habbo entry with confirm reaches the room | PASS | status=200 |
+| services | powwow landing page serves with gate + handle form | PASS | status=200 |
+| services | powwow page links all fourteen services | PASS |  |
+| services | powwow entry without confirm bounces home | PASS |  |
+| services | powwow entry with confirm reaches the room | PASS | status=200 |
+| services | compuserve landing page serves with gate + handle form | PASS | status=200 |
+| services | compuserve page links all fourteen services | PASS |  |
+| services | compuserve entry without confirm bounces home | PASS |  |
+| services | compuserve entry with confirm reaches the room | PASS | status=200 |
+| services | prodigy landing page serves with gate + handle form | PASS | status=200 |
+| services | prodigy page links all fourteen services | PASS |  |
+| services | prodigy entry without confirm bounces home | PASS |  |
+| services | prodigy entry with confirm reaches the room | PASS | status=200 |
+| services | xfire landing page serves with gate + handle form | PASS | status=200 |
+| services | xfire page links all fourteen services | PASS |  |
+| services | xfire entry without confirm bounces home | PASS |  |
+| services | xfire entry with confirm reaches the room | PASS | status=200 |
+| services | myspace landing page serves with gate + handle form | PASS | status=200 |
+| services | myspace page links all fourteen services | PASS |  |
+| services | myspace entry without confirm bounces home | PASS |  |
+| services | myspace entry with confirm reaches the room | PASS | status=200 |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -378,7 +602,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | known archive gap /images/bg/soulsearch_bg.jpg returns 404 (expected) | PASS | status=404 |
 | homepage carries the approved blurb | PASS |  |
 | homepage notes monitoring / 18+ / private whispers | PASS |  |
-| link check / (5 links): server matches archive | PASS | all resolve |
+| link check / (23 links): server matches archive | PASS | all resolve |
 | link check /chat.htm (19 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
 | link check /chat2.htm (33 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
@@ -606,9 +830,163 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - aol — poll API returns posted message
 - aol — presence lists the chatter
 - aol — HISTORY=8 caps initial pane at 8
-- aol — jump to /lobby keeps session, redirects
-- aol — jump posts join line in lobby
-- aol — leave lobby redirects to chat directory
+- aol — jump to /msn-chat keeps session, redirects
+- aol — jump posts join line in msn-chat
+- aol — leave msn-chat redirects to chat directory
+- msn-chat — entry page /msn.html 200
+- msn-chat — GET /msn-chat w/o session redirects to entry page
+- msn-chat — guest entry POST redirects to /msn-chat
+- msn-chat — chat pane shows join line + room name
+- msn-chat — post a message (303 back to room)
+- msn-chat — poll API returns posted message
+- msn-chat — presence lists the chatter
+- msn-chat — HISTORY=8 caps initial pane at 8
+- msn-chat — jump to /yahoo-chat keeps session, redirects
+- msn-chat — jump posts join line in yahoo-chat
+- msn-chat — leave yahoo-chat redirects to chat directory
+- yahoo-chat — entry page /yahoo.html 200
+- yahoo-chat — GET /yahoo-chat w/o session redirects to entry page
+- yahoo-chat — guest entry POST redirects to /yahoo-chat
+- yahoo-chat — chat pane shows join line + room name
+- yahoo-chat — post a message (303 back to room)
+- yahoo-chat — poll API returns posted message
+- yahoo-chat — presence lists the chatter
+- yahoo-chat — HISTORY=8 caps initial pane at 8
+- yahoo-chat — jump to /icq-chat keeps session, redirects
+- yahoo-chat — jump posts join line in icq-chat
+- yahoo-chat — leave icq-chat redirects to chat directory
+- icq-chat — entry page /icq.html 200
+- icq-chat — GET /icq-chat w/o session redirects to entry page
+- icq-chat — guest entry POST redirects to /icq-chat
+- icq-chat — chat pane shows join line + room name
+- icq-chat — post a message (303 back to room)
+- icq-chat — poll API returns posted message
+- icq-chat — presence lists the chatter
+- icq-chat — HISTORY=8 caps initial pane at 8
+- icq-chat — jump to /mirc-chat keeps session, redirects
+- icq-chat — jump posts join line in mirc-chat
+- icq-chat — leave mirc-chat redirects to chat directory
+- mirc-chat — entry page /mirc.html 200
+- mirc-chat — GET /mirc-chat w/o session redirects to entry page
+- mirc-chat — guest entry POST redirects to /mirc-chat
+- mirc-chat — chat pane shows join line + room name
+- mirc-chat — post a message (303 back to room)
+- mirc-chat — poll API returns posted message
+- mirc-chat — presence lists the chatter
+- mirc-chat — HISTORY=8 caps initial pane at 8
+- mirc-chat — jump to /excite-chat keeps session, redirects
+- mirc-chat — jump posts join line in excite-chat
+- mirc-chat — leave excite-chat redirects to chat directory
+- excite-chat — entry page /excite.html 200
+- excite-chat — GET /excite-chat w/o session redirects to entry page
+- excite-chat — guest entry POST redirects to /excite-chat
+- excite-chat — chat pane shows join line + room name
+- excite-chat — post a message (303 back to room)
+- excite-chat — poll API returns posted message
+- excite-chat — presence lists the chatter
+- excite-chat — HISTORY=8 caps initial pane at 8
+- excite-chat — jump to /paltalk-chat keeps session, redirects
+- excite-chat — jump posts join line in paltalk-chat
+- excite-chat — leave paltalk-chat redirects to chat directory
+- paltalk-chat — entry page /paltalk.html 200
+- paltalk-chat — GET /paltalk-chat w/o session redirects to entry page
+- paltalk-chat — guest entry POST redirects to /paltalk-chat
+- paltalk-chat — chat pane shows join line + room name
+- paltalk-chat — post a message (303 back to room)
+- paltalk-chat — poll API returns posted message
+- paltalk-chat — presence lists the chatter
+- paltalk-chat — HISTORY=8 caps initial pane at 8
+- paltalk-chat — jump to /lycos-chat keeps session, redirects
+- paltalk-chat — jump posts join line in lycos-chat
+- paltalk-chat — leave lycos-chat redirects to chat directory
+- lycos-chat — entry page /lycos.html 200
+- lycos-chat — GET /lycos-chat w/o session redirects to entry page
+- lycos-chat — guest entry POST redirects to /lycos-chat
+- lycos-chat — chat pane shows join line + room name
+- lycos-chat — post a message (303 back to room)
+- lycos-chat — poll API returns posted message
+- lycos-chat — presence lists the chatter
+- lycos-chat — HISTORY=8 caps initial pane at 8
+- lycos-chat — jump to /palace-chat keeps session, redirects
+- lycos-chat — jump posts join line in palace-chat
+- lycos-chat — leave palace-chat redirects to chat directory
+- palace-chat — entry page /palace.html 200
+- palace-chat — GET /palace-chat w/o session redirects to entry page
+- palace-chat — guest entry POST redirects to /palace-chat
+- palace-chat — chat pane shows join line + room name
+- palace-chat — post a message (303 back to room)
+- palace-chat — poll API returns posted message
+- palace-chat — presence lists the chatter
+- palace-chat — HISTORY=8 caps initial pane at 8
+- palace-chat — jump to /habbo-chat keeps session, redirects
+- palace-chat — jump posts join line in habbo-chat
+- palace-chat — leave habbo-chat redirects to chat directory
+- habbo-chat — entry page /habbo.html 200
+- habbo-chat — GET /habbo-chat w/o session redirects to entry page
+- habbo-chat — guest entry POST redirects to /habbo-chat
+- habbo-chat — chat pane shows join line + room name
+- habbo-chat — post a message (303 back to room)
+- habbo-chat — poll API returns posted message
+- habbo-chat — presence lists the chatter
+- habbo-chat — HISTORY=8 caps initial pane at 8
+- habbo-chat — jump to /powwow-chat keeps session, redirects
+- habbo-chat — jump posts join line in powwow-chat
+- habbo-chat — leave powwow-chat redirects to chat directory
+- powwow-chat — entry page /powwow.html 200
+- powwow-chat — GET /powwow-chat w/o session redirects to entry page
+- powwow-chat — guest entry POST redirects to /powwow-chat
+- powwow-chat — chat pane shows join line + room name
+- powwow-chat — post a message (303 back to room)
+- powwow-chat — poll API returns posted message
+- powwow-chat — presence lists the chatter
+- powwow-chat — HISTORY=8 caps initial pane at 8
+- powwow-chat — jump to /compuserve-chat keeps session, redirects
+- powwow-chat — jump posts join line in compuserve-chat
+- powwow-chat — leave compuserve-chat redirects to chat directory
+- compuserve-chat — entry page /compuserve.html 200
+- compuserve-chat — GET /compuserve-chat w/o session redirects to entry page
+- compuserve-chat — guest entry POST redirects to /compuserve-chat
+- compuserve-chat — chat pane shows join line + room name
+- compuserve-chat — post a message (303 back to room)
+- compuserve-chat — poll API returns posted message
+- compuserve-chat — presence lists the chatter
+- compuserve-chat — HISTORY=8 caps initial pane at 8
+- compuserve-chat — jump to /prodigy-chat keeps session, redirects
+- compuserve-chat — jump posts join line in prodigy-chat
+- compuserve-chat — leave prodigy-chat redirects to chat directory
+- prodigy-chat — entry page /prodigy.html 200
+- prodigy-chat — GET /prodigy-chat w/o session redirects to entry page
+- prodigy-chat — guest entry POST redirects to /prodigy-chat
+- prodigy-chat — chat pane shows join line + room name
+- prodigy-chat — post a message (303 back to room)
+- prodigy-chat — poll API returns posted message
+- prodigy-chat — presence lists the chatter
+- prodigy-chat — HISTORY=8 caps initial pane at 8
+- prodigy-chat — jump to /xfire-chat keeps session, redirects
+- prodigy-chat — jump posts join line in xfire-chat
+- prodigy-chat — leave xfire-chat redirects to chat directory
+- xfire-chat — entry page /xfire.html 200
+- xfire-chat — GET /xfire-chat w/o session redirects to entry page
+- xfire-chat — guest entry POST redirects to /xfire-chat
+- xfire-chat — chat pane shows join line + room name
+- xfire-chat — post a message (303 back to room)
+- xfire-chat — poll API returns posted message
+- xfire-chat — presence lists the chatter
+- xfire-chat — HISTORY=8 caps initial pane at 8
+- xfire-chat — jump to /myspace-chat keeps session, redirects
+- xfire-chat — jump posts join line in myspace-chat
+- xfire-chat — leave myspace-chat redirects to chat directory
+- myspace-chat — entry page /myspace.html 200
+- myspace-chat — GET /myspace-chat w/o session redirects to entry page
+- myspace-chat — guest entry POST redirects to /myspace-chat
+- myspace-chat — chat pane shows join line + room name
+- myspace-chat — post a message (303 back to room)
+- myspace-chat — poll API returns posted message
+- myspace-chat — presence lists the chatter
+- myspace-chat — HISTORY=8 caps initial pane at 8
+- myspace-chat — jump to /lobby keeps session, redirects
+- myspace-chat — jump posts join line in lobby
+- myspace-chat — leave lobby redirects to chat directory
 - lobby — guest form (archived Guest1251) redirects to /lobby
 - lobby — guest gets fresh auto-name GuestNNNN (not literal 1251)
 - lobby — member entry flagged (member) in presence
@@ -702,6 +1080,76 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - 21plus — /neighborhoods/chat/hollywood.html says 21 and over
 - 21plus — /neighborhoods/chat/area51.html says 21 and over
 - 21plus — Anything Goes no longer says 18 anywhere
+- landing — homepage is the new landing page: ADULTS ONLY gate
+- landing — homepage says 21, never 18; no fake counts, no Netscape
+- landing — homepage links all fourteen service pages
+- landing — under-21 stop page serves
+- landing — fine print carries the 21+ note + terms of entry
+- landing — age gate without confirm bounces to /
+- landing — no flag: directory bounces home (landing page)
+- landing — age gate with confirm goes to /chat.htm
+- landing — flag set: directory 200
+- landing — /chat.htm without the flag bounces to /
+- landing — /chat2.htm without the flag bounces to /
+- landing — room entry without confirm bounces home
+- landing — room entry with confirm reaches the room
+- landing — entry set the flag: directory 200 after
+- services — msn landing page serves with gate + handle form
+- services — msn page links all fourteen services
+- services — msn entry without confirm bounces home
+- services — msn entry with confirm reaches the room
+- services — yahoo landing page serves with gate + handle form
+- services — yahoo page links all fourteen services
+- services — yahoo entry without confirm bounces home
+- services — yahoo entry with confirm reaches the room
+- services — icq landing page serves with gate + handle form
+- services — icq page links all fourteen services
+- services — icq entry without confirm bounces home
+- services — icq entry with confirm reaches the room
+- services — mirc landing page serves with gate + handle form
+- services — mirc page links all fourteen services
+- services — mirc entry without confirm bounces home
+- services — mirc entry with confirm reaches the room
+- services — excite landing page serves with gate + handle form
+- services — excite page links all fourteen services
+- services — excite entry without confirm bounces home
+- services — excite entry with confirm reaches the room
+- services — paltalk landing page serves with gate + handle form
+- services — paltalk page links all fourteen services
+- services — paltalk entry without confirm bounces home
+- services — paltalk entry with confirm reaches the room
+- services — lycos landing page serves with gate + handle form
+- services — lycos page links all fourteen services
+- services — lycos entry without confirm bounces home
+- services — lycos entry with confirm reaches the room
+- services — palace landing page serves with gate + handle form
+- services — palace page links all fourteen services
+- services — palace entry without confirm bounces home
+- services — palace entry with confirm reaches the room
+- services — habbo landing page serves with gate + handle form
+- services — habbo page links all fourteen services
+- services — habbo entry without confirm bounces home
+- services — habbo entry with confirm reaches the room
+- services — powwow landing page serves with gate + handle form
+- services — powwow page links all fourteen services
+- services — powwow entry without confirm bounces home
+- services — powwow entry with confirm reaches the room
+- services — compuserve landing page serves with gate + handle form
+- services — compuserve page links all fourteen services
+- services — compuserve entry without confirm bounces home
+- services — compuserve entry with confirm reaches the room
+- services — prodigy landing page serves with gate + handle form
+- services — prodigy page links all fourteen services
+- services — prodigy entry without confirm bounces home
+- services — prodigy entry with confirm reaches the room
+- services — xfire landing page serves with gate + handle form
+- services — xfire page links all fourteen services
+- services — xfire entry without confirm bounces home
+- services — xfire entry with confirm reaches the room
+- services — myspace landing page serves with gate + handle form
+- services — myspace page links all fourteen services
+- services — myspace entry without confirm bounces home
+- services — myspace entry with confirm reaches the room
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board
@@ -745,7 +1193,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - site — homepage notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
-- site — link check / (5 links): server matches archive
+- site — link check / (23 links): server matches archive
 - site — link check /chat.htm (19 links): server matches archive
 - site — link check /chat2.htm (33 links): server matches archive
 - site — message survives server restart (SQLite persistence)

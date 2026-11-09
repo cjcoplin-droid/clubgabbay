@@ -236,6 +236,97 @@ AOL_COLORS = ["black", "red", "blue", "green", "purple", "orange",
               "teal", "maroon", "navy"]
 AOL_FONTS = ["Arial", "Times New Roman", "Courier New", "Verdana",
              "Comic Sans MS"]
+
+# Retro chat services (Paul, 2026-11-09): the other services from the
+# old days -- MSN, Yahoo, ICQ, mIRC and the rest -- each with its own
+# room on the same engine, same setup as AOL Chat (landing page + age
+# gate + room). The landing pages are built by backend/build_services.py,
+# which imports this table -- one source of truth, keep it here.
+SERVICES = [
+    {"slug": "msn", "name": "MSN Messenger", "room": "MSN Chat",
+     "bgcolor": "#0078D7",
+     "desc": "Microsoft's buddy-list messenger -- nudges, winks, custom "
+             "display pictures, and adding friends by email. The sound "
+             "of a friend coming online.",
+     "join": "Joins MSN Chat..."},
+    {"slug": "yahoo", "name": "Yahoo! Chat", "room": "Yahoo! Chat",
+     "bgcolor": "#6001D2",
+     "desc": "Public chat rooms divided by interests, age groups, places "
+             "and topics -- walk in, pick a room, talk to strangers.",
+     "join": "Joins Yahoo! Chat..."},
+    {"slug": "icq", "name": "ICQ", "room": "ICQ Chat",
+     "bgcolor": "#00A000",
+     "desc": "One of the first instant messengers -- number-based "
+             "usernames, the famous 'Uh-oh!' sound, and a flower that "
+             "told you who was online.",
+     "join": "Joins ICQ Chat..."},
+    {"slug": "mirc", "name": "mIRC", "room": "mIRC Chat",
+     "bgcolor": "#000080",
+     "desc": "The old IRC network -- channels like #Canada, #Gaming and "
+             "#Singles, where a nickname and a channel were all you "
+             "needed.",
+     "join": "Joins mIRC Chat..."},
+    {"slug": "excite", "name": "Excite Chat", "room": "Excite Chat",
+     "bgcolor": "#CC0000",
+     "desc": "Public chat rooms where strangers could meet and talk -- "
+             "one of the web's early meeting places.",
+     "join": "Joins Excite Chat..."},
+    {"slug": "paltalk", "name": "Paltalk", "room": "Paltalk Chat",
+     "bgcolor": "#0099CC",
+     "desc": "Voice and video chat rooms -- talk instead of type, with "
+             "rooms for every interest.",
+     "join": "Joins Paltalk Chat..."},
+    {"slug": "lycos", "name": "Lycos Chat", "room": "Lycos Chat",
+     "bgcolor": "#FF6600",
+     "desc": "Web-based chat rooms from the search-engine days -- no "
+             "download, just a browser and a nickname.",
+     "join": "Joins Lycos Chat..."},
+    {"slug": "palace", "name": "The Palace", "room": "The Palace Chat",
+     "bgcolor": "#993399",
+     "desc": "2D graphical chat rooms with avatars -- walk your little "
+             "figure around the room and talk in bubbles.",
+     "join": "Joins The Palace Chat..."},
+    {"slug": "habbo", "name": "Habbo Hotel", "room": "Habbo Hotel Chat",
+     "bgcolor": "#E6B800",
+     "desc": "A virtual hotel to hang out in -- your own little avatar, "
+             "rooms to visit, people to meet.",
+     "join": "Joins Habbo Hotel Chat..."},
+    {"slug": "powwow", "name": "PowWow", "room": "PowWow Chat",
+     "bgcolor": "#006666",
+     "desc": "Early group messaging and voice chat -- one of the first "
+             "programs that let a group talk together online.",
+     "join": "Joins PowWow Chat..."},
+    {"slug": "compuserve", "name": "CompuServe", "room": "CompuServe Chat",
+     "bgcolor": "#003366",
+     "desc": "One of the first online services -- forums and chat before "
+             "the web took over.",
+     "join": "Joins CompuServe Chat..."},
+    {"slug": "prodigy", "name": "Prodigy", "room": "Prodigy Chat",
+     "bgcolor": "#800000",
+     "desc": "An early online service with public chat -- a whole world "
+             "behind a dial-up number.",
+     "join": "Joins Prodigy Chat..."},
+    {"slug": "xfire", "name": "Xfire", "room": "Xfire Chat",
+     "bgcolor": "#999999",
+     "desc": "Gaming friends and chat -- see what your friends are "
+             "playing and jump in with them.",
+     "join": "Joins Xfire Chat..."},
+    {"slug": "myspace", "name": "MySpace", "room": "MySpace Chat",
+     "bgcolor": "#003399",
+     "desc": "Profiles, friends, messages and comments -- the place "
+             "where everyone's page had a song that started playing.",
+     "join": "Joins MySpace Chat..."},
+]
+for _s in SERVICES:
+    ROOMS[_s["slug"] + "-chat"] = {
+        "name": _s["room"],
+        "bg": None, "bgcolor": _s["bgcolor"],
+        "art": None,
+        "desc": _s["desc"],
+        "entry": "/%s.html" % _s["slug"],
+        "join": _s["join"],
+    }
+
 # The archived Anything Goes form posts to /anything-goes; accept the
 # underscore spelling too.
 ALIASES = {"anything_goes": "anything-goes"}
@@ -458,7 +549,7 @@ def presence(room):
     with sessions_lock:
         names = []
         for s in sessions.values():
-            if s["room"] == room and now - s["last_seen"] < PRESENCE_TIMEOUT:
+            if s.get("room") == room and now - s["last_seen"] < PRESENCE_TIMEOUT:
                 label = s["user"] + (" (member)" if s.get("member") else "")
                 names.append(label)
     return sorted(set(names))
@@ -466,7 +557,8 @@ def presence(room):
 
 def guest_name(room):
     with sessions_lock:
-        taken = {s["user"] for s in sessions.values() if s["room"] == room}
+        taken = {s["user"] for s in sessions.values()
+                 if s.get("room") == room}
     for _ in range(50):
         name = "Guest%d" % random.randint(1000, 9999)
         if name not in taken:
@@ -980,6 +1072,7 @@ Password: <input type="password" name="PASSWORD" size="12" maxlength="12"><br>
 <input type="hidden" name="MEMBER" value="1">
 <input type="hidden" name="SAYS" value="<b>Joins The Lobby...</b>">
 <input type="hidden" name="HISTORY" value="8">
+<input type="checkbox" name="confirm" value="21"> I am 21 or older<br>
 <input type="submit" value="Enter as Member">
 </form>
 </center>
@@ -1217,6 +1310,25 @@ class Handler(BaseHTTPRequestHandler):
         return ROOMS.get(ALIASES.get(slug, slug))
 
     # -- entry (POST /<room>)
+    def _handle_age_gate(self, form):
+        """POST /age-gate -- the landing-page age gate (Paul, 2026-11-09):
+        confirming 21+ sets the age_ok flag on the session (created if
+        needed) and sends you to the chat directory. No age is stored,
+        no ID is asked for -- a self-declared confirmation, the same
+        as the original's certify button."""
+        if form.get("confirm") != "21":
+            self._redirect("/")
+            return
+        sid, sess = get_session(self)
+        if sess is None:
+            sid = new_sid()
+            sess = {}
+            with sessions_lock:
+                sessions[sid] = sess
+        sess["age_ok"] = True
+        touch(sess)
+        self._redirect("/chat.htm", sid=sid)
+
     def _handle_entry(self, slug, form):
         info = ROOMS[slug]
         user = (form.get("USER") or "").strip()[:MAX_NAME]
@@ -1235,7 +1347,15 @@ class Handler(BaseHTTPRequestHandler):
             says = info["join"]
         member = form.get("MEMBER") == "1"
         sid, sess = get_session(self)
-        if sess is None or sess["room"] != slug:
+        # Age gate (Paul, 2026-11-09): entering a room confirms you are
+        # 21 or older -- either you already passed the landing-page gate
+        # (age_ok on the session) or this entry form's confirm checkbox
+        # is checked. No age is stored, no ID is asked for.
+        if not sess or not sess.get("age_ok"):
+            if form.get("confirm") != "21":
+                self._redirect("/")
+                return
+        if sess is None or sess.get("room") != slug:
             sid = new_sid()
             sess = {}
             with sessions_lock:
@@ -1243,6 +1363,7 @@ class Handler(BaseHTTPRequestHandler):
         sess.update(user=user, room=slug, member=member, history=history,
                     certified=(slug == "anything-goes" or
                                sess.get("certified", False)),
+                    age_ok=True,
                     last_seen=time.time(), last_msg=0.0)
         db_add_message(slug, user, "join", says)
         self._redirect("/" + slug, sid=sid)
@@ -1251,7 +1372,8 @@ class Handler(BaseHTTPRequestHandler):
     def _handle_room(self, slug, query):
         info = ROOMS[slug]
         sid, sess = get_session(self)
-        if sess and sess.get("room") != slug and "jump" in query:
+        if sess and sess.get("room") != slug and sess.get("user") \
+                and "jump" in query:
             # multi-room jumping: same name, new room, join announcement
             sess["room"] = slug
             sess["certified"] = sess.get("certified", False) or \
@@ -1555,6 +1677,13 @@ class Handler(BaseHTTPRequestHandler):
             # posts as the main board, no archive
             self._send(200, render_board_page(parts[1]))
             return
+        if path in ("/chat.htm", "/chat2.htm"):
+            # the chat directories sit behind the age gate (Paul,
+            # 2026-11-09): the landing page is the front door.
+            _, sess = get_session(self)
+            if not sess or not sess.get("age_ok"):
+                self._redirect("/")
+                return
         fpath = resolve_static(path)
         if fpath and is_board_file(fpath):
             # the bulletin board is server-rendered: post form + new
@@ -1577,6 +1706,9 @@ class Handler(BaseHTTPRequestHandler):
         path = parsed.path
         parts = [p for p in path.split("/") if p]
         form = self._read_form()
+        if parts == ["age-gate"]:
+            self._handle_age_gate(form)
+            return
         if parts == ["messages", "post"]:
             self._handle_board_post(form, "clubgabbay")
             return

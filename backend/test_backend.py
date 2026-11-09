@@ -22,6 +22,8 @@ import urllib.parse
 import urllib.request
 from http.cookiejar import CookieJar
 
+from server import SERVICES  # the retro chat services (Paul, 2026-11-09)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(HERE)
 REPORT = os.path.join(BASE_DIR, "backend-test-report.md")
@@ -82,6 +84,20 @@ def raw_get(base, path):
         return e.code, e.read(), dict(e.headers)
 
 
+def raw_post(base, path, data):
+    """POST without following redirects, no cookies."""
+    opener = urllib.request.build_opener(NoRedirect)
+    body = urllib.parse.urlencode(data).encode()
+    r = urllib.request.Request(base + path, data=body, method="POST",
+                               headers={"Content-Type":
+                                        "application/x-www-form-urlencoded"})
+    try:
+        resp = opener.open(r)
+        return resp.status, resp.read(), dict(resp.headers)
+    except urllib.error.HTTPError as e:
+        return e.code, e.read(), dict(e.headers)
+
+
 def start_server(fresh=True):
     if fresh and os.path.exists(DB):
         os.remove(DB)
@@ -113,7 +129,11 @@ def stop_server(proc):
 ROOMS = ["lobby", "blue", "speakeasy", "denim", "hard", "soul", "jive",
          "classical", "paradise", "anything-goes", "jokeland",
          "hollywood-chat", "siliconvalley-chat", "sunsetstrip-chat",
-         "area51-chat", "westhollywood-chat", "aol"]
+         "area51-chat", "westhollywood-chat", "aol",
+         "msn-chat", "yahoo-chat", "icq-chat", "mirc-chat",
+         "excite-chat", "paltalk-chat", "lycos-chat", "palace-chat",
+         "habbo-chat", "powwow-chat", "compuserve-chat", "prodigy-chat",
+         "xfire-chat", "myspace-chat"]
 ENTRY_PAGE = {
     "lobby": "/www2.clubgabbay.com/lobby.cfm",
     "blue": "/www.clubgabbay.com/htmls/blue.html",
@@ -132,6 +152,13 @@ ENTRY_PAGE = {
     "area51-chat": "/neighborhoods/chat/area51.html",
     "westhollywood-chat": "/neighborhoods/chat/westhollywood.html",
     "aol": "/aol.html",
+    "msn-chat": "/msn.html", "yahoo-chat": "/yahoo.html",
+    "icq-chat": "/icq.html", "mirc-chat": "/mirc.html",
+    "excite-chat": "/excite.html", "paltalk-chat": "/paltalk.html",
+    "lycos-chat": "/lycos.html", "palace-chat": "/palace.html",
+    "habbo-chat": "/habbo.html", "powwow-chat": "/powwow.html",
+    "compuserve-chat": "/compuserve.html", "prodigy-chat": "/prodigy.html",
+    "xfire-chat": "/xfire.html", "myspace-chat": "/myspace.html",
 }
 JOIN_TEXT = {
     "lobby": "Joins The Lobby", "blue": "Joins Blue Notes",
@@ -147,6 +174,14 @@ JOIN_TEXT = {
     "area51-chat": "Joins The Area51 Chat",
     "westhollywood-chat": "Joins The WestHollywood Chat",
     "aol": "Joins AOL Chat",
+    "msn-chat": "Joins MSN Chat", "yahoo-chat": "Joins Yahoo! Chat",
+    "icq-chat": "Joins ICQ Chat", "mirc-chat": "Joins mIRC Chat",
+    "excite-chat": "Joins Excite Chat", "paltalk-chat": "Joins Paltalk Chat",
+    "lycos-chat": "Joins Lycos Chat", "palace-chat": "Joins The Palace Chat",
+    "habbo-chat": "Joins Habbo Hotel Chat", "powwow-chat": "Joins PowWow Chat",
+    "compuserve-chat": "Joins CompuServe Chat",
+    "prodigy-chat": "Joins Prodigy Chat", "xfire-chat": "Joins Xfire Chat",
+    "myspace-chat": "Joins MySpace Chat",
 }
 # The originals (Wayback, Dec 1996): four neighborhoods shared GeoCities'
 # background.gif; Area51 had its own area_glow.gif on a black page.
@@ -182,9 +217,20 @@ def main():
     return 1 if fails else 0
 
 
+def gate(c):
+    """Pass the landing-page age gate (Paul, 2026-11-09): POST /age-gate
+    with confirm=21 sets the age_ok flag on the client's session, so
+    room joins and the chat directories work. Every test client that
+    enters a room calls this first; the gate itself is tested
+    separately in run_landing_tests, where some clients deliberately
+    do NOT call it."""
+    c.post("/age-gate", {"confirm": "21"})
+
+
 def run_tests(base):
     # ---- site shell: homepage -> Enter -> chat directory
     anon = Client(base)
+    gate(anon)
     s, body, _ = anon.get("/")
     check("site", "homepage / returns 200 + Enter ClubGabbay -> /chat.htm, "
           "no webdates/email/linkexchange (Paul 2026-11-09)",
@@ -259,6 +305,7 @@ def run_tests(base):
     # ---- Lobby guest + member paths in detail (already covered per-room,
     # but verify the two distinct entry forms explicitly)
     guest = Client(base)
+    gate(guest)
     s, _, h = guest.post("/lobby", {"USER": "Guest1251",
                                     "SAYS": "<b>Joins The Lobby...</b>",
                                     "HISTORY": "8"})
@@ -276,6 +323,7 @@ def run_tests(base):
           auto, "names=%s" % (names if 'names' in dir() else "?"))
 
     member = Client(base)
+    gate(member)
     s, _, _ = member.post("/lobby", {"USER": "TestMember", "PASSWORD": "x",
                                      "MEMBER": "1",
                                      "SAYS": "<b>Joins The Lobby...</b>",
@@ -293,6 +341,7 @@ def run_tests(base):
 
     # ---- HISTORY behaviour: post 12 messages, HISTORY=8 shows last 8
     hist = Client(base)
+    gate(hist)
     hist.post("/lobby", {"USER": "HistTest",
                          "SAYS": "<b>Joins The Lobby...</b>",
                          "HISTORY": "8"})
@@ -310,6 +359,7 @@ def run_tests(base):
 
     # ---- rate limit: two rapid posts, second is 429
     rl = Client(base)
+    gate(rl)
     rl.post("/lobby", {"USER": "RateTest",
                        "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
     s1, _, _ = rl.post("/lobby/post", {"text": "first"})
@@ -319,6 +369,7 @@ def run_tests(base):
 
     # ---- whisper privacy: only sender + recipient see it
     w1, w2, w3 = Client(base), Client(base), Client(base)
+    gate(w1); gate(w2); gate(w3)
     for c, u in ((w1, "WhispA"), (w2, "WhispB"), (w3, "WhispC")):
         c.post("/blue", {"USER": u, "SAYS": "<b>Joins Blue Notes...</b>",
                          "HISTORY": "8"})
@@ -356,6 +407,10 @@ def run_tests(base):
     run_aol_style_tests(base)
     # ---- 21+ intent notice on every room (Paul, 2026-11-09)
     run_21plus_tests(base)
+    # ---- new landing page + age gate (Paul, 2026-11-09)
+    run_landing_tests(base)
+    # ---- retro chat services: fourteen, same setup (Paul, 2026-11-09)
+    run_services_tests(base)
     run_board_migration_tests()
     # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
     run_neighborhood_pages_tests(base)
@@ -427,6 +482,7 @@ def run_filter_tests(base):
     filter entirely (Paul, 2026-11-07) — never monitored or filtered."""
     # banned word in a public message is blocked, never stored
     f = Client(base)
+    gate(f)
     f.post("/lobby", {"USER": "FilterTest",
                       "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
     s, _, _ = f.post("/lobby/post", {"text": "this is a fuck test"})
@@ -467,6 +523,7 @@ def run_filter_tests(base):
           b"who remembers the old AOL days?" in body, "")
     # 3 strikes -> banned from public posting
     b = Client(base)
+    gate(b)
     b.post("/lobby", {"USER": "StrikeTest",
                       "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
     codes = []
@@ -484,6 +541,7 @@ def run_filter_tests(base):
           b"a clean message now" not in body, "")
     # ban is per-user: someone else can still post
     o = Client(base)
+    gate(o)
     o.post("/lobby", {"USER": "OtherUser",
                       "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
     s, _, _ = o.post("/lobby/post", {"text": "other user is fine"})
@@ -491,6 +549,7 @@ def run_filter_tests(base):
           s in (200, 303), "status=%d" % s)
     # whisper with a banned word passes unfiltered, delivered to recipient
     w1, w2 = Client(base), Client(base)
+    gate(w1); gate(w2)
     for c, u in ((w1, "WhispF1"), (w2, "WhispF2")):
         c.post("/blue", {"USER": u, "SAYS": "<b>Joins Blue Notes...</b>",
                          "HISTORY": "8"})
@@ -514,6 +573,7 @@ def run_board_tests(base):
     message; new posts render above the frozen 1997 archive and stay
     up (SQLite, no cap). Same word filter + strikes as public chat."""
     b = Client(base)
+    gate(b)
     s, body, _ = b.get("/messages/")
     check("board", "board page has post form + 1997 archive",
           s == 200 and b'action="/messages/post"' in body
@@ -654,6 +714,7 @@ def run_neighborhood_board_tests(base):
     + posts as the main board, no archive, isolated from the other
     boards. Same word filter + strikes."""
     b = Client(base)
+    gate(b)
     s, body, _ = b.get("/neighborhoods/hollywood/board/")
     check("board", "neighborhood board page serves with its own form",
           s == 200
@@ -701,6 +762,7 @@ def run_aol_tests(base):
     skin -- click a name in the member list to PM them, otherwise just
     read along. Plus the old-AOL-handles board."""
     b = Client(base)
+    gate(b)
     s, body, _ = b.get("/aol.html")
     check("aol", "AOL entry page serves with its handle form",
           s == 200 and b'action="/aol"' in body
@@ -712,6 +774,7 @@ def run_aol_tests(base):
           s in (301, 302, 303) and "aol.html" in h.get("Location", ""),
           "status=%d loc=%s" % (s, h.get("Location", "")))
     c = Client(base)
+    gate(c)
     c.post("/aol", {"USER": "AolSkin", "SAYS": "<b>Joins AOL Chat...</b>",
                     "HISTORY": "8"})
     s, body, _ = c.get("/aol")
@@ -726,6 +789,7 @@ def run_aol_tests(base):
           and b"Club Gabbay" not in body, "status=%d" % s)
     # PM round-trip in the AOL room: sender + recipient only
     w1, w2, w3 = Client(base), Client(base), Client(base)
+    gate(w1); gate(w2); gate(w3)
     for cl, u in ((w1, "AolA"), (w2, "AolB"), (w3, "AolC")):
         cl.post("/aol", {"USER": u, "SAYS": "<b>Joins AOL Chat...</b>",
                          "HISTORY": "8"})
@@ -783,9 +847,11 @@ def run_action_tests(base):
     in the room; posts '* user winks at target *'. Verb whitelisted,
     target must be in the room (not yourself); same rate limit as posts."""
     b = Client(base)
+    gate(b)
     s, body, _ = b.get("/lobby")
     # the lobby needs a session first -- join, then read the room page
     c = Client(base)
+    gate(c)
     c.post("/lobby", {"USER": "ActA", "SAYS": "<b>Joins The Lobby...</b>",
                       "HISTORY": "8"})
     s, body, _ = c.get("/lobby")
@@ -793,6 +859,7 @@ def run_action_tests(base):
           s == 200 and b'action="/lobby/action"' in body
           and b"winks at" in body and b"Do it!" in body, "status=%d" % s)
     a1, a2 = Client(base), Client(base)
+    gate(a1); gate(a2)
     for cl, u in ((a1, "ActA"), (a2, "ActB")):
         cl.post("/lobby", {"USER": u, "SAYS": "<b>Joins The Lobby...</b>",
                            "HISTORY": "8"})
@@ -843,6 +910,7 @@ def run_action_tests(base):
           s == 429, "status=%d" % s)
     # the AOL room has the same form (same engine, AOL skin)
     ac = Client(base)
+    gate(ac)
     ac.post("/aol", {"USER": "AolAct", "SAYS": "<b>Joins AOL Chat...</b>",
                      "HISTORY": "8"})
     s, body, _ = ac.get("/aol")
@@ -856,6 +924,7 @@ def run_aol_style_tests(base):
     font picker on the AOL chat box; the choice rides on the message
     and sticks in the session. Server-side whitelists only."""
     c = Client(base)
+    gate(c)
     c.post("/aol", {"USER": "AolSty", "SAYS": "<b>Joins AOL Chat...</b>",
                     "HISTORY": "8"})
     s, body, _ = c.get("/aol")
@@ -903,6 +972,7 @@ def run_aol_style_tests(base):
           b"onmouseover" not in body, "")
     # other rooms ignore color/font (AOL-only feature)
     g = Client(base)
+    gate(g)
     g.post("/lobby", {"USER": "LobbySty",
                       "SAYS": "<b>Joins The Lobby...</b>", "HISTORY": "8"})
     time.sleep(2.1)
@@ -929,6 +999,7 @@ def run_21plus_tests(base):
     for slug, user in (("lobby", "AgeA"), ("hollywood-chat", "AgeB"),
                        ("aol", "AgeC")):
         c = Client(base)
+        gate(c)
         c.post("/" + slug, {"USER": user,
                             "SAYS": "<b>Joins...</b>", "HISTORY": "8"})
         s, body, _ = c.get("/" + slug)
@@ -948,13 +1019,121 @@ def run_21plus_tests(base):
             ("/neighborhoods/chat/hollywood.html", b"21 and over"),
             ("/neighborhoods/chat/area51.html", b"21 and over")):
         c = Client(base)
+        gate(c)
         s, body, _ = c.get(path)
         check("21plus", "%s says 21 and over" % path,
               s == 200 and needle in body, "status=%d" % s)
     c = Client(base)
+    gate(c)
     s, body, _ = c.get("/anything_goes.cfm")
     check("21plus", "Anything Goes no longer says 18 anywhere",
           b"I AM 18" not in body and b"18 AND" not in body, "")
+
+
+def run_landing_tests(base):
+    """New landing page + age gate (Paul, 2026-11-09): the homepage is
+    super clear -- what the site is, the 21+ gate, the rules in plain
+    words, what's inside. The gate is enforced: the chat directories
+    and room entries need the flag or the entry form's confirm box.
+    No age is stored, no ID is asked for."""
+    anon = Client(base)
+    s, body, _ = anon.get("/")
+    check("landing", "homepage is the new landing page: ADULTS ONLY gate",
+          s == 200 and b"ADULTS ONLY" in body
+          and b'action="/age-gate"' in body
+          and b"I am 21 or older" in body
+          and b"The rules, plainly" in body
+          and b"Whispers are private and unmonitored" in body,
+          "status=%d" % s)
+    check("landing", "homepage says 21, never 18; no fake counts, no Netscape",
+          b"18+" not in body and b"Netscape" not in body
+          and b"9134" not in body and b"258" not in body, "")
+    check("landing", "homepage links all fourteen service pages",
+          all(('href="/%s.html"' % sv["slug"]).encode() in body
+              for sv in SERVICES), "")
+    s, body, _ = anon.get("/under21.html")
+    check("landing", "under-21 stop page serves",
+          s == 200 and b"adults 21 and over" in body
+          and b"Back to Club Gabbay" in body, "status=%d" % s)
+    s, body, _ = anon.get("/fine-print.html")
+    check("landing", "fine print carries the 21+ note + terms of entry",
+          s == 200 and b"Terms of entry" in body
+          and b"21 and over" in body, "status=%d" % s)
+    # gate POST without confirm -> back to the landing page, no flag
+    s, _, h = raw_post(base, "/age-gate", {})
+    check("landing", "age gate without confirm bounces to /",
+          s in (301, 302, 303) and h.get("Location") == "/",
+          "status=%d loc=%s" % (s, h.get("Location", "")))
+    c = Client(base)
+    s, body, _ = c.get("/chat.htm")
+    check("landing", "no flag: directory bounces home (landing page)",
+          s == 200 and b"ADULTS ONLY" in body, "status=%d" % s)
+    # gate POST with confirm -> chat directory, flag set
+    s, _, h = raw_post(base, "/age-gate", {"confirm": "21"})
+    check("landing", "age gate with confirm goes to /chat.htm",
+          s in (301, 302, 303) and h.get("Location") == "/chat.htm",
+          "status=%d loc=%s" % (s, h.get("Location", "")))
+    c.post("/age-gate", {"confirm": "21"})
+    s, body, _ = c.get("/chat.htm")
+    check("landing", "flag set: directory 200",
+          s == 200 and b"Lobby" in body, "status=%d" % s)
+    # directories without the flag -> back to the landing page
+    for p in ("/chat.htm", "/chat2.htm"):
+        s, _, h = raw_get(base, p)
+        check("landing", "%s without the flag bounces to /" % p,
+              s in (301, 302, 303) and h.get("Location") == "/",
+              "status=%d loc=%s" % (s, h.get("Location", "")))
+    # room entry without confirm and without the flag -> back home
+    fresh = Client(base)
+    s, body, _ = fresh.post("/lobby", {"USER": "NoGate",
+                                       "SAYS": "<b>Joins...</b>",
+                                       "HISTORY": "8"})
+    check("landing", "room entry without confirm bounces home",
+          b"ADULTS ONLY" in body and b"Joins The Lobby" not in body, "")
+    # room entry WITH confirm -> in, and the flag is set for the rest
+    s, body, _ = fresh.post("/lobby", {"USER": "NoGate",
+                                       "SAYS": "<b>Joins...</b>",
+                                       "HISTORY": "8", "confirm": "21"})
+    check("landing", "room entry with confirm reaches the room",
+          s == 200 and b"Joins The Lobby" in body, "status=%d" % s)
+    s, body, _ = fresh.get("/chat.htm")
+    check("landing", "entry set the flag: directory 200 after",
+          s == 200 and b"Lobby" in body, "status=%d" % s)
+
+
+def run_services_tests(base):
+    """Retro chat services (Paul, 2026-11-09): fourteen services, same
+    setup each -- a landing page with a 21+ gate and a handle form,
+    then a chat room on the same engine. Every service page links
+    every other service page."""
+    for sv in SERVICES:
+        slug = sv["slug"]
+        room = slug + "-chat"
+        c = Client(base)
+        s, body, _ = c.get("/%s.html" % slug)
+        check("services", "%s landing page serves with gate + handle form"
+              % slug,
+              s == 200 and sv["name"].encode() in body
+              and b"21 and over" in body
+              and ('action="/%s"' % room).encode() in body
+              and b'name="confirm"' in body, "status=%d" % s)
+        check("services", "%s page links all fourteen services" % slug,
+              all(('href="/%s.html"' % t["slug"]).encode() in body
+                  for t in SERVICES), "")
+        # entry without confirm -> bounced home
+        s, body, _ = c.post("/" + room, {"USER": "SvcTest",
+                                          "SAYS": "<b>Joins...</b>",
+                                          "HISTORY": "8"})
+        check("services", "%s entry without confirm bounces home" % slug,
+              b"ADULTS ONLY" in body
+              and sv["join"].encode() not in body, "")
+        # entry with confirm -> in the room
+        s, body, _ = c.post("/" + room, {"USER": "SvcTest",
+                                          "SAYS": "<b>%s</b>" % sv["join"],
+                                          "HISTORY": "8", "confirm": "21"})
+        check("services", "%s entry with confirm reaches the room" % slug,
+              s == 200 and sv["join"].encode() in body
+              and b"21 and over" in body, "status=%d" % s)
 
 
 def run_board_migration_tests():
@@ -1020,6 +1199,7 @@ def run_neighborhood_pages_tests(base):
     directory, verified outbound links only, webring, own board link,
     own chat room link, neighborhood button."""
     b = Client(base)
+    gate(b)
     s, body, _ = b.get("/neighborhoods/")
     check("neighborhoods", "neighborhoods index serves",
           s == 200 and all(n in body for n in
@@ -1103,6 +1283,7 @@ def run_neighborhood_pages_tests(base):
 
 def walk_room(base, slug):
     c = Client(base)
+    gate(c)
     # entry page serves
     s, body, _ = c.get(ENTRY_PAGE[slug])
     check(slug, "entry page %s 200" % ENTRY_PAGE[slug],
@@ -1177,12 +1358,14 @@ def persistence_check(proc, base):
     """Restart the server; a message posted before the restart must still
     be in the room history (SQLite persistence)."""
     c = Client(base)
+    gate(c)
     c.post("/lobby", {"USER": "Persist", "SAYS": "<b>Joins The Lobby...</b>",
                       "HISTORY": "8"})
     c.post("/lobby/post", {"text": "persist-marker-12345"})
     stop_server(proc)
     proc2, base2 = start_server(fresh=False)
     c2 = Client(base2)
+    gate(c2)
     c2.post("/lobby", {"USER": "Persist2", "SAYS": "<b>Joins The Lobby...</b>",
                        "HISTORY": "8"})
     s, body, _ = c2.get("/api/lobby/messages?since=0",

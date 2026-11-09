@@ -14,6 +14,7 @@ Show off your comedy prowers in the Jackie's JokeLand Chat Room.
 Name:<input name="USER" size=12 maxlength=12> 
 <input type=hidden name="SAYS" value="<b>Joins Jackie's JokeLand...</b>">
 <input type=hidden name="HISTORY" value="8">
+<input type="checkbox" name="confirm" value="21"> I am 21 or older<br>
 <input type=submit value="Enter"> 
 <hr>
 </form> 

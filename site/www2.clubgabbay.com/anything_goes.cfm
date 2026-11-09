@@ -23,6 +23,7 @@ Name:
 <input name="USER" size=12 maxlength=12> 
 <input type=hidden name="SAYS" value="<b>Joins Anything Goes...</b>">
 <input type=hidden name="HISTORY" value="8">
+<input type="checkbox" name="confirm" value="21"> I am 21 or older<br>
 <input type=submit value=" I CERTIFY THAT I AM 21 AND I'LL TAKE MY CHANCES"> 
 <hr>
 </form> 
