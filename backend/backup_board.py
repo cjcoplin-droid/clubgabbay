@@ -84,7 +84,13 @@ def main():
     if not new:
         print("board backup: no new posts (%d saved)" % len(saved))
         return 0
-    merged = sorted(saved + new, key=lambda p: p["id"])
+    # merge by id, live wins on refresh (a post's stored copy stays
+    # current if its board or text ever changes server-side)
+    by_id = {p["id"]: p for p in saved if isinstance(p, dict)
+             and "id" in p}
+    by_id.update({p["id"]: p for p in live if isinstance(p, dict)
+                  and "id" in p})
+    merged = sorted(by_id.values(), key=lambda p: p["id"])
     if args.dry_run:
         print("board backup DRY RUN: would add %d post(s), %d total"
               % (len(new), len(merged)))
@@ -106,7 +112,11 @@ def main():
         print("board backup: no new posts after sync (%d saved)"
               % len(saved))
         return 0
-    merged = sorted(saved + new, key=lambda p: p["id"])
+    by_id = {p["id"]: p for p in saved if isinstance(p, dict)
+             and "id" in p}
+    by_id.update({p["id"]: p for p in live if isinstance(p, dict)
+                  and "id" in p})
+    merged = sorted(by_id.values(), key=lambda p: p["id"])
     os.makedirs(os.path.dirname(backup_path), exist_ok=True)
     with open(backup_path, "w", encoding="utf-8") as fh:
         json.dump({"posts": merged}, fh, indent=2, ensure_ascii=True)

@@ -324,6 +324,11 @@ def run_tests(base):
     run_board_tests(base)
     # ---- board restore: posts survive restarts via the backup file
     run_board_restore_tests()
+    # ---- neighborhood boards: one per portal (Paul, 2026-11-09)
+    run_neighborhood_board_tests(base)
+    run_board_migration_tests()
+    # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
+    run_neighborhood_pages_tests(base)
 
     # ---- homepage blurb + monitoring notes
     s, body, _ = anon.get("/")
@@ -491,6 +496,20 @@ def run_board_tests(base):
           s == 200 and any(p.get("message") == "board-test-hello-12345"
                            for p in data.get("posts", [])),
           "status=%d" % s)
+    # ?board= filters to one board (Paul, 2026-11-09, neighborhoods)
+    s, body, _ = b.get("/api/board/posts?board=clubgabbay")
+    data = json.loads(body.decode("utf-8"))
+    check("board", "GET /api/board/posts?board=clubgabbay filters to the main board",
+          s == 200 and any(p.get("message") == "board-test-hello-12345"
+                           for p in data.get("posts", [])),
+          "status=%d" % s)
+    s, body, _ = b.get("/api/board/posts?board=hollywood")
+    data = json.loads(body.decode("utf-8"))
+    check("board", "GET /api/board/posts?board=hollywood is empty (no posts yet)",
+          s == 200 and data.get("posts") == [], "status=%d" % s)
+    s, _, _ = b.get("/api/board/posts?board=nope")
+    check("board", "GET /api/board/posts?board=nope is 404",
+          s == 404, "status=%d" % s)
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/messages/post",
@@ -586,6 +605,146 @@ def run_board_restore_tests():
               srv.restore_board_posts("") == 0, "")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+def run_neighborhood_board_tests(base):
+    """Each neighborhood has its own board (Paul, 2026-11-09): same form
+    + posts as the main board, no archive, isolated from the other
+    boards. Same word filter + strikes."""
+    b = Client(base)
+    s, body, _ = b.get("/neighborhoods/hollywood/board/")
+    check("board", "neighborhood board page serves with its own form",
+          s == 200
+          and b'action="/neighborhoods/hollywood/board/post"' in body
+          and b"Hollywood message board" in body, "status=%d" % s)
+    s, _, _ = b.get("/neighborhoods/nope/board/")
+    check("board", "unknown neighborhood board is 404",
+          s == 404, "status=%d" % s)
+    time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
+    s, _, _ = b.post("/neighborhoods/hollywood/board/post",
+                     {"to": "", "from": "HollyPoster", "subject": "hi",
+                      "message": "hood-board-test-12345"})
+    check("board", "neighborhood board post accepted",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = b.get("/neighborhoods/hollywood/board/")
+    check("board", "neighborhood post shows on its own board",
+          b"hood-board-test-12345" in body, "")
+    s, body, _ = b.get("/messages/")
+    check("board", "neighborhood post does NOT leak onto the main board",
+          b"hood-board-test-12345" not in body, "")
+    s, body, _ = b.get("/api/board/posts?board=hollywood")
+    data = json.loads(body.decode("utf-8"))
+    check("board", "API ?board=hollywood returns the neighborhood post",
+          any(p.get("message") == "hood-board-test-12345"
+              for p in data.get("posts", [])), "")
+    s, body, _ = b.get("/api/board/posts?board=siliconvalley")
+    data = json.loads(body.decode("utf-8"))
+    check("board", "API ?board=siliconvalley does not return it",
+          not any(p.get("message") == "hood-board-test-12345"
+                  for p in data.get("posts", [])), "")
+    s, _, _ = b.post("/neighborhoods/hollywood/board/post",
+                     {"to": "", "from": "HollyFilter", "subject": "",
+                      "message": "this is a fuck test"})
+    check("board", "banned word in neighborhood post is blocked (403)",
+          s == 403, "status=%d" % s)
+    s, _, _ = b.post("/neighborhoods/nope/board/post",
+                     {"to": "", "from": "Nobody", "subject": "",
+                      "message": "hood-board-test-nope-12345"})
+    check("board", "post to an unknown neighborhood board is 404",
+          s == 404, "status=%d" % s)
+
+
+def run_board_migration_tests():
+    """Old board DBs (no board column) gain it on startup, and old posts
+    read back on the main board (Paul, 2026-11-09, neighborhoods)."""
+    import shutil
+    import tempfile
+    sys.path.insert(0, HERE)
+    import server as srv
+    tmp = tempfile.mkdtemp(prefix="board-migrate-")
+    try:
+        old_path = os.path.join(tmp, "old.db")
+        conn = sqlite3.connect(old_path)
+        conn.execute("""CREATE TABLE board_posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL, to_name TEXT, subject TEXT,
+            message TEXT NOT NULL, ts REAL NOT NULL)""")
+        conn.execute("INSERT INTO board_posts (name, to_name, subject,"
+                     " message, ts) VALUES (?,?,?,?,?)",
+                     ("OldPoster", "", "", "old-board-marker-12345",
+                      1794240000.0))
+        conn.commit()
+        conn.close()
+        srv.db_init(old_path)  # must add the board column, not crash
+        cols = [r[1] for r in srv.db.execute(
+            "PRAGMA table_info(board_posts)").fetchall()]
+        check("board", "db_init adds the board column to an old board DB",
+              "board" in cols, "cols=%s" % cols)
+        got = srv.db_board_posts(board="clubgabbay")
+        check("board", "old post reads back on the main board",
+              any(p["message"] == "old-board-marker-12345" for p in got),
+              "")
+        srv.db_add_board_post("Mig", "", "", "mig-marker-12345", "area51")
+        check("board", "new post lands on its neighborhood board",
+              any(p["message"] == "mig-marker-12345"
+                  for p in srv.db_board_posts(board="area51")), "")
+        check("board", "neighborhood post is not on the main board",
+              not any(p["message"] == "mig-marker-12345"
+                      for p in srv.db_board_posts(board="clubgabbay")), "")
+        # restore honors the board field
+        fresh = os.path.join(tmp, "fresh.db")
+        srv.db_init(fresh)
+        backup = os.path.join(tmp, "board-posts.json")
+        with open(backup, "w", encoding="utf-8") as fh:
+            json.dump({"posts": [{"id": 5, "board": "sunsetstrip",
+                                  "name": "Sun", "to": "", "subject": "",
+                                  "message": "sunset-restore-12345",
+                                  "ts": 1794240002.0}]}, fh)
+        n = srv.restore_board_posts("file://" + backup)
+        check("board", "restore seeds a neighborhood post onto its board",
+              n == 1 and any(p["message"] == "sunset-restore-12345"
+                             for p in srv.db_board_posts(board="sunsetstrip")),
+              "restored=%d" % n)
+        check("board", "restored neighborhood post is not on the main board",
+              not any(p["message"] == "sunset-restore-12345"
+                      for p in srv.db_board_posts(board="clubgabbay")), "")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def run_neighborhood_pages_tests(base):
+    """The five portals (Paul, 2026-11-09): same template, suburb
+    directory, verified outbound links only, webring, own board link."""
+    b = Client(base)
+    s, body, _ = b.get("/neighborhoods/")
+    check("neighborhoods", "neighborhoods index serves",
+          s == 200 and all(n in body for n in
+                           (b"Hollywood", b"SiliconValley", b"SunsetStrip",
+                            b"Area51", b"WestHollywood")),
+          "status=%d" % s)
+    s, body, _ = b.get("/")
+    check("neighborhoods", "home page links the neighborhoods",
+          b'href="/neighborhoods/"' in body, "")
+    for slug, name, suburb in (
+            ("hollywood", b"Hollywood", b"Hills"),
+            ("siliconvalley", b"SiliconValley", b"Pines"),
+            ("sunsetstrip", b"SunsetStrip", b"Vine"),
+            ("area51", b"Area51", b"Vault"),
+            ("westhollywood", b"WestHollywood", b"Stonewall")):
+        s, body, _ = b.get("/neighborhoods/%s.html" % slug)
+        check("neighborhoods", "portal %s serves with its directory" % slug,
+              s == 200 and name in body
+              and b"The suburbs of" in body and suburb in body
+              and ("/neighborhoods/%s/board/" % slug).encode() in body
+              and b"GeoCities neighborhoods ring" in body
+              and b"fine-print.html" in body
+              and ("http://www.oocities.org/%s/" % name.decode()).encode() in body
+              and ("geocities.com/%s/" % name.decode()).encode() in body
+              and b"All Rights Reserved" not in body,
+              "status=%d" % s)
+        s, _, _ = b.get("/neighborhoods/%s/board/" % slug)
+        check("neighborhoods", "board page for %s serves" % slug,
+              s == 200, "status=%d" % s)
 
 
 def walk_room(base, slug):

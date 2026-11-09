@@ -191,10 +191,19 @@ def db_init(path):
         # Message board posts (Paul, 2026-11-09): the 1997 archive is
         # frozen in site/; new posts live here. NO cap — a board message
         # stays up. Same word filter + strikes as public chat.
+        # board column (Paul, 2026-11-09, neighborhoods): 'clubgabbay'
+        # for the main board, a neighborhood slug for the five portals.
         db.execute("""CREATE TABLE IF NOT EXISTS board_posts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            board TEXT NOT NULL DEFAULT 'clubgabbay',
             name TEXT NOT NULL, to_name TEXT, subject TEXT,
             message TEXT NOT NULL, ts REAL NOT NULL)""")
+        try:
+            # existing DBs predate the board column
+            db.execute("ALTER TABLE board_posts ADD COLUMN board TEXT "
+                       "NOT NULL DEFAULT 'clubgabbay'")
+        except sqlite3.OperationalError:
+            pass  # column already there
         db.execute("CREATE INDEX IF NOT EXISTS idx_msg_room ON messages(room, id)")
         db.commit()
 
@@ -247,26 +256,33 @@ def db_last_id(room):
     return row[0] or 0
 
 
-def db_add_board_post(name, to_name, subject, message):
+def db_add_board_post(name, to_name, subject, message, board="clubgabbay"):
     """Store a board post. No cap: board messages stay up."""
     with db_lock:
         cur = db.execute(
-            "INSERT INTO board_posts (name, to_name, subject, message, ts)"
-            " VALUES (?,?,?,?,?)",
-            (name, to_name, subject, message, time.time()))
+            "INSERT INTO board_posts (board, name, to_name, subject, message, ts)"
+            " VALUES (?,?,?,?,?,?)",
+            (board, name, to_name, subject, message, time.time()))
         db.commit()
     return cur.lastrowid
 
 
-def db_board_posts(limit=200):
-    """Board posts, newest first."""
+def db_board_posts(limit=200, board=None):
+    """Board posts, newest first. board=None returns every board (the
+    backup job reads that); a board slug returns just that board."""
     with db_lock:
-        rows = db.execute(
-            "SELECT id, name, to_name, subject, message, ts FROM board_posts"
-            " ORDER BY id DESC LIMIT ?",
-            (limit,)).fetchall()
-    return [{"id": r[0], "name": r[1], "to": r[2], "subject": r[3],
-             "message": r[4], "ts": r[5]} for r in rows]
+        if board is None:
+            rows = db.execute(
+                "SELECT id, board, name, to_name, subject, message, ts FROM board_posts"
+                " ORDER BY id DESC LIMIT ?",
+                (limit,)).fetchall()
+        else:
+            rows = db.execute(
+                "SELECT id, board, name, to_name, subject, message, ts FROM board_posts"
+                " WHERE board=? ORDER BY id DESC LIMIT ?",
+                (board, limit)).fetchall()
+    return [{"id": r[0], "board": r[1], "name": r[2], "to": r[3],
+             "subject": r[4], "message": r[5], "ts": r[6]} for r in rows]
 
 
 def restore_board_posts(url=None):
@@ -298,9 +314,10 @@ def restore_board_posts(url=None):
                 try:
                     db.execute(
                         "INSERT OR IGNORE INTO board_posts"
-                        " (id, name, to_name, subject, message, ts)"
-                        " VALUES (?,?,?,?,?,?)",
-                        (p["id"], p["name"], p.get("to"), p.get("subject"),
+                        " (id, board, name, to_name, subject, message, ts)"
+                        " VALUES (?,?,?,?,?,?,?)",
+                        (p["id"], p.get("board", "clubgabbay"), p["name"],
+                         p.get("to"), p.get("subject"),
                          p["message"], p["ts"]))
                     restored += 1
                 except (KeyError, TypeError):
@@ -665,12 +682,39 @@ Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body></html>""" % esc(path)
 
 
+# GeoCities neighborhoods revival (Paul, 2026-11-09): the top 5, each a
+# fan-made portal with its own message board, same setup for all, linked
+# to each other and to Club Gabbay. Slug -> display name.
+NEIGHBORHOODS = {
+    "hollywood": "Hollywood",
+    "siliconvalley": "SiliconValley",
+    "sunsetstrip": "SunsetStrip",
+    "area51": "Area51",
+    "westhollywood": "WestHollywood",
+}
+
+
+def board_url(board):
+    """Public URL of a board page."""
+    if board == "clubgabbay":
+        return "/messages/"
+    return "/neighborhoods/%s/board/" % board
+
+
+def board_post_url(board):
+    if board == "clubgabbay":
+        return "/messages/post"
+    return "/neighborhoods/%s/board/post" % board
+
+
 # ---------------------------------------------------------------- message board
 # The 1997 bulletin board is a frozen archive file in site/; new posts live
 # in SQLite (board_posts) and render ABOVE the archive, newest first, in
 # the archive's own Date/To/From/Subject format — minus Host/IP, which the
 # 1997 board printed and we do not. Same word filter + strikes as public
 # chat (Paul, 2026-11-07); board posts are public, so they are filtered.
+# Neighborhood boards (Paul, 2026-11-09) are the same form + posts with
+# no archive — they are new pages, not frozen files.
 _board_last_post = {}  # ip -> time of last accepted board post
 
 
@@ -702,18 +746,12 @@ def render_board_post(p):
                esc(p["message"])))
 
 
-def render_board_page():
-    """Archived board file + post form + new posts above the archive."""
-    try:
-        with open(board_file(), encoding="latin-1") as fh:
-            raw = fh.read()
-    except OSError:
-        return render_404("/messages/")
-    head, sep, archive = raw.partition("<hr noshade>")
-    if not sep:
-        head, archive = raw, ""
+def render_board_page(board="clubgabbay"):
+    """Club Gabbay board: archived board file + post form + new posts
+    above the frozen 1997 archive. Neighborhood boards: the same form +
+    posts on a fresh page (no archive), with a link back to the portal."""
     form = ('<center><b>Post a message:</b></center>\n'
-            '<form action="/messages/post" method="post">\n'
+            '<form action="__POST_URL__" method="post">\n'
             'To: <input type="text" name="to" size="20" maxlength="30">\n'
             'From: <input type="text" name="from" size="20" maxlength="30">'
             '<br>\n'
@@ -722,14 +760,46 @@ def render_board_page():
             '<textarea name="message" rows="4" cols="60" maxlength="1000">'
             '</textarea><br>\n'
             '<input type="submit" value="Post It!">\n'
-            '</form>\n<hr noshade>\n')
-    posts = db_board_posts()
+            '</form>\n<hr noshade>\n').replace("__POST_URL__",
+                                                board_post_url(board))
+    posts = db_board_posts(board=board)
     new_html = ""
     if posts:
         new_html = ('<center><b>— New messages —</b></center>\n'
-                    + "".join(render_board_post(p) for p in posts)
-                    + '<center><b>— Messages from 1997 —</b></center>\n')
-    return head + sep + "\n" + form + new_html + archive + "</body></html>\n"
+                    + "".join(render_board_post(p) for p in posts))
+    if board == "clubgabbay":
+        try:
+            with open(board_file(), encoding="latin-1") as fh:
+                raw = fh.read()
+        except OSError:
+            return render_404("/messages/")
+        head, sep, archive = raw.partition("<hr noshade>")
+        if not sep:
+            head, archive = raw, ""
+        if posts:
+            new_html += '<center><b>— Messages from 1997 —</b></center>\n'
+        return head + sep + "\n" + form + new_html + archive + "</body></html>\n"
+    name = NEIGHBORHOODS[board]
+    body = new_html or ('<center><i>No messages yet — be the first to '
+                        'leave one.</i></center>\n')
+    return ('<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">\n<html>\n<head>\n'
+            '<meta http-equiv="Content-Type" content="text/html; '
+            'charset=iso-8859-1">\n'
+            '<title>%s message board -- Club Gabbay</title>\n</head>\n'
+            '<body background="/clubgabbay.com/images/bg/home_bg.jpg">\n'
+            '<center><font size="+2"><strong>%s message board</strong>'
+            '</font></center>\n'
+            '<p><font size="+1">Were you a %s homesteader? Leave a message '
+            '-- say what your address was, who you remember, and where life '
+            'took you.</font></p>\n'
+            '%s%s'
+            '<hr>\n<p><a href="/neighborhoods/%s.html">Back to %s</a> | '
+            '<a href="/">Club Gabbay Home</a> | '
+            '<a href="/fine-print.html">Fine print</a></p>\n'
+            '<font color=gray size=2>Club Gabbay -- a fan-run homage to the '
+            '1996-1999 original.</font>\n'
+            '</body></html>\n'
+            % (name, name, name, form, body, board, name))
 
 
 # ---------------------------------------------------------------- handler
@@ -914,23 +984,28 @@ class Handler(BaseHTTPRequestHandler):
             self._redirect("/" + slug)
 
     # -- message board
-    def _handle_board_post(self, form):
-        """POST /messages/post — a new board message. Same word filter +
-        strikes as public chat; board posts are public, so they are
-        filtered. No login: the poster types their own From name."""
+    def _handle_board_post(self, form, board="clubgabbay"):
+        """POST /messages/post (or /neighborhoods/<slug>/board/post) — a
+        new board message. Same word filter + strikes as public chat;
+        board posts are public, so they are filtered. No login: the
+        poster types their own From name."""
+        if board != "clubgabbay" and board not in NEIGHBORHOODS:
+            self._send(404, render_404(self.path))
+            return
+        back = board_url(board)
         name = (form.get("from") or "").strip()[:BOARD_MAX_NAME]
         to_name = (form.get("to") or "").strip()[:BOARD_MAX_NAME]
         subject = (form.get("subject") or "").strip()[:BOARD_MAX_SUBJECT]
         message = (form.get("message") or "").strip()[:BOARD_MAX_MSG]
         if not name or not message:
-            self._redirect("/messages/")
+            self._redirect(back)
             return
         _, banned = strike_status(name)
         if banned:
             self._send(403, "<html><body>You are banned from posting on "
                             "the message board here — three blocked "
-                            "messages.<br><a href=\"/messages/\">Back to "
-                            "the board</a></body></html>")
+                            "messages.<br><a href=\"%s\">Back to "
+                            "the board</a></body></html>" % back)
             return
         hit = text_blocked(" ".join(
             x for x in (name, to_name, subject, message) if x))
@@ -943,19 +1018,20 @@ class Handler(BaseHTTPRequestHandler):
                 msg = ("That message was blocked — it contains language "
                        "that isn't allowed here. (Strike %d of %d.)"
                        % (strikes, BLOCK_STRIKES))
-            self._send(403, "<html><body>%s<br><a href=\"/messages/\">"
-                            "Back to the board</a></body></html>" % esc(msg))
+            self._send(403, "<html><body>%s<br><a href=\"%s\">"
+                            "Back to the board</a></body></html>"
+                       % (esc(msg), back))
             return
         ip = self.client_address[0]
         now = time.time()
         if now - _board_last_post.get(ip, 0) < BOARD_RATE_LIMIT_SECS:
             self._send(429, "<html><body>Slow down — one board message "
-                            "every few seconds. <a href=\"/messages/\">"
-                            "Back to the board</a></body></html>")
+                            "every few seconds. <a href=\"%s\">"
+                            "Back to the board</a></body></html>" % back)
             return
         _board_last_post[ip] = now
-        db_add_board_post(name, to_name, subject, message)
-        self._redirect("/messages/")
+        db_add_board_post(name, to_name, subject, message, board)
+        self._redirect(back)
 
     # -- API
     def _handle_api_messages(self, slug, query):
@@ -1009,9 +1085,15 @@ class Handler(BaseHTTPRequestHandler):
                 {"slug": s, "name": i["name"]} for s, i in ROOMS.items()]})
             return
         if path == "/api/board/posts":
-            # public data (same posts the board page renders); the backup
-            # job reads this (Paul, 2026-11-09: board posts must stay up)
-            self._json(200, {"posts": db_board_posts()})
+            # public data (same posts the board pages render); the backup
+            # job reads this (Paul, 2026-11-09: board posts must stay up).
+            # ?board=<slug> filters to one board; no param returns all.
+            b = query.get("board", [None])[0]
+            if b is not None and b != "clubgabbay" \
+                    and b not in NEIGHBORHOODS:
+                self._json(404, {"error": "no such board"})
+                return
+            self._json(200, {"posts": db_board_posts(board=b)})
             return
         if path.startswith("/api/") and "/messages" in path:
             parts = [p for p in path.split("/") if p]
@@ -1028,6 +1110,13 @@ class Handler(BaseHTTPRequestHandler):
             if self._room_or_none(base):
                 self._handle_leave(ALIASES.get(base, base))
                 return
+        parts = [p for p in path.split("/") if p]
+        if len(parts) == 3 and parts[0] == "neighborhoods" \
+                and parts[2] == "board" and parts[1] in NEIGHBORHOODS:
+            # a neighborhood's own board (Paul, 2026-11-09): same form +
+            # posts as the main board, no archive
+            self._send(200, render_board_page(parts[1]))
+            return
         fpath = resolve_static(path)
         if fpath and is_board_file(fpath):
             # the bulletin board is server-rendered: post form + new
@@ -1051,7 +1140,12 @@ class Handler(BaseHTTPRequestHandler):
         parts = [p for p in path.split("/") if p]
         form = self._read_form()
         if parts == ["messages", "post"]:
-            self._handle_board_post(form)
+            self._handle_board_post(form, "clubgabbay")
+            return
+        if len(parts) == 4 and parts[0] == "neighborhoods" \
+                and parts[2] == "board" and parts[3] == "post" \
+                and parts[1] in NEIGHBORHOODS:
+            self._handle_board_post(form, parts[1])
             return
         if len(parts) >= 2 and parts[1] == "post" and self._room_or_none(parts[0]):
             self._handle_post(ALIASES.get(parts[0], parts[0]), form)
