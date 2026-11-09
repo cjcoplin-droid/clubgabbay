@@ -111,7 +111,9 @@ def stop_server(proc):
 
 
 ROOMS = ["lobby", "blue", "speakeasy", "denim", "hard", "soul", "jive",
-         "classical", "paradise", "anything-goes", "jokeland"]
+         "classical", "paradise", "anything-goes", "jokeland",
+         "hollywood-chat", "siliconvalley-chat", "sunsetstrip-chat",
+         "area51-chat", "westhollywood-chat"]
 ENTRY_PAGE = {
     "lobby": "/www2.clubgabbay.com/lobby.cfm",
     "blue": "/www.clubgabbay.com/htmls/blue.html",
@@ -124,6 +126,11 @@ ENTRY_PAGE = {
     "paradise": "/www.clubgabbay.com/htmls/paradise.html",
     "anything-goes": "/www2.clubgabbay.com/anything_goes.cfm",
     "jokeland": "/www2.clubgabbay.com/jokeland.cfm",
+    "hollywood-chat": "/neighborhoods/chat/hollywood.html",
+    "siliconvalley-chat": "/neighborhoods/chat/siliconvalley.html",
+    "sunsetstrip-chat": "/neighborhoods/chat/sunsetstrip.html",
+    "area51-chat": "/neighborhoods/chat/area51.html",
+    "westhollywood-chat": "/neighborhoods/chat/westhollywood.html",
 }
 JOIN_TEXT = {
     "lobby": "Joins The Lobby", "blue": "Joins Blue Notes",
@@ -133,6 +140,11 @@ JOIN_TEXT = {
     "paradise": "Joins Paradise Patio",
     "anything-goes": "Joins Anything Goes",
     "jokeland": "Joins Jackie",
+    "hollywood-chat": "Joins The Hollywood Chat",
+    "siliconvalley-chat": "Joins The SiliconValley Chat",
+    "sunsetstrip-chat": "Joins The SunsetStrip Chat",
+    "area51-chat": "Joins The Area51 Chat",
+    "westhollywood-chat": "Joins The WestHollywood Chat",
 }
 
 
@@ -714,7 +726,8 @@ def run_board_migration_tests():
 
 def run_neighborhood_pages_tests(base):
     """The five portals (Paul, 2026-11-09): same template, suburb
-    directory, verified outbound links only, webring, own board link."""
+    directory, verified outbound links only, webring, own board link,
+    own chat room link, neighborhood button."""
     b = Client(base)
     s, body, _ = b.get("/neighborhoods/")
     check("neighborhoods", "neighborhoods index serves",
@@ -725,6 +738,27 @@ def run_neighborhood_pages_tests(base):
     s, body, _ = b.get("/")
     check("neighborhoods", "home page links the neighborhoods",
           b'href="/neighborhoods/"' in body, "")
+    # chat directory lists the five neighborhood rooms (Paul, 2026-11-09);
+    # the archived file uses relative links, like the rest of its links.
+    s, body, _ = b.get("/chat.htm")
+    check("neighborhoods", "chat directory lists all five neighborhood rooms",
+          s == 200 and all(
+              ("neighborhoods/chat/%s.html" % slug).encode() in body
+              for slug in ("hollywood", "siliconvalley", "sunsetstrip",
+                           "area51", "westhollywood")),
+          "status=%d" % s)
+    # the authentic 88x31 buttons serve (Chaz Boston Baden, via Blade's)
+    for slug in ("hollywood", "siliconvalley", "sunsetstrip", "area51",
+                 "westhollywood"):
+        s, body, h = b.get("/images/neighborhoods/%s.gif" % slug)
+        check("neighborhoods", "button %s.gif serves as a GIF" % slug,
+              s == 200 and body[:6] in (b"GIF87a", b"GIF89a")
+              and "image/gif" in h.get("Content-Type", ""),
+              "status=%d" % s)
+    s, _, h = b.get("/images/neighborhoods/geocities-logo.jpg")
+    check("neighborhoods", "GeoCities era logo serves",
+          s == 200 and "image/jpeg" in h.get("Content-Type", ""),
+          "status=%d" % s)
     for slug, name, suburb in (
             ("hollywood", b"Hollywood", b"Hills"),
             ("siliconvalley", b"SiliconValley", b"Pines"),
@@ -736,6 +770,8 @@ def run_neighborhood_pages_tests(base):
               s == 200 and name in body
               and b"The suburbs of" in body and suburb in body
               and ("/neighborhoods/%s/board/" % slug).encode() in body
+              and ("/%s-chat" % slug).encode() in body
+              and ("/images/neighborhoods/%s.gif" % slug).encode() in body
               and b"GeoCities neighborhoods ring" in body
               and b"fine-print.html" in body
               and ("http://www.oocities.org/%s/" % name.decode()).encode() in body

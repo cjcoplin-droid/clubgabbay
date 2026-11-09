@@ -1,12 +1,12 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 09:50 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 12:09 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 190 — **190 PASS, 0 FAIL**
-- Rooms walked: 11 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland)
+- Checks run: 288 — **288 PASS, 0 FAIL**
+- Rooms walked: 16 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat)
 
 ## Per-room results
 
@@ -131,12 +131,67 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | jokeland | poll API returns posted message | PASS | found=1 |
 | jokeland | presence lists the chatter | PASS |  |
 | jokeland | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
-| jokeland | jump to /lobby keeps session, redirects | PASS | status=200 |
-| jokeland | jump posts join line in lobby | PASS |  |
-| jokeland | leave lobby redirects to chat directory | PASS | status=200 |
+| jokeland | jump to /hollywood-chat keeps session, redirects | PASS | status=200 |
+| jokeland | jump posts join line in hollywood-chat | PASS |  |
+| jokeland | leave hollywood-chat redirects to chat directory | PASS | status=200 |
+| hollywood-chat | entry page /neighborhoods/chat/hollywood.html 200 | PASS | status=200 |
+| hollywood-chat | GET /hollywood-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/hollywood.html |
+| hollywood-chat | guest entry POST redirects to /hollywood-chat | PASS | status=200 |
+| hollywood-chat | chat pane shows join line + room name | PASS | status=200 |
+| hollywood-chat | post a message (303 back to room) | PASS | status=200 |
+| hollywood-chat | poll API returns posted message | PASS | found=1 |
+| hollywood-chat | presence lists the chatter | PASS |  |
+| hollywood-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| hollywood-chat | jump to /siliconvalley-chat keeps session, redirects | PASS | status=200 |
+| hollywood-chat | jump posts join line in siliconvalley-chat | PASS |  |
+| hollywood-chat | leave siliconvalley-chat redirects to chat directory | PASS | status=200 |
+| siliconvalley-chat | entry page /neighborhoods/chat/siliconvalley.html 200 | PASS | status=200 |
+| siliconvalley-chat | GET /siliconvalley-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/siliconvalley.html |
+| siliconvalley-chat | guest entry POST redirects to /siliconvalley-chat | PASS | status=200 |
+| siliconvalley-chat | chat pane shows join line + room name | PASS | status=200 |
+| siliconvalley-chat | post a message (303 back to room) | PASS | status=200 |
+| siliconvalley-chat | poll API returns posted message | PASS | found=1 |
+| siliconvalley-chat | presence lists the chatter | PASS |  |
+| siliconvalley-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| siliconvalley-chat | jump to /sunsetstrip-chat keeps session, redirects | PASS | status=200 |
+| siliconvalley-chat | jump posts join line in sunsetstrip-chat | PASS |  |
+| siliconvalley-chat | leave sunsetstrip-chat redirects to chat directory | PASS | status=200 |
+| sunsetstrip-chat | entry page /neighborhoods/chat/sunsetstrip.html 200 | PASS | status=200 |
+| sunsetstrip-chat | GET /sunsetstrip-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/sunsetstrip.html |
+| sunsetstrip-chat | guest entry POST redirects to /sunsetstrip-chat | PASS | status=200 |
+| sunsetstrip-chat | chat pane shows join line + room name | PASS | status=200 |
+| sunsetstrip-chat | post a message (303 back to room) | PASS | status=200 |
+| sunsetstrip-chat | poll API returns posted message | PASS | found=1 |
+| sunsetstrip-chat | presence lists the chatter | PASS |  |
+| sunsetstrip-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| sunsetstrip-chat | jump to /area51-chat keeps session, redirects | PASS | status=200 |
+| sunsetstrip-chat | jump posts join line in area51-chat | PASS |  |
+| sunsetstrip-chat | leave area51-chat redirects to chat directory | PASS | status=200 |
+| area51-chat | entry page /neighborhoods/chat/area51.html 200 | PASS | status=200 |
+| area51-chat | GET /area51-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/area51.html |
+| area51-chat | guest entry POST redirects to /area51-chat | PASS | status=200 |
+| area51-chat | chat pane shows join line + room name | PASS | status=200 |
+| area51-chat | post a message (303 back to room) | PASS | status=200 |
+| area51-chat | poll API returns posted message | PASS | found=1 |
+| area51-chat | presence lists the chatter | PASS |  |
+| area51-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| area51-chat | jump to /westhollywood-chat keeps session, redirects | PASS | status=200 |
+| area51-chat | jump posts join line in westhollywood-chat | PASS |  |
+| area51-chat | leave westhollywood-chat redirects to chat directory | PASS | status=200 |
+| westhollywood-chat | entry page /neighborhoods/chat/westhollywood.html 200 | PASS | status=200 |
+| westhollywood-chat | GET /westhollywood-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/westhollywood.html |
+| westhollywood-chat | guest entry POST redirects to /westhollywood-chat | PASS | status=200 |
+| westhollywood-chat | chat pane shows join line + room name | PASS | status=200 |
+| westhollywood-chat | post a message (303 back to room) | PASS | status=200 |
+| westhollywood-chat | poll API returns posted message | PASS | found=1 |
+| westhollywood-chat | presence lists the chatter | PASS |  |
+| westhollywood-chat | HISTORY=8 caps initial pane at 8 | PASS | n=4 |
+| westhollywood-chat | jump to /lobby keeps session, redirects | PASS | status=200 |
+| westhollywood-chat | jump posts join line in lobby | PASS |  |
+| westhollywood-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tjokeland', 'Tjokeland', 'Guest4178'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4178', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Twestholly', 'Twestholly', 'Guest6093'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6093', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -156,6 +211,10 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | board page has post form + 1997 archive | PASS | status=200 |
 | board | clean board post accepted | PASS | status=200 |
 | board | new post shows above the 1997 archive | PASS |  |
+| board | GET /api/board/posts returns the new post as JSON | PASS | status=200 |
+| board | GET /api/board/posts?board=clubgabbay filters to the main board | PASS | status=200 |
+| board | GET /api/board/posts?board=hollywood is empty (no posts yet) | PASS | status=200 |
+| board | GET /api/board/posts?board=nope is 404 | PASS | status=404 |
 | board | markup post accepted (stored, escaped at render) | PASS | status=200 |
 | board | markup in a post is escaped, never rendered | PASS |  |
 | board | banned word in board post is blocked (403) | PASS | status=403 |
@@ -163,6 +222,45 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | three blocked board posts all return 403 | PASS | statuses=[403, 403, 403] |
 | board | 3 strikes -> banned from board: clean post rejected | PASS | status=403 |
 | board | post with no From name is not stored | PASS |  |
+| board | restore seeds an empty board from the backup file | PASS | restored=1 |
+| board | restore is idempotent (second run restores 0) | PASS | restored=0 |
+| board | restore skips a non-empty board (live posts kept) | PASS | restored=0 |
+| board | restore with an unreachable URL returns 0, no crash | PASS |  |
+| board | restore with no URL configured is a no-op | PASS |  |
+| board | neighborhood board page serves with its own form | PASS | status=200 |
+| board | unknown neighborhood board is 404 | PASS | status=404 |
+| board | neighborhood board post accepted | PASS | status=200 |
+| board | neighborhood post shows on its own board | PASS |  |
+| board | neighborhood post does NOT leak onto the main board | PASS |  |
+| board | API ?board=hollywood returns the neighborhood post | PASS |  |
+| board | API ?board=siliconvalley does not return it | PASS |  |
+| board | banned word in neighborhood post is blocked (403) | PASS | status=403 |
+| board | post to an unknown neighborhood board is 404 | PASS | status=404 |
+| board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
+| board | old post reads back on the main board | PASS |  |
+| board | new post lands on its neighborhood board | PASS |  |
+| board | neighborhood post is not on the main board | PASS |  |
+| board | restore seeds a neighborhood post onto its board | PASS | restored=1 |
+| board | restored neighborhood post is not on the main board | PASS |  |
+| neighborhoods | neighborhoods index serves | PASS | status=200 |
+| neighborhoods | home page links the neighborhoods | PASS |  |
+| neighborhoods | chat directory lists all five neighborhood rooms | PASS | status=200 |
+| neighborhoods | button hollywood.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | button siliconvalley.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | button sunsetstrip.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | button area51.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | button westhollywood.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | GeoCities era logo serves | PASS | status=200 |
+| neighborhoods | portal hollywood serves with its directory | PASS | status=200 |
+| neighborhoods | board page for hollywood serves | PASS | status=200 |
+| neighborhoods | portal siliconvalley serves with its directory | PASS | status=200 |
+| neighborhoods | board page for siliconvalley serves | PASS | status=200 |
+| neighborhoods | portal sunsetstrip serves with its directory | PASS | status=200 |
+| neighborhoods | board page for sunsetstrip serves | PASS | status=200 |
+| neighborhoods | portal area51 serves with its directory | PASS | status=200 |
+| neighborhoods | board page for area51 serves | PASS | status=200 |
+| neighborhoods | portal westhollywood serves with its directory | PASS | status=200 |
+| neighborhoods | board page for westhollywood serves | PASS | status=200 |
 | filter | blocklist is not served over HTTP (/blocklist.txt 404) | PASS | status=404 |
 | filter | blocklist is not served (/backend/blocklist.txt 404) | PASS | status=404 |
 | board | board post survives server restart (stays up) | PASS | found=True |
@@ -203,8 +301,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | known archive gap /images/bg/soulsearch_bg.jpg returns 404 (expected) | PASS | status=404 |
 | homepage carries the approved blurb | PASS |  |
 | homepage notes monitoring / 18+ / private whispers | PASS |  |
-| link check / (2 links): server matches archive | PASS | all resolve |
-| link check /chat.htm (8 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
+| link check / (5 links): server matches archive | PASS | all resolve |
+| link check /chat.htm (18 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
 | link check /chat2.htm (33 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
 
@@ -359,9 +457,64 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - jokeland — poll API returns posted message
 - jokeland — presence lists the chatter
 - jokeland — HISTORY=8 caps initial pane at 8
-- jokeland — jump to /lobby keeps session, redirects
-- jokeland — jump posts join line in lobby
-- jokeland — leave lobby redirects to chat directory
+- jokeland — jump to /hollywood-chat keeps session, redirects
+- jokeland — jump posts join line in hollywood-chat
+- jokeland — leave hollywood-chat redirects to chat directory
+- hollywood-chat — entry page /neighborhoods/chat/hollywood.html 200
+- hollywood-chat — GET /hollywood-chat w/o session redirects to entry page
+- hollywood-chat — guest entry POST redirects to /hollywood-chat
+- hollywood-chat — chat pane shows join line + room name
+- hollywood-chat — post a message (303 back to room)
+- hollywood-chat — poll API returns posted message
+- hollywood-chat — presence lists the chatter
+- hollywood-chat — HISTORY=8 caps initial pane at 8
+- hollywood-chat — jump to /siliconvalley-chat keeps session, redirects
+- hollywood-chat — jump posts join line in siliconvalley-chat
+- hollywood-chat — leave siliconvalley-chat redirects to chat directory
+- siliconvalley-chat — entry page /neighborhoods/chat/siliconvalley.html 200
+- siliconvalley-chat — GET /siliconvalley-chat w/o session redirects to entry page
+- siliconvalley-chat — guest entry POST redirects to /siliconvalley-chat
+- siliconvalley-chat — chat pane shows join line + room name
+- siliconvalley-chat — post a message (303 back to room)
+- siliconvalley-chat — poll API returns posted message
+- siliconvalley-chat — presence lists the chatter
+- siliconvalley-chat — HISTORY=8 caps initial pane at 8
+- siliconvalley-chat — jump to /sunsetstrip-chat keeps session, redirects
+- siliconvalley-chat — jump posts join line in sunsetstrip-chat
+- siliconvalley-chat — leave sunsetstrip-chat redirects to chat directory
+- sunsetstrip-chat — entry page /neighborhoods/chat/sunsetstrip.html 200
+- sunsetstrip-chat — GET /sunsetstrip-chat w/o session redirects to entry page
+- sunsetstrip-chat — guest entry POST redirects to /sunsetstrip-chat
+- sunsetstrip-chat — chat pane shows join line + room name
+- sunsetstrip-chat — post a message (303 back to room)
+- sunsetstrip-chat — poll API returns posted message
+- sunsetstrip-chat — presence lists the chatter
+- sunsetstrip-chat — HISTORY=8 caps initial pane at 8
+- sunsetstrip-chat — jump to /area51-chat keeps session, redirects
+- sunsetstrip-chat — jump posts join line in area51-chat
+- sunsetstrip-chat — leave area51-chat redirects to chat directory
+- area51-chat — entry page /neighborhoods/chat/area51.html 200
+- area51-chat — GET /area51-chat w/o session redirects to entry page
+- area51-chat — guest entry POST redirects to /area51-chat
+- area51-chat — chat pane shows join line + room name
+- area51-chat — post a message (303 back to room)
+- area51-chat — poll API returns posted message
+- area51-chat — presence lists the chatter
+- area51-chat — HISTORY=8 caps initial pane at 8
+- area51-chat — jump to /westhollywood-chat keeps session, redirects
+- area51-chat — jump posts join line in westhollywood-chat
+- area51-chat — leave westhollywood-chat redirects to chat directory
+- westhollywood-chat — entry page /neighborhoods/chat/westhollywood.html 200
+- westhollywood-chat — GET /westhollywood-chat w/o session redirects to entry page
+- westhollywood-chat — guest entry POST redirects to /westhollywood-chat
+- westhollywood-chat — chat pane shows join line + room name
+- westhollywood-chat — post a message (303 back to room)
+- westhollywood-chat — poll API returns posted message
+- westhollywood-chat — presence lists the chatter
+- westhollywood-chat — HISTORY=8 caps initial pane at 8
+- westhollywood-chat — jump to /lobby keeps session, redirects
+- westhollywood-chat — jump posts join line in lobby
+- westhollywood-chat — leave lobby redirects to chat directory
 - lobby — guest form (archived Guest1251) redirects to /lobby
 - lobby — guest gets fresh auto-name GuestNNNN (not literal 1251)
 - lobby — member entry flagged (member) in presence
@@ -384,6 +537,10 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - board — board page has post form + 1997 archive
 - board — clean board post accepted
 - board — new post shows above the 1997 archive
+- board — GET /api/board/posts returns the new post as JSON
+- board — GET /api/board/posts?board=clubgabbay filters to the main board
+- board — GET /api/board/posts?board=hollywood is empty (no posts yet)
+- board — GET /api/board/posts?board=nope is 404
 - board — markup post accepted (stored, escaped at render)
 - board — markup in a post is escaped, never rendered
 - board — banned word in board post is blocked (403)
@@ -391,12 +548,51 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - board — three blocked board posts all return 403
 - board — 3 strikes -> banned from board: clean post rejected
 - board — post with no From name is not stored
+- board — restore seeds an empty board from the backup file
+- board — restore is idempotent (second run restores 0)
+- board — restore skips a non-empty board (live posts kept)
+- board — restore with an unreachable URL returns 0, no crash
+- board — restore with no URL configured is a no-op
+- board — neighborhood board page serves with its own form
+- board — unknown neighborhood board is 404
+- board — neighborhood board post accepted
+- board — neighborhood post shows on its own board
+- board — neighborhood post does NOT leak onto the main board
+- board — API ?board=hollywood returns the neighborhood post
+- board — API ?board=siliconvalley does not return it
+- board — banned word in neighborhood post is blocked (403)
+- board — post to an unknown neighborhood board is 404
+- board — db_init adds the board column to an old board DB
+- board — old post reads back on the main board
+- board — new post lands on its neighborhood board
+- board — neighborhood post is not on the main board
+- board — restore seeds a neighborhood post onto its board
+- board — restored neighborhood post is not on the main board
+- neighborhoods — neighborhoods index serves
+- neighborhoods — home page links the neighborhoods
+- neighborhoods — chat directory lists all five neighborhood rooms
+- neighborhoods — button hollywood.gif serves as a GIF
+- neighborhoods — button siliconvalley.gif serves as a GIF
+- neighborhoods — button sunsetstrip.gif serves as a GIF
+- neighborhoods — button area51.gif serves as a GIF
+- neighborhoods — button westhollywood.gif serves as a GIF
+- neighborhoods — GeoCities era logo serves
+- neighborhoods — portal hollywood serves with its directory
+- neighborhoods — board page for hollywood serves
+- neighborhoods — portal siliconvalley serves with its directory
+- neighborhoods — board page for siliconvalley serves
+- neighborhoods — portal sunsetstrip serves with its directory
+- neighborhoods — board page for sunsetstrip serves
+- neighborhoods — portal area51 serves with its directory
+- neighborhoods — board page for area51 serves
+- neighborhoods — portal westhollywood serves with its directory
+- neighborhoods — board page for westhollywood serves
 - site — homepage carries the approved blurb
 - site — homepage notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
-- site — link check / (2 links): server matches archive
-- site — link check /chat.htm (8 links): server matches archive
+- site — link check / (5 links): server matches archive
+- site — link check /chat.htm (18 links): server matches archive
 - site — link check /chat2.htm (33 links): server matches archive
 - site — message survives server restart (SQLite persistence)
 - board — board post survives server restart (stays up)

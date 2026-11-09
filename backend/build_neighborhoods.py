@@ -19,6 +19,9 @@ HOODS = [
         "slug": "hollywood",
         "name": "Hollywood",
         "tag": "Films and TV -- the very first GeoCities neighborhood, July 1995",
+        "chat_desc": ("Lights, camera, chat!!! Talk movies, TV and stars with "
+                      "your fellow Hollywood homesteaders!!!"),
+        "chat_join": "Joins The Hollywood Chat...",
         "intro": ("Hollywood was the very first GeoCities neighborhood, opened "
                   "July 1995 -- films and TV, actors and actresses. If you loved "
                   "movies, this was your block. Its suburbs had names like Hills, "
@@ -36,6 +39,9 @@ HOODS = [
         "slug": "siliconvalley",
         "name": "SiliconValley",
         "tag": "Computers, hardware, software and programming -- August 1995",
+        "chat_desc": ("Log on and talk tech!!! Hardware, software, programming "
+                      "-- the SiliconValley homesteaders are online!!!"),
+        "chat_join": "Joins The SiliconValley Chat...",
         "intro": ("SiliconValley opened August 1995 for computers, hardware, "
                   "software and programming -- the techies' neighborhood. Its "
                   "suburbs were named for the trade: Heights, Park, Pines, Chip, "
@@ -53,6 +59,9 @@ HOODS = [
         "slug": "sunsetstrip",
         "name": "SunsetStrip",
         "tag": "Rock, grunge, punk, blues and the club scene -- July 1995",
+        "chat_desc": ("Turn it up!!! Talk rock, grunge, punk and the club scene "
+                      "with your SunsetStrip neighbors!!!"),
+        "chat_join": "Joins The SunsetStrip Chat...",
         "intro": ("SunsetStrip opened July 1995 for music -- rock, grunge, punk, "
                   "blues and the club scene. Its suburbs read like a night out: "
                   "Vine, Alley, Palms, Studio, Towers, Backstage, Frontrow."),
@@ -72,6 +81,10 @@ HOODS = [
         "slug": "area51",
         "name": "Area51",
         "tag": "Science fiction and fantasy -- April 1996",
+        "chat_desc": ("The truth is in here!!! Talk sci-fi, fantasy and "
+                      "conspiracy theories with your fellow Area51 "
+                      "homesteaders!!!"),
+        "chat_join": "Joins The Area51 Chat...",
         "intro": ("Area51 opened April 1996 for science fiction and fantasy -- "
                   "and conspiracy theories. Its suburbs were pure imagination: "
                   "Vault, Stargate, Starship, Nebula, Dimension, Dreamworld."),
@@ -89,6 +102,9 @@ HOODS = [
         "slug": "westhollywood",
         "name": "WestHollywood",
         "tag": "Gay, lesbian, bisexual and transgender topics -- July 1995",
+        "chat_desc": ("Come as you are!!! Talk life, love and community with "
+                      "your WestHollywood neighbors!!!"),
+        "chat_join": "Joins The WestHollywood Chat...",
         "intro": ("WestHollywood opened July 1995 for gay, lesbian, bisexual and "
                   "transgender topics -- one of the six original neighborhoods, "
                   "and a community that mattered. Its suburbs: Cafe, Castro, "
@@ -101,7 +117,40 @@ HOODS = [
 
 FOOTER = ('<font color=gray size=2>Club Gabbay -- a fan-run homage to the '
           '1996-1999 original. <a href="/fine-print.html">Fine print</a>'
-          '</font>')
+          '</font><br>\n'
+          '<font color=gray size=1>Neighborhood buttons by Chaz Boston '
+          'Baden, via <a href="https://www.bladesplace.id.au/geocities-'
+          'neighborhoods-suburbs.html">Blade\'s Place</a>.</font>')
+
+
+def chat_entry(h):
+    """The chat room's entry page, mirroring the Gabbay room entries:
+    a handle + history picker posting USER/SAYS/HISTORY to the room."""
+    heading = ('<center><img src="/images/neighborhoods/%s.gif"></center>\n'
+               '<center><font size="+3"><strong>%s Chat</strong></font>'
+               '</center>\n'
+               '<center><font size="+1">%s</font></center>'
+               % (h["slug"], h["name"], h["chat_desc"]))
+    body = ('<center>\n'
+            '<form action="/%s-chat" method="post">\n'
+            'Your handle: <input type="text" name="USER" size="12" '
+            'maxlength="12"><br>\n'
+            'Show last <select name="HISTORY">'
+            '<option value="8" selected>8</option>'
+            '<option value="16">16</option>'
+            '<option value="32">32</option></select> messages<br>\n'
+            '<input type="hidden" name="SAYS" value="%s">\n'
+            '<input type="submit" value="Enter the chat">\n'
+            '</form>\n</center>\n'
+            '<hr noshade>\n'
+            '<center><font size="-1"><a href="/neighborhoods/%s.html">Back '
+            'to %s</a> | <a href="/neighborhoods/">All neighborhoods</a> | '
+            '<a href="/">Club Gabbay Home</a> | '
+            '<a href="/fine-print.html">Fine print</a></font></center>\n'
+            '<hr noshade>\n<center>%s</center>\n'
+            % (h["slug"], h["chat_join"], h["slug"], h["name"], FOOTER))
+    return page("%s Chat -- GeoCities neighborhood" % h["name"],
+                heading, body)
 
 
 def webring(current=None):
@@ -128,14 +177,16 @@ def page(title, heading, body):
 
 
 def portal(h):
-    heading = ('<center><font size="+3"><strong>%s</strong></font></center>\n'
+    heading = ('<center><img src="/images/neighborhoods/%s.gif"></center>\n'
+               '<center><font size="+3"><strong>%s</strong></font></center>\n'
                '<center><font size="+1">%s</font></center>'
-               % (h["name"], h["tag"]))
+               % (h["slug"], h["name"], h["tag"]))
     body = ('<p><font size="+1">%s</font></p>\n'
             '<p>This is a fan-made portal, not the original GeoCities page. '
             'The original is gone; the homesteads live on in the archives '
             'linked below. Were you a homesteader here? '
-            '<a href="/neighborhoods/%s/board/">Leave a message on the %s '
+            '<a href="/%s-chat">Enter the %s chat</a> or '
+            '<a href="/neighborhoods/%s/board/">leave a message on the %s '
             'board</a> -- say what your address was, who you remember, and '
             'where life took you.</p>\n'
             '<hr noshade>\n'
@@ -162,31 +213,37 @@ def portal(h):
             '</ul>\n'
             '<hr noshade>\n%s'
             '<hr noshade>\n<center>%s</center>\n'
-            % (h["intro"], h["slug"], h["name"], h["name"], h["name"],
-               ", ".join(h["suburbs"]), h["name"], h["name"], h["name"],
-               h["name"], webring(h["slug"]), FOOTER))
+            % (h["intro"], h["slug"], h["name"], h["slug"], h["name"],
+               h["name"], h["name"], ", ".join(h["suburbs"]), h["name"],
+               h["name"], h["name"], h["name"], webring(h["slug"]), FOOTER))
     return page("%s -- GeoCities neighborhood, back home" % h["name"],
                 heading, body)
 
 
 def index():
-    heading = ('<center><font size="+3"><strong>The old GeoCities '
+    heading = ('<center><img src="/images/neighborhoods/geocities-logo.jpg">'
+               '</center>\n'
+               '<center><font size="+3"><strong>The old GeoCities '
                'neighborhoods</strong></font></center>\n'
                '<center><font size="+1">Five neighborhoods, the way they '
-               'were -- fan-made portals, each with its own board</font>'
+               'were -- fan-made portals, each with its own board and chat '
+               'room</font>'
                '</center>')
     rows = []
     for h in HOODS:
-        rows.append('<li><a href="/neighborhoods/%s.html"><b>%s</b></a> -- %s '
+        rows.append('<li><img src="/images/neighborhoods/%s.gif"> '
+                    '<a href="/neighborhoods/%s.html"><b>%s</b></a> -- %s '
+                    '<a href="/%s-chat">(chat)</a> '
                     '<a href="/neighborhoods/%s/board/">(board)</a></li>'
-                    % (h["slug"], h["name"], h["tag"], h["slug"]))
+                    % (h["slug"], h["slug"], h["name"], h["tag"],
+                       h["slug"], h["slug"]))
     body = ('<p><font size="+1">GeoCities sorted its free home pages into '
             'themed neighborhoods, each with its own directory, chat rooms, '
             'bulletin boards and volunteer Community Leaders. Yahoo shut it '
             'down in October 2009, but the neighborhoods live on in the '
             'archives -- and now here, as fan-made portals. Pick one, browse '
-            'the old pages, and leave a message on its board if you were '
-            'there.</font></p>\n'
+            'the old pages, chat with your neighbors, and leave a message on '
+            'its board if you were there.</font></p>\n'
             '<ul>\n' + "\n".join(rows) + '\n</ul>\n'
             '<hr noshade>\n'
             '<center><b>Browse all of GeoCities</b></center>\n'
@@ -211,10 +268,16 @@ def index():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    chat_dir = os.path.join(OUT, "chat")
+    os.makedirs(chat_dir, exist_ok=True)
     for h in HOODS:
         path = os.path.join(OUT, h["slug"] + ".html")
         with open(path, "w", encoding="ascii") as fh:
             fh.write(portal(h))
+        print("wrote", path)
+        path = os.path.join(chat_dir, h["slug"] + ".html")
+        with open(path, "w", encoding="ascii") as fh:
+            fh.write(chat_entry(h))
         print("wrote", path)
     path = os.path.join(OUT, "index.html")
     with open(path, "w", encoding="ascii") as fh:

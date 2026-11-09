@@ -146,6 +146,57 @@ ROOMS = {
         "entry": "/www2.clubgabbay.com/jokeland.cfm",
         "join": "Joins Jackie's JokeLand...",
     },
+    # GeoCities neighborhood chat rooms (Paul, 2026-11-09): every
+    # neighborhood had its own chat room, entered from its main page
+    # (e.g. geocities.com/chat/Entry/Silicon.html). Same engine as the
+    # Gabbay rooms: live poll, handles, whispers, same word filter +
+    # strikes. Art is the neighborhood's own 88x31 button (Chaz Boston
+    # Baden, freely given away; via Blade's Place).
+    "hollywood-chat": {
+        "name": "Hollywood Chat",
+        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "art": "/images/neighborhoods/hollywood.gif",
+        "desc": "Lights, camera, chat!!! Talk movies, TV and stars with "
+                "your fellow Hollywood homesteaders!!!",
+        "entry": "/neighborhoods/chat/hollywood.html",
+        "join": "Joins The Hollywood Chat...",
+    },
+    "siliconvalley-chat": {
+        "name": "SiliconValley Chat",
+        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "art": "/images/neighborhoods/siliconvalley.gif",
+        "desc": "Log on and talk tech!!! Hardware, software, programming -- "
+                "the SiliconValley homesteaders are online!!!",
+        "entry": "/neighborhoods/chat/siliconvalley.html",
+        "join": "Joins The SiliconValley Chat...",
+    },
+    "sunsetstrip-chat": {
+        "name": "SunsetStrip Chat",
+        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "art": "/images/neighborhoods/sunsetstrip.gif",
+        "desc": "Turn it up!!! Talk rock, grunge, punk and the club scene "
+                "with your SunsetStrip neighbors!!!",
+        "entry": "/neighborhoods/chat/sunsetstrip.html",
+        "join": "Joins The SunsetStrip Chat...",
+    },
+    "area51-chat": {
+        "name": "Area51 Chat",
+        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "art": "/images/neighborhoods/area51.gif",
+        "desc": "The truth is in here!!! Talk sci-fi, fantasy and conspiracy "
+                "theories with your fellow Area51 homesteaders!!!",
+        "entry": "/neighborhoods/chat/area51.html",
+        "join": "Joins The Area51 Chat...",
+    },
+    "westhollywood-chat": {
+        "name": "WestHollywood Chat",
+        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "art": "/images/neighborhoods/westhollywood.gif",
+        "desc": "Come as you are!!! Talk life, love and community with your "
+                "WestHollywood neighbors!!!",
+        "entry": "/neighborhoods/chat/westhollywood.html",
+        "join": "Joins The WestHollywood Chat...",
+    },
 }
 # The archived Anything Goes form posts to /anything-goes; accept the
 # underscore spelling too.
