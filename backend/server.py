@@ -41,6 +41,7 @@ import sqlite3
 import sys
 import threading
 import time
+import urllib.request
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, unquote, urlparse
@@ -266,6 +267,49 @@ def db_board_posts(limit=200):
             (limit,)).fetchall()
     return [{"id": r[0], "name": r[1], "to": r[2], "subject": r[3],
              "message": r[4], "ts": r[5]} for r in rows]
+
+
+def restore_board_posts(url=None):
+    """Re-seed board_posts from the backup file when the local board is
+    empty. The free host's disk is ephemeral: every restart/deploy wipes
+    chat.db, board posts included (Paul lost a post this way, 2026-11-09).
+    Posts are backed up to the repo (site-data/board-posts.json — GitHub
+    is the store) by an external job; on boot, an empty board is re-seeded
+    from that file. Gated on BOARD_RESTORE_URL so tests and local runs
+    (env var unset) never touch the network. Returns the number of posts
+    restored. Never raises — a failed restore must never block startup."""
+    if url is None:
+        url = os.environ.get("BOARD_RESTORE_URL", "")
+    if not url:
+        return 0
+    try:
+        with db_lock:
+            n = db.execute("SELECT COUNT(*) FROM board_posts").fetchone()[0]
+        if n:
+            return 0
+        req = urllib.request.Request(
+            url, headers={"User-Agent": "ClubGabbay/1.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.load(resp)
+        posts = data.get("posts", data) if isinstance(data, dict) else data
+        restored = 0
+        with db_lock:
+            for p in posts:
+                try:
+                    db.execute(
+                        "INSERT OR IGNORE INTO board_posts"
+                        " (id, name, to_name, subject, message, ts)"
+                        " VALUES (?,?,?,?,?,?)",
+                        (p["id"], p["name"], p.get("to"), p.get("subject"),
+                         p["message"], p["ts"]))
+                    restored += 1
+                except (KeyError, TypeError):
+                    continue
+            db.commit()
+        return restored
+    except Exception as e:  # noqa: BLE001 - restore must never block startup
+        sys.stderr.write("board restore failed: %s\n" % e)
+        return 0
 
 
 # ---------------------------------------------------------------- sessions
@@ -964,6 +1008,11 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"rooms": [
                 {"slug": s, "name": i["name"]} for s, i in ROOMS.items()]})
             return
+        if path == "/api/board/posts":
+            # public data (same posts the board page renders); the backup
+            # job reads this (Paul, 2026-11-09: board posts must stay up)
+            self._json(200, {"posts": db_board_posts()})
+            return
         if path.startswith("/api/") and "/messages" in path:
             parts = [p for p in path.split("/") if p]
             if len(parts) >= 3 and self._room_or_none(parts[1]):
@@ -1050,6 +1099,10 @@ def main():
     if not os.path.isdir(SITE_ROOT):
         sys.exit("site tree not found: %s" % SITE_ROOT)
     db_init(DB_PATH)
+    restored = restore_board_posts()
+    if restored:
+        sys.stderr.write("board restore: %d post(s) re-seeded from backup\n"
+                         % restored)
     # warn about room backgrounds the archive never captured
     for slug, info in ROOMS.items():
         if info.get("bg") and not static_exists(info["bg"]):

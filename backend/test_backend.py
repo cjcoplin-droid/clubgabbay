@@ -322,6 +322,8 @@ def run_tests(base):
 
     # ---- message board is postable (Paul, 2026-11-09)
     run_board_tests(base)
+    # ---- board restore: posts survive restarts via the backup file
+    run_board_restore_tests()
 
     # ---- homepage blurb + monitoring notes
     s, body, _ = anon.get("/")
@@ -482,6 +484,13 @@ def run_board_tests(base):
           b"board-test-hello-12345" in body
           and body.index(b"board-test-hello-12345") < body.index(b"Miss you"),
           "")
+    # the backup job reads the board as JSON (Paul, 2026-11-09)
+    s, body, _ = b.get("/api/board/posts")
+    data = json.loads(body.decode("utf-8"))
+    check("board", "GET /api/board/posts returns the new post as JSON",
+          s == 200 and any(p.get("message") == "board-test-hello-12345"
+                           for p in data.get("posts", [])),
+          "status=%d" % s)
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/messages/post",
@@ -523,6 +532,60 @@ def run_board_tests(base):
     s, body, _ = b.get("/messages/")
     check("board", "post with no From name is not stored",
           b"board-test-no-name-12345" not in body, "")
+
+
+def run_board_restore_tests():
+    """Board restore (Paul, 2026-11-09): an empty board re-seeds from the
+    backup file on boot so posts survive restarts/deploys. Tests the
+    restore function in-process against a scratch DB + file:// URL."""
+    import shutil
+    import tempfile
+    sys.path.insert(0, HERE)
+    import server as srv
+    tmp = tempfile.mkdtemp(prefix="board-restore-")
+    try:
+        db_path = os.path.join(tmp, "restore.db")
+        srv.db_init(db_path)
+        backup = os.path.join(tmp, "board-posts.json")
+        with open(backup, "w", encoding="utf-8") as fh:
+            json.dump({"posts": [{"id": 7, "name": "RestoreTest", "to": "",
+                                  "subject": "hi",
+                                  "message": "restore-marker-12345",
+                                  "ts": 1794240000.0}]}, fh)
+        url = "file://" + backup
+        n = srv.restore_board_posts(url)
+        got = [p["message"] for p in srv.db_board_posts()]
+        check("board", "restore seeds an empty board from the backup file",
+              n == 1 and "restore-marker-12345" in got, "restored=%d" % n)
+        n = srv.restore_board_posts(url)
+        check("board", "restore is idempotent (second run restores 0)",
+              n == 0 and len(srv.db_board_posts()) == 1, "restored=%d" % n)
+        # non-empty board: restore does nothing (live posts never clobbered)
+        srv.db_add_board_post("LivePoster", "", "", "live-marker-12345")
+        other = os.path.join(tmp, "other.json")
+        with open(other, "w", encoding="utf-8") as fh:
+            json.dump({"posts": [{"id": 99, "name": "Other", "to": "",
+                                  "subject": "",
+                                  "message": "other-marker-12345",
+                                  "ts": 1794240001.0}]}, fh)
+        n = srv.restore_board_posts("file://" + other)
+        msgs = [p["message"] for p in srv.db_board_posts()]
+        check("board", "restore skips a non-empty board (live posts kept)",
+              n == 0 and "live-marker-12345" in msgs
+              and "other-marker-12345" not in msgs, "restored=%d" % n)
+        # unreachable URL: returns 0, never raises
+        try:
+            n = srv.restore_board_posts("http://127.0.0.1:1/nope.json")
+            ok = (n == 0)
+        except Exception:
+            ok = False
+        check("board", "restore with an unreachable URL returns 0, no crash",
+              ok, "")
+        # no URL configured: no-op
+        check("board", "restore with no URL configured is a no-op",
+              srv.restore_board_posts("") == 0, "")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 def walk_room(base, slug):
