@@ -177,6 +177,13 @@ def run_tests(base):
         s, body, _ = anon.get(gone)
         check("site", "%s removed 404 (Paul 2026-11-09)" % gone,
               s == 404, "status=%d" % s)
+    # Bulletin board keeps the 1997 posts; the dead LinkExchange banner
+    # is gone from it and from every other page (Paul 2026-11-09).
+    s, body, _ = anon.get("/www.clubgabbay.com/messages/index.html")
+    check("site", "bulletin board 200, no linkexchange (Paul 2026-11-09)",
+          s == 200 and b"Bulletin Board" in body
+          and b"linkexchange" not in body.lower(),
+          "status=%d" % s)
     s, body, _ = anon.get("/chat.htm")
     check("site", "/chat.htm directory 200", s == 200 and b"Lobby" in body,
           "status=%d" % s)

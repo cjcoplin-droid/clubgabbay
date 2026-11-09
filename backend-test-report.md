@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 09:32 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 09:37 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 176 — **176 PASS, 0 FAIL**
+- Checks run: 177 — **177 PASS, 0 FAIL**
 - Rooms walked: 11 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland)
 
 ## Per-room results
@@ -135,8 +135,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | jokeland | jump posts join line in lobby | PASS |  |
 | jokeland | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tjokeland', 'Tjokeland', 'Guest5246'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest5246', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tjokeland', 'Tjokeland', 'Guest8641'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest8641', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -165,6 +165,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | /welcome.htm removed 404 (Paul 2026-11-09) | PASS | status=404 |
 | /menu.cfm removed 404 (Paul 2026-11-09) | PASS | status=404 |
 | /webdates.cfm removed 404 (Paul 2026-11-09) | PASS | status=404 |
+| bulletin board 200, no linkexchange (Paul 2026-11-09) | PASS | status=200 |
 | /chat.htm directory 200 | PASS | status=200 |
 | /chat2.htm rooms list 200 | PASS | status=200 |
 | image /images/bg/lobby_bg.jpg loads | PASS | status=200 |
@@ -201,6 +202,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - site — /welcome.htm removed 404 (Paul 2026-11-09)
 - site — /menu.cfm removed 404 (Paul 2026-11-09)
 - site — /webdates.cfm removed 404 (Paul 2026-11-09)
+- site — bulletin board 200, no linkexchange (Paul 2026-11-09)
 - site — /chat.htm directory 200
 - site — /chat2.htm rooms list 200
 - site — image /images/bg/lobby_bg.jpg loads
