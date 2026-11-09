@@ -511,13 +511,22 @@ function poll(){
     .then(function(r){return r.json();})
     .then(function(data){
       var chat=document.getElementById('chat');
+      var added=0;
       data.messages.forEach(function(m){
         chat.innerHTML += lineHtml(m);
         if(m.id>lastId) lastId=m.id;
+        added++;
       });
       document.getElementById('presence').textContent =
         data.presence.length ? data.presence.join(', ') : '(just you)';
-      window.scrollTo(0, document.body.scrollHeight);
+      // Only follow new messages when the reader is already near the
+      // bottom. Never yank the page while someone is typing or reading
+      // back — the old unconditional scroll dropped the keyboard on
+      // phones every 4 seconds (Paul, 2026-11-09).
+      if(added>0){
+        var nearBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 120);
+        if(nearBottom) window.scrollTo(0, document.body.scrollHeight);
+      }
     })
     .catch(function(){});
 }
