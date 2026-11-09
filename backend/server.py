@@ -18,7 +18,10 @@ limit ~1 msg / 2s per user, 18+ certify gate on Anything Goes, multi-room
 jumping, message reporting (mod queue hook), automated word filter on
 PUBLIC messages only (whispers are never monitored or filtered).
 
-The archived pages are served untouched. Only the chat pane and the
+The archived pages are served untouched, except the bulletin board,
+which is server-rendered so people can post: the 1997 archive stays
+frozen in site/ and new posts (SQLite, same word filter as public
+chat) render above it. Only the chat pane, the board, and the
 member-login pages are new code.
 
 Run:  python3 server.py [--port 8124] [--host 127.0.0.1]
@@ -27,6 +30,7 @@ Run:  python3 server.py [--port 8124] [--host 127.0.0.1]
         default 8124 when unset)
 """
 import argparse
+import datetime
 import html
 import json
 import mimetypes
@@ -149,6 +153,10 @@ ALIASES = {"anything_goes": "anything-goes"}
 HOST_DIRS = ["www2.clubgabbay.com", "www.clubgabbay.com", "clubgabbay.com",
              "chat.clubgabbay.com", "members.clubgabbay.com"]
 HISTORY_CAP = 200          # messages kept per room in SQLite
+BOARD_MAX_NAME = 30        # board post fields
+BOARD_MAX_SUBJECT = 100
+BOARD_MAX_MSG = 1000
+BOARD_RATE_LIMIT_SECS = 10.0  # one board post per 10s per IP
 PRESENCE_TIMEOUT = 120     # seconds without a poll/post before you drop off
 RATE_LIMIT_SECS = 2.0      # ~1 message per 2s per user
 MAX_NAME = 12
@@ -179,6 +187,13 @@ def db_init(path):
         db.execute("""CREATE TABLE IF NOT EXISTS strikes (
             user TEXT PRIMARY KEY, strikes INTEGER NOT NULL DEFAULT 0,
             banned INTEGER NOT NULL DEFAULT 0, updated REAL NOT NULL)""")
+        # Message board posts (Paul, 2026-11-09): the 1997 archive is
+        # frozen in site/; new posts live here. NO cap — a board message
+        # stays up. Same word filter + strikes as public chat.
+        db.execute("""CREATE TABLE IF NOT EXISTS board_posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL, to_name TEXT, subject TEXT,
+            message TEXT NOT NULL, ts REAL NOT NULL)""")
         db.execute("CREATE INDEX IF NOT EXISTS idx_msg_room ON messages(room, id)")
         db.commit()
 
@@ -229,6 +244,28 @@ def db_last_id(room):
         row = db.execute("SELECT MAX(id) FROM messages WHERE room=?",
                          (room,)).fetchone()
     return row[0] or 0
+
+
+def db_add_board_post(name, to_name, subject, message):
+    """Store a board post. No cap: board messages stay up."""
+    with db_lock:
+        cur = db.execute(
+            "INSERT INTO board_posts (name, to_name, subject, message, ts)"
+            " VALUES (?,?,?,?,?)",
+            (name, to_name, subject, message, time.time()))
+        db.commit()
+    return cur.lastrowid
+
+
+def db_board_posts(limit=200):
+    """Board posts, newest first."""
+    with db_lock:
+        rows = db.execute(
+            "SELECT id, name, to_name, subject, message, ts FROM board_posts"
+            " ORDER BY id DESC LIMIT ?",
+            (limit,)).fetchall()
+    return [{"id": r[0], "name": r[1], "to": r[2], "subject": r[3],
+             "message": r[4], "ts": r[5]} for r in rows]
 
 
 # ---------------------------------------------------------------- sessions
@@ -584,6 +621,73 @@ All Rights Reserved, Copyright 1996 ClubGabbay
 </body></html>""" % esc(path)
 
 
+# ---------------------------------------------------------------- message board
+# The 1997 bulletin board is a frozen archive file in site/; new posts live
+# in SQLite (board_posts) and render ABOVE the archive, newest first, in
+# the archive's own Date/To/From/Subject format — minus Host/IP, which the
+# 1997 board printed and we do not. Same word filter + strikes as public
+# chat (Paul, 2026-11-07); board posts are public, so they are filtered.
+_board_last_post = {}  # ip -> time of last accepted board post
+
+
+def board_file():
+    return os.path.join(SITE_ROOT, "www.clubgabbay.com", "messages",
+                        "index.html")
+
+
+def is_board_file(fpath):
+    return os.path.abspath(fpath) == os.path.abspath(board_file())
+
+
+def board_date(ts):
+    """Archive-style date: 'Wed Jul 30 4:54 (PT)', Pacific time."""
+    try:
+        from zoneinfo import ZoneInfo
+        dt = datetime.datetime.fromtimestamp(ts, ZoneInfo("America/Vancouver"))
+    except Exception:
+        dt = datetime.datetime.fromtimestamp(ts)
+    return dt.strftime("%a %b %d %H:%M (PT)")
+
+
+def render_board_post(p):
+    to = ('<b>To:</b> %s<br>\n' % esc(p["to"])) if p["to"] else ""
+    subj = ('<b>Subject:</b> %s<br>\n' % esc(p["subject"])) \
+        if p["subject"] else ""
+    return ('<b>Date:</b> %s<br>\n%s<b>From:</b> %s<br>\n%s<p>%s<p>\n<hr>\n'
+            % (esc(board_date(p["ts"])), to, esc(p["name"]), subj,
+               esc(p["message"])))
+
+
+def render_board_page():
+    """Archived board file + post form + new posts above the archive."""
+    try:
+        with open(board_file(), encoding="latin-1") as fh:
+            raw = fh.read()
+    except OSError:
+        return render_404("/messages/")
+    head, sep, archive = raw.partition("<hr noshade>")
+    if not sep:
+        head, archive = raw, ""
+    form = ('<center><b>Post a message:</b></center>\n'
+            '<form action="/messages/post" method="post">\n'
+            'To: <input type="text" name="to" size="20" maxlength="30">\n'
+            'From: <input type="text" name="from" size="20" maxlength="30">'
+            '<br>\n'
+            'Subject: <input type="text" name="subject" size="40" '
+            'maxlength="100"><br>\n'
+            '<textarea name="message" rows="4" cols="60" maxlength="1000">'
+            '</textarea><br>\n'
+            '<input type="submit" value="Post It!">\n'
+            '</form>\n<hr noshade>\n')
+    posts = db_board_posts()
+    new_html = ""
+    if posts:
+        new_html = ('<center><b>— New messages —</b></center>\n'
+                    + "".join(render_board_post(p) for p in posts)
+                    + '<center><b>— Messages from 1997 —</b></center>\n')
+    return head + sep + "\n" + form + new_html + archive + "</body></html>\n"
+
+
 # ---------------------------------------------------------------- handler
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
@@ -765,6 +869,50 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self._redirect("/" + slug)
 
+    # -- message board
+    def _handle_board_post(self, form):
+        """POST /messages/post — a new board message. Same word filter +
+        strikes as public chat; board posts are public, so they are
+        filtered. No login: the poster types their own From name."""
+        name = (form.get("from") or "").strip()[:BOARD_MAX_NAME]
+        to_name = (form.get("to") or "").strip()[:BOARD_MAX_NAME]
+        subject = (form.get("subject") or "").strip()[:BOARD_MAX_SUBJECT]
+        message = (form.get("message") or "").strip()[:BOARD_MAX_MSG]
+        if not name or not message:
+            self._redirect("/messages/")
+            return
+        _, banned = strike_status(name)
+        if banned:
+            self._send(403, "<html><body>You are banned from posting on "
+                            "the message board here — three blocked "
+                            "messages.<br><a href=\"/messages/\">Back to "
+                            "the board</a></body></html>")
+            return
+        hit = text_blocked(" ".join(
+            x for x in (name, to_name, subject, message) if x))
+        if hit:
+            strikes, now_banned = record_strike(name)
+            if now_banned:
+                msg = ("You are banned from posting on the message board "
+                       "here — three blocked messages.")
+            else:
+                msg = ("That message was blocked — it contains language "
+                       "that isn't allowed here. (Strike %d of %d.)"
+                       % (strikes, BLOCK_STRIKES))
+            self._send(403, "<html><body>%s<br><a href=\"/messages/\">"
+                            "Back to the board</a></body></html>" % esc(msg))
+            return
+        ip = self.client_address[0]
+        now = time.time()
+        if now - _board_last_post.get(ip, 0) < BOARD_RATE_LIMIT_SECS:
+            self._send(429, "<html><body>Slow down — one board message "
+                            "every few seconds. <a href=\"/messages/\">"
+                            "Back to the board</a></body></html>")
+            return
+        _board_last_post[ip] = now
+        db_add_board_post(name, to_name, subject, message)
+        self._redirect("/messages/")
+
     # -- API
     def _handle_api_messages(self, slug, query):
         sid, sess = get_session(self)
@@ -832,6 +980,11 @@ class Handler(BaseHTTPRequestHandler):
                 self._handle_leave(ALIASES.get(base, base))
                 return
         fpath = resolve_static(path)
+        if fpath and is_board_file(fpath):
+            # the bulletin board is server-rendered: post form + new
+            # posts above the frozen 1997 archive (Paul, 2026-11-09)
+            self._send(200, render_board_page())
+            return
         if fpath:
             try:
                 with open(fpath, "rb") as fh:
@@ -848,6 +1001,9 @@ class Handler(BaseHTTPRequestHandler):
         path = parsed.path
         parts = [p for p in path.split("/") if p]
         form = self._read_form()
+        if parts == ["messages", "post"]:
+            self._handle_board_post(form)
+            return
         if len(parts) >= 2 and parts[1] == "post" and self._room_or_none(parts[0]):
             self._handle_post(ALIASES.get(parts[0], parts[0]), form)
             return

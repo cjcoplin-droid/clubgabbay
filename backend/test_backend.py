@@ -179,10 +179,13 @@ def run_tests(base):
               s == 404, "status=%d" % s)
     # Bulletin board keeps the 1997 posts; the dead LinkExchange banner
     # is gone from it and from every other page (Paul 2026-11-09).
+    # Since 2026-11-09 the board is server-rendered and postable: the
+    # 1997 archive frozen below, new posts above it.
     s, body, _ = anon.get("/www.clubgabbay.com/messages/index.html")
     check("site", "bulletin board 200, no linkexchange (Paul 2026-11-09)",
           s == 200 and b"Bulletin Board" in body
-          and b"linkexchange" not in body.lower(),
+          and b"linkexchange" not in body.lower()
+          and b'action="/messages/post"' in body,
           "status=%d" % s)
     # Calendar footer: Web Dates + Mall links removed (Paul 2026-11-09);
     # the webdates.html stub page is gone too.
@@ -316,6 +319,9 @@ def run_tests(base):
 
     # ---- word filter (public messages only; whispers never filtered)
     run_filter_tests(base)
+
+    # ---- message board is postable (Paul, 2026-11-09)
+    run_board_tests(base)
 
     # ---- homepage blurb + monitoring notes
     s, body, _ = anon.get("/")
@@ -454,6 +460,71 @@ def run_filter_tests(base):
           got, "")
 
 
+def run_board_tests(base):
+    """Message board is postable (Paul, 2026-11-09): anyone can add a
+    message; new posts render above the frozen 1997 archive and stay
+    up (SQLite, no cap). Same word filter + strikes as public chat."""
+    b = Client(base)
+    s, body, _ = b.get("/messages/")
+    check("board", "board page has post form + 1997 archive",
+          s == 200 and b'action="/messages/post"' in body
+          and b'name="message"' in body and b"Miss you" in body,
+          "status=%d" % s)
+    # clean post lands, above the archive
+    s, _, _ = b.post("/messages/post",
+                     {"to": "ANYONE!!", "from": "BoardPoster",
+                      "subject": "hello board",
+                      "message": "board-test-hello-12345"})
+    check("board", "clean board post accepted",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = b.get("/messages/")
+    check("board", "new post shows above the 1997 archive",
+          b"board-test-hello-12345" in body
+          and body.index(b"board-test-hello-12345") < body.index(b"Miss you"),
+          "")
+    # HTML in a post is escaped, never rendered
+    time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
+    s, _, _ = b.post("/messages/post",
+                     {"to": "", "from": "BoardXSS", "subject": "xss",
+                      "message": "<script>alert(1)</script>"})
+    check("board", "markup post accepted (stored, escaped at render)",
+          s in (200, 303), "status=%d" % s)
+    s, body, _ = b.get("/messages/")
+    check("board", "markup in a post is escaped, never rendered",
+          b"&lt;script&gt;" in body and b"<script>alert(1)" not in body,
+          "")
+    # blocked word: 403, never stored
+    s, _, _ = b.post("/messages/post",
+                     {"to": "", "from": "BoardFilter", "subject": "",
+                      "message": "this is a fuck test"})
+    check("board", "banned word in board post is blocked (403)",
+          s == 403, "status=%d" % s)
+    s, body, _ = b.get("/messages/")
+    check("board", "blocked board post never stored/shown",
+          b"this is a fuck test" not in body, "")
+    # 3 strikes -> banned from the board
+    codes = []
+    for _ in range(3):
+        s, _, _ = b.post("/messages/post",
+                         {"to": "", "from": "BoardStrike", "subject": "",
+                          "message": "fuck"})
+        codes.append(s)
+    check("board", "three blocked board posts all return 403",
+          codes == [403, 403, 403], "statuses=%s" % codes)
+    s, _, _ = b.post("/messages/post",
+                     {"to": "", "from": "BoardStrike", "subject": "",
+                      "message": "a clean message now"})
+    check("board", "3 strikes -> banned from board: clean post rejected",
+          s == 403, "status=%d" % s)
+    # empty From / empty message -> back to the board, nothing stored
+    s, body, _ = b.post("/messages/post",
+                        {"to": "", "from": "", "subject": "",
+                         "message": "board-test-no-name-12345"})
+    s, body, _ = b.get("/messages/")
+    check("board", "post with no From name is not stored",
+          b"board-test-no-name-12345" not in body, "")
+
+
 def walk_room(base, slug):
     c = Client(base)
     # entry page serves
@@ -532,6 +603,11 @@ def persistence_check(proc, base):
                         headers={"Accept": "application/json"})
     ok = b"persist-marker-12345" in body
     check("site", "message survives server restart (SQLite persistence)",
+          ok, "found=%s" % ok)
+    # board posts survive the restart too — they stay up
+    s, body, _ = c2.get("/messages/")
+    ok = b"board-test-hello-12345" in body
+    check("board", "board post survives server restart (stays up)",
           ok, "found=%s" % ok)
     return proc2, base2
 
@@ -635,6 +711,14 @@ def write_report():
                  "the chat. (Also 2026-11-09: the dead LinkExchange banner "
                  "at the top of the landing page is gone — the ad server "
                  "is long dead and it rendered as a broken-image box.)")
+    lines.append("- 2026-11-09 (Paul): the bulletin board is postable — "
+                 "anyone can add a message (To / From / Subject / Message); "
+                 "new posts render above the frozen 1997 archive and stay "
+                 "up (SQLite `board_posts`, no cap; same word filter and "
+                 "3-strike ban as public chat; no Host/IP shown on new "
+                 "posts). Caveat: the free tier's disk is ephemeral, so a "
+                 "restart or redeploy resets board posts, same as chat "
+                 "history — true permanence needs persistent disk.")
     lines.append("- Member accounts are not provisioned (v1 accepts any "
                  "password on `/lobby2.cfm` and flags the session as a "
                  "member). Real member auth is a later decision.")

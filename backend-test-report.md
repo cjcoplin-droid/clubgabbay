@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 09:39 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 09:50 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 179 — **179 PASS, 0 FAIL**
+- Checks run: 190 — **190 PASS, 0 FAIL**
 - Rooms walked: 11 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland)
 
 ## Per-room results
@@ -135,8 +135,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | jokeland | jump posts join line in lobby | PASS |  |
 | jokeland | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tjokeland', 'Tjokeland', 'Guest9952'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest9952', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tjokeland', 'Tjokeland', 'Guest4178'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4178', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -153,8 +153,19 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | filter | ban is per-user: another user posts fine | PASS | status=200 |
 | filter | whisper with banned word passes unfiltered | PASS | status=200 |
 | filter | whisper with banned word is delivered to recipient | PASS |  |
+| board | board page has post form + 1997 archive | PASS | status=200 |
+| board | clean board post accepted | PASS | status=200 |
+| board | new post shows above the 1997 archive | PASS |  |
+| board | markup post accepted (stored, escaped at render) | PASS | status=200 |
+| board | markup in a post is escaped, never rendered | PASS |  |
+| board | banned word in board post is blocked (403) | PASS | status=403 |
+| board | blocked board post never stored/shown | PASS |  |
+| board | three blocked board posts all return 403 | PASS | statuses=[403, 403, 403] |
+| board | 3 strikes -> banned from board: clean post rejected | PASS | status=403 |
+| board | post with no From name is not stored | PASS |  |
 | filter | blocklist is not served over HTTP (/blocklist.txt 404) | PASS | status=404 |
 | filter | blocklist is not served (/backend/blocklist.txt 404) | PASS | status=404 |
+| board | board post survives server restart (stays up) | PASS | found=True |
 
 ## Site / cross-cutting results
 
@@ -370,6 +381,16 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - filter — ban is per-user: another user posts fine
 - filter — whisper with banned word passes unfiltered
 - filter — whisper with banned word is delivered to recipient
+- board — board page has post form + 1997 archive
+- board — clean board post accepted
+- board — new post shows above the 1997 archive
+- board — markup post accepted (stored, escaped at render)
+- board — markup in a post is escaped, never rendered
+- board — banned word in board post is blocked (403)
+- board — blocked board post never stored/shown
+- board — three blocked board posts all return 403
+- board — 3 strikes -> banned from board: clean post rejected
+- board — post with no From name is not stored
 - site — homepage carries the approved blurb
 - site — homepage notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
@@ -378,6 +399,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - site — link check /chat.htm (8 links): server matches archive
 - site — link check /chat2.htm (33 links): server matches archive
 - site — message survives server restart (SQLite persistence)
+- board — board post survives server restart (stays up)
 
 ## What failed
 
@@ -397,6 +419,7 @@ Nothing — all checks passed.
 - Moderation: automated word filter live on public messages (backend/blocklist.txt, private, never served; 3 strikes -> banned from public posting). Whispers are never monitored or filtered, in any room (Paul, 2026-11-07). Report endpoint exists (`POST `/api/<room>/report`, stored in SQLite `reports` table); Mira reviews the report queue.
 - Landing page carries the approved blurb above Enter (plus the monitoring / 18+ / private-whisper notes) on all three homepage variants.
 - 2026-11-09 (Paul): Enter ClubGabbay on the landing page now links straight to /chat.htm; /main.htm, /welcome.htm, /menu.cfm and /webdates.cfm are removed from the live site; the email line and WebDates block are off the landing page. The landing page is now just a link to the chat. (Also 2026-11-09: the dead LinkExchange banner at the top of the landing page is gone — the ad server is long dead and it rendered as a broken-image box.)
+- 2026-11-09 (Paul): the bulletin board is postable — anyone can add a message (To / From / Subject / Message); new posts render above the frozen 1997 archive and stay up (SQLite `board_posts`, no cap; same word filter and 3-strike ban as public chat; no Host/IP shown on new posts). Caveat: the free tier's disk is ephemeral, so a restart or redeploy resets board posts, same as chat history — true permanence needs persistent disk.
 - Member accounts are not provisioned (v1 accepts any password on `/lobby2.cfm` and flags the session as a member). Real member auth is a later decision.
 - The 29 unarchived absolute URLs from step 3 (webdates images, queue CGI, club store, etc.) are unchanged — still unarchived targets, not backend issues.
 - Browser-level visual check (1996 look pixel-for-pixel) was not done in this VM-only run — needs a human or a browser lane to eyeball the pane against the archived pages.
