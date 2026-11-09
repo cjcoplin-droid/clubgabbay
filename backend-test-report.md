@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 12:09 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 12:22 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 288 — **288 PASS, 0 FAIL**
+- Checks run: 308 — **308 PASS, 0 FAIL**
 - Rooms walked: 16 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat)
 
 ## Per-room results
@@ -138,6 +138,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | hollywood-chat | GET /hollywood-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/hollywood.html |
 | hollywood-chat | guest entry POST redirects to /hollywood-chat | PASS | status=200 |
 | hollywood-chat | chat pane shows join line + room name | PASS | status=200 |
+| hollywood-chat | room page uses its own background | PASS |  |
 | hollywood-chat | post a message (303 back to room) | PASS | status=200 |
 | hollywood-chat | poll API returns posted message | PASS | found=1 |
 | hollywood-chat | presence lists the chatter | PASS |  |
@@ -149,6 +150,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | siliconvalley-chat | GET /siliconvalley-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/siliconvalley.html |
 | siliconvalley-chat | guest entry POST redirects to /siliconvalley-chat | PASS | status=200 |
 | siliconvalley-chat | chat pane shows join line + room name | PASS | status=200 |
+| siliconvalley-chat | room page uses its own background | PASS |  |
 | siliconvalley-chat | post a message (303 back to room) | PASS | status=200 |
 | siliconvalley-chat | poll API returns posted message | PASS | found=1 |
 | siliconvalley-chat | presence lists the chatter | PASS |  |
@@ -160,6 +162,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | sunsetstrip-chat | GET /sunsetstrip-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/sunsetstrip.html |
 | sunsetstrip-chat | guest entry POST redirects to /sunsetstrip-chat | PASS | status=200 |
 | sunsetstrip-chat | chat pane shows join line + room name | PASS | status=200 |
+| sunsetstrip-chat | room page uses its own background | PASS |  |
 | sunsetstrip-chat | post a message (303 back to room) | PASS | status=200 |
 | sunsetstrip-chat | poll API returns posted message | PASS | found=1 |
 | sunsetstrip-chat | presence lists the chatter | PASS |  |
@@ -171,6 +174,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | area51-chat | GET /area51-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/area51.html |
 | area51-chat | guest entry POST redirects to /area51-chat | PASS | status=200 |
 | area51-chat | chat pane shows join line + room name | PASS | status=200 |
+| area51-chat | room page uses its own background | PASS |  |
+| area51-chat | Area51 room page is black with white text, red links | PASS |  |
 | area51-chat | post a message (303 back to room) | PASS | status=200 |
 | area51-chat | poll API returns posted message | PASS | found=1 |
 | area51-chat | presence lists the chatter | PASS |  |
@@ -182,6 +187,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | westhollywood-chat | GET /westhollywood-chat w/o session redirects to entry page | PASS | status=303 loc=/neighborhoods/chat/westhollywood.html |
 | westhollywood-chat | guest entry POST redirects to /westhollywood-chat | PASS | status=200 |
 | westhollywood-chat | chat pane shows join line + room name | PASS | status=200 |
+| westhollywood-chat | room page uses its own background | PASS |  |
 | westhollywood-chat | post a message (303 back to room) | PASS | status=200 |
 | westhollywood-chat | poll API returns posted message | PASS | found=1 |
 | westhollywood-chat | presence lists the chatter | PASS |  |
@@ -190,8 +196,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | westhollywood-chat | jump posts join line in lobby | PASS |  |
 | westhollywood-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Twestholly', 'Twestholly', 'Guest6093'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6093', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Twestholly', 'Twestholly', 'Guest6220'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6220', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -251,6 +257,20 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | neighborhoods | button area51.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | button westhollywood.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | GeoCities era logo serves | PASS | status=200 |
+| neighborhoods | original background background.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | original background area_glow.gif serves as a GIF | PASS | status=200 |
+| neighborhoods | /neighborhoods/hollywood.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/chat/hollywood.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/siliconvalley.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/chat/siliconvalley.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/sunsetstrip.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/chat/sunsetstrip.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/area51.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/chat/area51.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/area51.html is black with white text, red links | PASS |  |
+| neighborhoods | /neighborhoods/chat/area51.html is black with white text, red links | PASS |  |
+| neighborhoods | /neighborhoods/westhollywood.html uses its own background | PASS | status=200 |
+| neighborhoods | /neighborhoods/chat/westhollywood.html uses its own background | PASS | status=200 |
 | neighborhoods | portal hollywood serves with its directory | PASS | status=200 |
 | neighborhoods | board page for hollywood serves | PASS | status=200 |
 | neighborhoods | portal siliconvalley serves with its directory | PASS | status=200 |
@@ -464,6 +484,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - hollywood-chat — GET /hollywood-chat w/o session redirects to entry page
 - hollywood-chat — guest entry POST redirects to /hollywood-chat
 - hollywood-chat — chat pane shows join line + room name
+- hollywood-chat — room page uses its own background
 - hollywood-chat — post a message (303 back to room)
 - hollywood-chat — poll API returns posted message
 - hollywood-chat — presence lists the chatter
@@ -475,6 +496,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - siliconvalley-chat — GET /siliconvalley-chat w/o session redirects to entry page
 - siliconvalley-chat — guest entry POST redirects to /siliconvalley-chat
 - siliconvalley-chat — chat pane shows join line + room name
+- siliconvalley-chat — room page uses its own background
 - siliconvalley-chat — post a message (303 back to room)
 - siliconvalley-chat — poll API returns posted message
 - siliconvalley-chat — presence lists the chatter
@@ -486,6 +508,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - sunsetstrip-chat — GET /sunsetstrip-chat w/o session redirects to entry page
 - sunsetstrip-chat — guest entry POST redirects to /sunsetstrip-chat
 - sunsetstrip-chat — chat pane shows join line + room name
+- sunsetstrip-chat — room page uses its own background
 - sunsetstrip-chat — post a message (303 back to room)
 - sunsetstrip-chat — poll API returns posted message
 - sunsetstrip-chat — presence lists the chatter
@@ -497,6 +520,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - area51-chat — GET /area51-chat w/o session redirects to entry page
 - area51-chat — guest entry POST redirects to /area51-chat
 - area51-chat — chat pane shows join line + room name
+- area51-chat — room page uses its own background
+- area51-chat — Area51 room page is black with white text, red links
 - area51-chat — post a message (303 back to room)
 - area51-chat — poll API returns posted message
 - area51-chat — presence lists the chatter
@@ -508,6 +533,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - westhollywood-chat — GET /westhollywood-chat w/o session redirects to entry page
 - westhollywood-chat — guest entry POST redirects to /westhollywood-chat
 - westhollywood-chat — chat pane shows join line + room name
+- westhollywood-chat — room page uses its own background
 - westhollywood-chat — post a message (303 back to room)
 - westhollywood-chat — poll API returns posted message
 - westhollywood-chat — presence lists the chatter
@@ -577,6 +603,20 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - neighborhoods — button area51.gif serves as a GIF
 - neighborhoods — button westhollywood.gif serves as a GIF
 - neighborhoods — GeoCities era logo serves
+- neighborhoods — original background background.gif serves as a GIF
+- neighborhoods — original background area_glow.gif serves as a GIF
+- neighborhoods — /neighborhoods/hollywood.html uses its own background
+- neighborhoods — /neighborhoods/chat/hollywood.html uses its own background
+- neighborhoods — /neighborhoods/siliconvalley.html uses its own background
+- neighborhoods — /neighborhoods/chat/siliconvalley.html uses its own background
+- neighborhoods — /neighborhoods/sunsetstrip.html uses its own background
+- neighborhoods — /neighborhoods/chat/sunsetstrip.html uses its own background
+- neighborhoods — /neighborhoods/area51.html uses its own background
+- neighborhoods — /neighborhoods/chat/area51.html uses its own background
+- neighborhoods — /neighborhoods/area51.html is black with white text, red links
+- neighborhoods — /neighborhoods/chat/area51.html is black with white text, red links
+- neighborhoods — /neighborhoods/westhollywood.html uses its own background
+- neighborhoods — /neighborhoods/chat/westhollywood.html uses its own background
 - neighborhoods — portal hollywood serves with its directory
 - neighborhoods — board page for hollywood serves
 - neighborhoods — portal siliconvalley serves with its directory

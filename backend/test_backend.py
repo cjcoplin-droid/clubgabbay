@@ -146,6 +146,15 @@ JOIN_TEXT = {
     "area51-chat": "Joins The Area51 Chat",
     "westhollywood-chat": "Joins The WestHollywood Chat",
 }
+# The originals (Wayback, Dec 1996): four neighborhoods shared GeoCities'
+# background.gif; Area51 had its own area_glow.gif on a black page.
+ROOM_BG = {
+    "hollywood-chat": "/images/neighborhoods/background.gif",
+    "siliconvalley-chat": "/images/neighborhoods/background.gif",
+    "sunsetstrip-chat": "/images/neighborhoods/background.gif",
+    "area51-chat": "/images/neighborhoods/area_glow.gif",
+    "westhollywood-chat": "/images/neighborhoods/background.gif",
+}
 
 
 def main():
@@ -759,6 +768,33 @@ def run_neighborhood_pages_tests(base):
     check("neighborhoods", "GeoCities era logo serves",
           s == 200 and "image/jpeg" in h.get("Content-Type", ""),
           "status=%d" % s)
+    # the original background images serve (Wayback, Dec 1996)
+    for bg in ("background.gif", "area_glow.gif"):
+        s, body, h = b.get("/images/neighborhoods/%s" % bg)
+        check("neighborhoods", "original background %s serves as a GIF" % bg,
+              s == 200 and body[:6] in (b"GIF87a", b"GIF89a")
+              and "image/gif" in h.get("Content-Type", ""),
+              "status=%d" % s)
+    # each portal and each chat entry page uses its own background
+    # (Paul, 2026-11-09: backgrounds must match the sites)
+    for slug in ("hollywood", "siliconvalley", "sunsetstrip", "area51",
+                 "westhollywood"):
+        bg = ("area_glow.gif" if slug == "area51" else "background.gif")
+        for page in ("/neighborhoods/%s.html" % slug,
+                     "/neighborhoods/chat/%s.html" % slug):
+            s, body, _ = b.get(page)
+            check("neighborhoods", "%s uses its own background" % page,
+                  s == 200
+                  and ("/images/neighborhoods/%s" % bg).encode() in body
+                  and b"home_bg.jpg" not in body, "status=%d" % s)
+        if slug == "area51":
+            for page in ("/neighborhoods/area51.html",
+                         "/neighborhoods/chat/area51.html"):
+                s, body, _ = b.get(page)
+                check("neighborhoods", "%s is black with white text, red links"
+                      % page,
+                      b'bgcolor="black"' in body and b'text="white"' in body
+                      and b'link="red"' in body, "")
     for slug, name, suburb in (
             ("hollywood", b"Hollywood", b"Hills"),
             ("siliconvalley", b"SiliconValley", b"Pines"),
@@ -806,6 +842,16 @@ def walk_room(base, slug):
     check(slug, "chat pane shows join line + room name",
           s == 200 and JOIN_TEXT[slug].encode() in body
           and ROOMS and name.encode() in body, "status=%d" % s)
+    # the room uses its own background, not another site's (Paul,
+    # 2026-11-09: the Gabbay home background was wrong on Area51)
+    if slug in ROOM_BG:
+        check(slug, "room page uses its own background",
+              ROOM_BG[slug].encode() in body
+              and b"home_bg.jpg" not in body, "")
+        if slug == "area51-chat":
+            check(slug, "Area51 room page is black with white text, red links",
+                  b'bgcolor="black"' in body and b'text="white"' in body
+                  and b'link="red"' in body, "")
     # post a message, then see it via the poll API
     s, _, _ = c.post("/" + slug + "/post", {"text": "hello from %s test" % slug})
     check(slug, "post a message (303 back to room)",

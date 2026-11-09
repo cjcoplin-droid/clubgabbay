@@ -151,10 +151,15 @@ ROOMS = {
     # (e.g. geocities.com/chat/Entry/Silicon.html). Same engine as the
     # Gabbay rooms: live poll, handles, whispers, same word filter +
     # strikes. Art is the neighborhood's own 88x31 button (Chaz Boston
-    # Baden, freely given away; via Blade's Place).
+    # Baden, freely given away; via Blade's Place). Backgrounds are the
+    # originals, checked on the Wayback Machine Dec 1996: Hollywood,
+    # SiliconValley, SunsetStrip and WestHollywood all used GeoCities'
+    # shared background.gif; Area51 had its own area_glow.gif on a black
+    # page with white text and red links (Paul, 2026-11-09: the Gabbay
+    # home background -- the Hollywood sign -- was wrong on Area51).
     "hollywood-chat": {
         "name": "Hollywood Chat",
-        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "art": "/images/neighborhoods/hollywood.gif",
         "desc": "Lights, camera, chat!!! Talk movies, TV and stars with "
                 "your fellow Hollywood homesteaders!!!",
@@ -163,7 +168,7 @@ ROOMS = {
     },
     "siliconvalley-chat": {
         "name": "SiliconValley Chat",
-        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "art": "/images/neighborhoods/siliconvalley.gif",
         "desc": "Log on and talk tech!!! Hardware, software, programming -- "
                 "the SiliconValley homesteaders are online!!!",
@@ -172,7 +177,7 @@ ROOMS = {
     },
     "sunsetstrip-chat": {
         "name": "SunsetStrip Chat",
-        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "art": "/images/neighborhoods/sunsetstrip.gif",
         "desc": "Turn it up!!! Talk rock, grunge, punk and the club scene "
                 "with your SunsetStrip neighbors!!!",
@@ -181,7 +186,8 @@ ROOMS = {
     },
     "area51-chat": {
         "name": "Area51 Chat",
-        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "bg": "/images/neighborhoods/area_glow.gif", "bgcolor": "black",
+        "textcolor": "white", "link": "red", "vlink": "#9932CC",
         "art": "/images/neighborhoods/area51.gif",
         "desc": "The truth is in here!!! Talk sci-fi, fantasy and conspiracy "
                 "theories with your fellow Area51 homesteaders!!!",
@@ -190,7 +196,7 @@ ROOMS = {
     },
     "westhollywood-chat": {
         "name": "WestHollywood Chat",
-        "bg": "/clubgabbay.com/images/bg/home_bg.jpg",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "art": "/images/neighborhoods/westhollywood.gif",
         "desc": "Come as you are!!! Talk life, love and community with your "
                 "WestHollywood neighbors!!!",
@@ -599,6 +605,10 @@ def render_room_page(slug, sess, initial_msgs):
         body_attrs += ' bgcolor="%s"' % info["bgcolor"]
     if info.get("textcolor"):
         body_attrs += ' text="%s"' % info["textcolor"]
+    if info.get("link"):
+        body_attrs += ' link="%s"' % info["link"]
+    if info.get("vlink"):
+        body_attrs += ' vlink="%s"' % info["vlink"]
     art = ""
     if info.get("art") and static_exists(info["art"]):
         art = '<center><img src="%s"></center><p>' % info["art"]

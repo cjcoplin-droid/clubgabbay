@@ -22,6 +22,7 @@ HOODS = [
         "chat_desc": ("Lights, camera, chat!!! Talk movies, TV and stars with "
                       "your fellow Hollywood homesteaders!!!"),
         "chat_join": "Joins The Hollywood Chat...",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "intro": ("Hollywood was the very first GeoCities neighborhood, opened "
                   "July 1995 -- films and TV, actors and actresses. If you loved "
                   "movies, this was your block. Its suburbs had names like Hills, "
@@ -42,6 +43,7 @@ HOODS = [
         "chat_desc": ("Log on and talk tech!!! Hardware, software, programming "
                       "-- the SiliconValley homesteaders are online!!!"),
         "chat_join": "Joins The SiliconValley Chat...",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "intro": ("SiliconValley opened August 1995 for computers, hardware, "
                   "software and programming -- the techies' neighborhood. Its "
                   "suburbs were named for the trade: Heights, Park, Pines, Chip, "
@@ -62,6 +64,7 @@ HOODS = [
         "chat_desc": ("Turn it up!!! Talk rock, grunge, punk and the club scene "
                       "with your SunsetStrip neighbors!!!"),
         "chat_join": "Joins The SunsetStrip Chat...",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "intro": ("SunsetStrip opened July 1995 for music -- rock, grunge, punk, "
                   "blues and the club scene. Its suburbs read like a night out: "
                   "Vine, Alley, Palms, Studio, Towers, Backstage, Frontrow."),
@@ -85,6 +88,8 @@ HOODS = [
                       "conspiracy theories with your fellow Area51 "
                       "homesteaders!!!"),
         "chat_join": "Joins The Area51 Chat...",
+        "bg": "/images/neighborhoods/area_glow.gif", "bgcolor": "black",
+        "text": "white", "link": "red", "vlink": "#9932CC",
         "intro": ("Area51 opened April 1996 for science fiction and fantasy -- "
                   "and conspiracy theories. Its suburbs were pure imagination: "
                   "Vault, Stargate, Starship, Nebula, Dimension, Dreamworld."),
@@ -105,6 +110,7 @@ HOODS = [
         "chat_desc": ("Come as you are!!! Talk life, love and community with "
                       "your WestHollywood neighbors!!!"),
         "chat_join": "Joins The WestHollywood Chat...",
+        "bg": "/images/neighborhoods/background.gif", "bgcolor": "white",
         "intro": ("WestHollywood opened July 1995 for gay, lesbian, bisexual and "
                   "transgender topics -- one of the six original neighborhoods, "
                   "and a community that mattered. Its suburbs: Cafe, Castro, "
@@ -150,7 +156,9 @@ def chat_entry(h):
             '<hr noshade>\n<center>%s</center>\n'
             % (h["slug"], h["chat_join"], h["slug"], h["name"], FOOTER))
     return page("%s Chat -- GeoCities neighborhood" % h["name"],
-                heading, body)
+                heading, body, bg=h["bg"], bgcolor=h["bgcolor"],
+                text=h.get("text"), link=h.get("link"),
+                vlink=h.get("vlink"))
 
 
 def webring(current=None):
@@ -165,15 +173,28 @@ def webring(current=None):
             + " | ".join(parts) + "</font></center>\n")
 
 
-def page(title, heading, body):
+def page(title, heading, body, bg="/images/neighborhoods/background.gif",
+         bgcolor="white", text=None, link=None, vlink=None):
+    # Backgrounds are the originals (Wayback, Dec 1996): GeoCities'
+    # shared background.gif for most neighborhoods; Area51 had its own
+    # area_glow.gif on a black page with white text and red links.
+    attrs = ' background="%s"' % bg
+    if bgcolor:
+        attrs += ' bgcolor="%s"' % bgcolor
+    if text:
+        attrs += ' text="%s"' % text
+    if link:
+        attrs += ' link="%s"' % link
+    if vlink:
+        attrs += ' vlink="%s"' % vlink
     return ('<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">\n<html>\n<head>\n'
             '<meta http-equiv="Content-Type" content="text/html; '
             'charset=iso-8859-1">\n'
             '<title>%s</title>\n</head>\n'
-            '<body background="/clubgabbay.com/images/bg/home_bg.jpg">\n'
+            '<body%s>\n'
             '%s\n'
             '<hr noshade>\n%s\n'
-            '</body></html>\n' % (title, heading, body))
+            '</body></html>\n' % (title, attrs, heading, body))
 
 
 def portal(h):
@@ -217,7 +238,9 @@ def portal(h):
                h["name"], h["name"], ", ".join(h["suburbs"]), h["name"],
                h["name"], h["name"], h["name"], webring(h["slug"]), FOOTER))
     return page("%s -- GeoCities neighborhood, back home" % h["name"],
-                heading, body)
+                heading, body, bg=h["bg"], bgcolor=h["bgcolor"],
+                text=h.get("text"), link=h.get("link"),
+                vlink=h.get("vlink"))
 
 
 def index():
