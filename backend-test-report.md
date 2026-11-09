@@ -1,6 +1,6 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 14:05 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 14:22 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
@@ -361,8 +361,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | myspace-chat | jump posts join line in lobby | PASS |  |
 | myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest5942'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest5942', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest3797'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest3797', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -433,13 +433,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794258324.3832266, 'color': 'red', 'font': 'Courier New', 'time': '14:05'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794259363.9218695, 'color': 'red', 'font': 'Courier New', 'time': '14:22'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794258326.5363026, 'color': None, 'font': None, 'time': '14:05'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794259366.0907757, 'color': None, 'font': None, 'time': '14:22'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794258328.766267, 'color': None, 'font': None, 'time': '14:05'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794259368.3329902, 'color': None, 'font': None, 'time': '14:22'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
@@ -470,59 +470,59 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | services | msn landing page serves with gate + handle form | PASS | status=200 |
 | services | msn page links all fourteen services | PASS |  |
 | services | msn entry without confirm bounces home | PASS |  |
-| services | msn entry with confirm reaches the room | PASS | status=200 |
+| services | msn room wears its own skin: title bar #0078D7, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | yahoo landing page serves with gate + handle form | PASS | status=200 |
 | services | yahoo page links all fourteen services | PASS |  |
 | services | yahoo entry without confirm bounces home | PASS |  |
-| services | yahoo entry with confirm reaches the room | PASS | status=200 |
+| services | yahoo room wears its own skin: title bar #6001D2, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | icq landing page serves with gate + handle form | PASS | status=200 |
 | services | icq page links all fourteen services | PASS |  |
 | services | icq entry without confirm bounces home | PASS |  |
-| services | icq entry with confirm reaches the room | PASS | status=200 |
+| services | icq room wears its own skin: title bar #00A000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | mirc landing page serves with gate + handle form | PASS | status=200 |
 | services | mirc page links all fourteen services | PASS |  |
 | services | mirc entry without confirm bounces home | PASS |  |
-| services | mirc entry with confirm reaches the room | PASS | status=200 |
+| services | mirc room wears its own skin: title bar #000080, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | excite landing page serves with gate + handle form | PASS | status=200 |
 | services | excite page links all fourteen services | PASS |  |
 | services | excite entry without confirm bounces home | PASS |  |
-| services | excite entry with confirm reaches the room | PASS | status=200 |
+| services | excite room wears its own skin: title bar #CC0000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | paltalk landing page serves with gate + handle form | PASS | status=200 |
 | services | paltalk page links all fourteen services | PASS |  |
 | services | paltalk entry without confirm bounces home | PASS |  |
-| services | paltalk entry with confirm reaches the room | PASS | status=200 |
+| services | paltalk room wears its own skin: title bar #0099CC, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | lycos landing page serves with gate + handle form | PASS | status=200 |
 | services | lycos page links all fourteen services | PASS |  |
 | services | lycos entry without confirm bounces home | PASS |  |
-| services | lycos entry with confirm reaches the room | PASS | status=200 |
+| services | lycos room wears its own skin: title bar #FF6600, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | palace landing page serves with gate + handle form | PASS | status=200 |
 | services | palace page links all fourteen services | PASS |  |
 | services | palace entry without confirm bounces home | PASS |  |
-| services | palace entry with confirm reaches the room | PASS | status=200 |
+| services | palace room wears its own skin: title bar #993399, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | habbo landing page serves with gate + handle form | PASS | status=200 |
 | services | habbo page links all fourteen services | PASS |  |
 | services | habbo entry without confirm bounces home | PASS |  |
-| services | habbo entry with confirm reaches the room | PASS | status=200 |
+| services | habbo room wears its own skin: title bar #E6B800, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | powwow landing page serves with gate + handle form | PASS | status=200 |
 | services | powwow page links all fourteen services | PASS |  |
 | services | powwow entry without confirm bounces home | PASS |  |
-| services | powwow entry with confirm reaches the room | PASS | status=200 |
+| services | powwow room wears its own skin: title bar #006666, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | compuserve landing page serves with gate + handle form | PASS | status=200 |
 | services | compuserve page links all fourteen services | PASS |  |
 | services | compuserve entry without confirm bounces home | PASS |  |
-| services | compuserve entry with confirm reaches the room | PASS | status=200 |
+| services | compuserve room wears its own skin: title bar #003366, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | prodigy landing page serves with gate + handle form | PASS | status=200 |
 | services | prodigy page links all fourteen services | PASS |  |
 | services | prodigy entry without confirm bounces home | PASS |  |
-| services | prodigy entry with confirm reaches the room | PASS | status=200 |
+| services | prodigy room wears its own skin: title bar #800000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | xfire landing page serves with gate + handle form | PASS | status=200 |
 | services | xfire page links all fourteen services | PASS |  |
 | services | xfire entry without confirm bounces home | PASS |  |
-| services | xfire entry with confirm reaches the room | PASS | status=200 |
+| services | xfire room wears its own skin: title bar #000000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | myspace landing page serves with gate + handle form | PASS | status=200 |
 | services | myspace page links all fourteen services | PASS |  |
 | services | myspace entry without confirm bounces home | PASS |  |
-| services | myspace entry with confirm reaches the room | PASS | status=200 |
+| services | myspace room wears its own skin: title bar #003399, member list + IM box, no AOL pickers | PASS | status=200 |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -1097,59 +1097,59 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - services — msn landing page serves with gate + handle form
 - services — msn page links all fourteen services
 - services — msn entry without confirm bounces home
-- services — msn entry with confirm reaches the room
+- services — msn room wears its own skin: title bar #0078D7, member list + IM box, no AOL pickers
 - services — yahoo landing page serves with gate + handle form
 - services — yahoo page links all fourteen services
 - services — yahoo entry without confirm bounces home
-- services — yahoo entry with confirm reaches the room
+- services — yahoo room wears its own skin: title bar #6001D2, member list + IM box, no AOL pickers
 - services — icq landing page serves with gate + handle form
 - services — icq page links all fourteen services
 - services — icq entry without confirm bounces home
-- services — icq entry with confirm reaches the room
+- services — icq room wears its own skin: title bar #00A000, member list + IM box, no AOL pickers
 - services — mirc landing page serves with gate + handle form
 - services — mirc page links all fourteen services
 - services — mirc entry without confirm bounces home
-- services — mirc entry with confirm reaches the room
+- services — mirc room wears its own skin: title bar #000080, member list + IM box, no AOL pickers
 - services — excite landing page serves with gate + handle form
 - services — excite page links all fourteen services
 - services — excite entry without confirm bounces home
-- services — excite entry with confirm reaches the room
+- services — excite room wears its own skin: title bar #CC0000, member list + IM box, no AOL pickers
 - services — paltalk landing page serves with gate + handle form
 - services — paltalk page links all fourteen services
 - services — paltalk entry without confirm bounces home
-- services — paltalk entry with confirm reaches the room
+- services — paltalk room wears its own skin: title bar #0099CC, member list + IM box, no AOL pickers
 - services — lycos landing page serves with gate + handle form
 - services — lycos page links all fourteen services
 - services — lycos entry without confirm bounces home
-- services — lycos entry with confirm reaches the room
+- services — lycos room wears its own skin: title bar #FF6600, member list + IM box, no AOL pickers
 - services — palace landing page serves with gate + handle form
 - services — palace page links all fourteen services
 - services — palace entry without confirm bounces home
-- services — palace entry with confirm reaches the room
+- services — palace room wears its own skin: title bar #993399, member list + IM box, no AOL pickers
 - services — habbo landing page serves with gate + handle form
 - services — habbo page links all fourteen services
 - services — habbo entry without confirm bounces home
-- services — habbo entry with confirm reaches the room
+- services — habbo room wears its own skin: title bar #E6B800, member list + IM box, no AOL pickers
 - services — powwow landing page serves with gate + handle form
 - services — powwow page links all fourteen services
 - services — powwow entry without confirm bounces home
-- services — powwow entry with confirm reaches the room
+- services — powwow room wears its own skin: title bar #006666, member list + IM box, no AOL pickers
 - services — compuserve landing page serves with gate + handle form
 - services — compuserve page links all fourteen services
 - services — compuserve entry without confirm bounces home
-- services — compuserve entry with confirm reaches the room
+- services — compuserve room wears its own skin: title bar #003366, member list + IM box, no AOL pickers
 - services — prodigy landing page serves with gate + handle form
 - services — prodigy page links all fourteen services
 - services — prodigy entry without confirm bounces home
-- services — prodigy entry with confirm reaches the room
+- services — prodigy room wears its own skin: title bar #800000, member list + IM box, no AOL pickers
 - services — xfire landing page serves with gate + handle form
 - services — xfire page links all fourteen services
 - services — xfire entry without confirm bounces home
-- services — xfire entry with confirm reaches the room
+- services — xfire room wears its own skin: title bar #000000, member list + IM box, no AOL pickers
 - services — myspace landing page serves with gate + handle form
 - services — myspace page links all fourteen services
 - services — myspace entry without confirm bounces home
-- services — myspace entry with confirm reaches the room
+- services — myspace room wears its own skin: title bar #003399, member list + IM box, no AOL pickers
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board

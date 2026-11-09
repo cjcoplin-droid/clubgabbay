@@ -10,13 +10,14 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from server import SERVICES  # noqa: E402
+from server import ROOMS, SERVICES  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "site", "www2.clubgabbay.com")
 
 
 def page(s, all_services):
+    skin = ROOMS[s["slug"] + "-chat"]["skin"]
     links = " | ".join(
         '<a href="/%s.html">%s</a>' % (t["slug"], t["name"])
         for t in all_services)
@@ -29,9 +30,14 @@ content="text/html; charset=iso-8859-1">
 <title>%(name)s Chat</title>
 </head>
 
-<body background="../clubgabbay.com/images/bg/home_bg.jpg">
-<center><font size="+3"><strong>%(name)s</strong></font></center>
-<center><font size="+1">%(desc)s</font></center>
+<body bgcolor="%(body)s" text="%(text)s" link="%(link)s" vlink="%(vlink)s">
+<center>
+<table width="480" border="2" cellpadding="4" cellspacing="0" bgcolor="%(win)s">
+<tr><td bgcolor="%(title)s"><font color="%(fg)s"><b>&nbsp;%(name)s</b></font></td>
+<td bgcolor="%(title)s" align="right"><font color="%(fg)s"><b>X&nbsp;</b></font></td></tr>
+<tr><td colspan="2"><center><font size="+1">%(desc)s</font></center></td></tr>
+</table>
+</center>
 <p>
 <center>
 <font size="+1"><strong>This room is intended for adults 21 and over.</strong></font><br>
@@ -57,7 +63,10 @@ Show last <select name="HISTORY"><option value="8" selected>8</option><option va
 </body>
 </html>
 """ % {"slug": s["slug"], "name": s["name"], "desc": s["desc"],
-       "join": s["join"], "links": links}
+       "join": s["join"], "links": links,
+       "title": skin["title"], "fg": skin["fg"], "win": skin["win"],
+       "body": skin["body"], "text": skin["text"],
+       "link": skin["link"], "vlink": skin["vlink"]}
 
 
 def main():

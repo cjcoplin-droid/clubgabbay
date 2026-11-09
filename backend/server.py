@@ -248,83 +248,105 @@ SERVICES = [
      "desc": "Microsoft's buddy-list messenger -- nudges, winks, custom "
              "display pictures, and adding friends by email. The sound "
              "of a friend coming online.",
-     "join": "Joins MSN Chat..."},
+     "join": "Joins MSN Chat...",
+     "skin": {}},
     {"slug": "yahoo", "name": "Yahoo! Chat", "room": "Yahoo! Chat",
      "bgcolor": "#6001D2",
      "desc": "Public chat rooms divided by interests, age groups, places "
              "and topics -- walk in, pick a room, talk to strangers.",
-     "join": "Joins Yahoo! Chat..."},
+     "join": "Joins Yahoo! Chat...",
+     "skin": {}},
     {"slug": "icq", "name": "ICQ", "room": "ICQ Chat",
      "bgcolor": "#00A000",
      "desc": "One of the first instant messengers -- number-based "
              "usernames, the famous 'Uh-oh!' sound, and a flower that "
              "told you who was online.",
-     "join": "Joins ICQ Chat..."},
+     "join": "Joins ICQ Chat...",
+     "skin": {'win': '#E8F5E8', 'body': '#C8E6C8'}},
     {"slug": "mirc", "name": "mIRC", "room": "mIRC Chat",
      "bgcolor": "#000080",
      "desc": "The old IRC network -- channels like #Canada, #Gaming and "
              "#Singles, where a nickname and a channel were all you "
              "needed.",
-     "join": "Joins mIRC Chat..."},
+     "join": "Joins mIRC Chat...",
+     "skin": {}},
     {"slug": "excite", "name": "Excite Chat", "room": "Excite Chat",
      "bgcolor": "#CC0000",
      "desc": "Public chat rooms where strangers could meet and talk -- "
              "one of the web's early meeting places.",
-     "join": "Joins Excite Chat..."},
+     "join": "Joins Excite Chat...",
+     "skin": {'win': '#FFF0F0', 'body': '#F0C8C8'}},
     {"slug": "paltalk", "name": "Paltalk", "room": "Paltalk Chat",
      "bgcolor": "#0099CC",
      "desc": "Voice and video chat rooms -- talk instead of type, with "
              "rooms for every interest.",
-     "join": "Joins Paltalk Chat..."},
+     "join": "Joins Paltalk Chat...",
+     "skin": {'win': '#E0F0F8', 'body': '#C8DCE8'}},
     {"slug": "lycos", "name": "Lycos Chat", "room": "Lycos Chat",
      "bgcolor": "#FF6600",
      "desc": "Web-based chat rooms from the search-engine days -- no "
              "download, just a browser and a nickname.",
-     "join": "Joins Lycos Chat..."},
+     "join": "Joins Lycos Chat...",
+     "skin": {'win': '#FFF5E8', 'body': '#F0D8B8'}},
     {"slug": "palace", "name": "The Palace", "room": "The Palace Chat",
      "bgcolor": "#993399",
      "desc": "2D graphical chat rooms with avatars -- walk your little "
              "figure around the room and talk in bubbles.",
-     "join": "Joins The Palace Chat..."},
+     "join": "Joins The Palace Chat...",
+     "skin": {'win': '#F5E8F5', 'body': '#E0C8E0'}},
     {"slug": "habbo", "name": "Habbo Hotel", "room": "Habbo Hotel Chat",
      "bgcolor": "#E6B800",
      "desc": "A virtual hotel to hang out in -- your own little avatar, "
              "rooms to visit, people to meet.",
-     "join": "Joins Habbo Hotel Chat..."},
+     "join": "Joins Habbo Hotel Chat...",
+     "skin": {'fg': 'black', 'win': '#FFF8D0', 'body': '#F0E0A0'}},
     {"slug": "powwow", "name": "PowWow", "room": "PowWow Chat",
      "bgcolor": "#006666",
      "desc": "Early group messaging and voice chat -- one of the first "
              "programs that let a group talk together online.",
-     "join": "Joins PowWow Chat..."},
+     "join": "Joins PowWow Chat...",
+     "skin": {'win': '#E0F0F0', 'body': '#C8E0E0'}},
     {"slug": "compuserve", "name": "CompuServe", "room": "CompuServe Chat",
      "bgcolor": "#003366",
      "desc": "One of the first online services -- forums and chat before "
              "the web took over.",
-     "join": "Joins CompuServe Chat..."},
+     "join": "Joins CompuServe Chat...",
+     "skin": {'win': '#E8EEF5', 'body': '#C8D8E8'}},
     {"slug": "prodigy", "name": "Prodigy", "room": "Prodigy Chat",
      "bgcolor": "#800000",
      "desc": "An early online service with public chat -- a whole world "
              "behind a dial-up number.",
-     "join": "Joins Prodigy Chat..."},
+     "join": "Joins Prodigy Chat...",
+     "skin": {'win': '#F8E8E8', 'body': '#E8C8C8'}},
     {"slug": "xfire", "name": "Xfire", "room": "Xfire Chat",
      "bgcolor": "#999999",
      "desc": "Gaming friends and chat -- see what your friends are "
              "playing and jump in with them.",
-     "join": "Joins Xfire Chat..."},
+     "join": "Joins Xfire Chat...",
+     "skin": {'title': '#000000', 'win': '#333333', 'body': '#222222', 'text': 'white', 'link': '#66CCFF', 'vlink': '#99CCFF'}},
     {"slug": "myspace", "name": "MySpace", "room": "MySpace Chat",
      "bgcolor": "#003399",
      "desc": "Profiles, friends, messages and comments -- the place "
              "where everyone's page had a song that started playing.",
-     "join": "Joins MySpace Chat..."},
+     "join": "Joins MySpace Chat...",
+     "skin": {'win': '#E8EEF8', 'body': '#C8D8F0'}},
 ]
+SKIN_DEFAULT = {"fg": "white", "win": "#D4D0C8", "body": "#C0C0C0",
+                "text": "black", "link": "blue", "vlink": "purple"}
 for _s in SERVICES:
+    _skin = dict(SKIN_DEFAULT)
+    _skin["title"] = _s["bgcolor"]
+    _skin.update(_s.get("skin") or {})
     ROOMS[_s["slug"] + "-chat"] = {
         "name": _s["room"],
+        "service": _s["name"],
         "bg": None, "bgcolor": _s["bgcolor"],
         "art": None,
         "desc": _s["desc"],
         "entry": "/%s.html" % _s["slug"],
         "join": _s["join"],
+        "messenger": True,
+        "skin": _skin,
     }
 
 # The archived Anything Goes form posts to /anything-goes; accept the
@@ -1054,6 +1076,170 @@ setInterval(poll, 4000);
        last_id, slug, esc(sess["user"]))
 
 
+def render_messenger_room_page(slug, sess, initial_msgs):
+    """Messenger skins (Paul, 2026-11-09): each retro service gets the
+    look its own messenger had -- the AOL Chat window, re-skinned with
+    the service's colors and name. Same engine underneath: poll, filter,
+    whispers (click a name to IM them), actions, history. No color/font
+    pickers -- those stay AOL-only."""
+    info = ROOMS[slug]
+    skin = info["skin"]
+    history_opts = "".join(
+        '<option value="%d"%s>%d</option>' % (n, " selected" if n == sess["history"] else "", n)
+        for n in (8, 16, 32))
+    users = presence(slug)
+    me = sess["user"]
+    members = "".join(
+        '<a href="#" onclick="return pmUser(this.textContent);">%s</a><br>'
+        % esc(u.split(" (member)")[0])
+        for u in users if u.split(" (member)")[0] != me)
+    action_opts = "".join('<option>%s</option>' % v for v in ACTION_VERBS)
+    user_opts = "".join('<option>%s</option>'
+                        % esc(u.split(" (member)")[0])
+                        for u in users
+                        if u.split(" (member)")[0] != me)
+    more = " | ".join(
+        '<a href="/%s.html">%s</a>' % (sv["slug"], sv["name"])
+        for sv in SERVICES)
+    lines = "".join(render_msg(m) for m in initial_msgs)
+    last_id = initial_msgs[-1]["id"] if initial_msgs else 0
+    return """<html><head><title>%s</title></head>
+<body bgcolor="%s" text="%s" link="%s" vlink="%s">
+<center>
+<table width="640" border="2" cellpadding="0" cellspacing="0" bgcolor="%s">
+<tr><td bgcolor="%s"><font color="%s"><b>&nbsp;%s</b></font></td>
+<td bgcolor="%s" align="right"><font color="%s"><b>X&nbsp;</b></font></td></tr>
+<tr><td colspan="2">
+<table width="620" cellpadding="4" cellspacing="0"><tr>
+<td width="460" valign="top" bgcolor="white">
+<font size="-1"><i>This room is intended for adults 21 and over.</i></font><br>
+<div id="chat" style="height:300px;overflow:auto;background:white;">%s</div>
+</td>
+<td width="150" valign="top" bgcolor="%s">
+<b>People in this room:</b><br>
+<div id="members">%s</div>
+</td>
+</tr></table>
+</td></tr>
+<tr><td colspan="2">
+<form action="/%s/post" method="post">
+<input type="text" name="text" size="50" maxlength="500">
+<input type="submit" value="Send">
+</form>
+</td></tr>
+<tr><td colspan="2">
+<form action="/%s/action" method="post">
+<select name="action">%s</select>
+<select name="to">%s</select>
+<input type="submit" value="Do it!">
+</form>
+</td></tr>
+<tr><td colspan="2">
+<div id="imbox" style="display:none;">
+<table width="620" border="1" cellpadding="2" cellspacing="0" bgcolor="%s">
+<tr><td bgcolor="%s"><font color="%s"><b>Instant Message to <span id="im-to-name"></span></b></font></td>
+<td bgcolor="%s" align="right"><a href="#" onclick="return closeIm();"><font color="%s">X</font></a></td></tr>
+<tr><td colspan="2">
+<form action="/%s/whisper" method="post">
+<input type="hidden" name="to" id="im-to" value="">
+<input type="text" name="text" id="im-text" size="45" maxlength="500">
+<input type="submit" value="Send">
+</form>
+</td></tr>
+</table>
+</div>
+</td></tr>
+<tr><td colspan="2">
+<form action="/%s/history" method="post">
+Show last
+<select name="HISTORY">%s</select> messages
+<input type="submit" value="Change">
+</form>
+<p><font size="-1">
+<a href="/%s/leave">Leave %s</a> |
+<a href="/%s.html">Back to %s</a> |
+<a href="/">Club Gabbay Home</a> |
+<a href="#" onclick="location.reload(); return false;">Refresh</a>
+</font></p>
+<p><font size="-1">More retro chat: %s</font></p>
+<p><font size="-1">You are chatting as <b>%s</b>%s.
+Messages refresh automatically every few seconds.
+Click a name on the right to send them a private message.</font></p>
+<hr noshade>
+%s -- a fan-made tribute to the 1990s.
+</td></tr>
+</table>
+</center>
+<script>
+var lastId = %d;
+var room = "%s";
+var me = "%s";
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function lineHtml(m){
+  if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
+  if(m.kind==='leave') return '<i><b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+'</i><br>';
+  if(m.kind==='whisper') return '<i><font color="#800080"><b>'+escHtml(m.user)+'</b> whispers to <b>'+escHtml(m.to)+'</b>: '+escHtml(m.text)+'</font></i><br>';
+  if(m.kind==='action') return '<i>* <b>'+escHtml(m.user)+'</b> '+escHtml(m.text)+' *</i><br>';
+  return '<b>'+escHtml(m.user)+':</b> '+escHtml(m.text)+'<br>';
+}
+function membersHtml(list){
+  var others = list.map(function(u){return u.split(' (member)')[0];})
+    .filter(function(u){return u !== me;});
+  if(!others.length) return '(just you)';
+  return others.map(function(u){
+    return '<a href="#" onclick="return pmUser(this.textContent);">'+escHtml(u)+'</a>';
+  }).join('<br>');
+}
+function pmUser(name){
+  document.getElementById('im-to').value = name;
+  document.getElementById('im-to-name').textContent = name;
+  document.getElementById('imbox').style.display = 'block';
+  document.getElementById('im-text').focus();
+  return false;
+}
+function closeIm(){
+  document.getElementById('imbox').style.display = 'none';
+  return false;
+}
+function poll(){
+  fetch('/api/'+room+'/messages?since='+lastId, {credentials:'same-origin'})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var chat=document.getElementById('chat');
+      var added=0;
+      data.messages.forEach(function(m){
+        chat.innerHTML += lineHtml(m);
+        if(m.id>lastId) lastId=m.id;
+        added++;
+      });
+      document.getElementById('members').innerHTML = membersHtml(data.presence);
+      if(added>0){
+        var nearBottom = (chat.scrollHeight - chat.scrollTop - chat.clientHeight) < 120;
+        if(nearBottom) chat.scrollTop = chat.scrollHeight;
+      }
+    })
+    .catch(function(){});
+}
+setInterval(poll, 4000);
+</script>
+</body></html>
+""" % (esc(info["name"]), skin["body"], skin["text"], skin["link"],
+       skin["vlink"], skin["win"],
+       skin["title"], skin["fg"], esc(info["name"]),
+       skin["title"], skin["fg"],
+       lines, skin["win"], members,
+       slug,
+       slug, action_opts, user_opts,
+       skin["win"], skin["title"], skin["fg"], skin["title"], skin["fg"],
+       slug,
+       slug, history_opts,
+       slug, esc(info["name"]),
+       slug, esc(info["service"]), more,
+       esc(sess["user"]), " (member)" if sess.get("member") else "",
+       esc(info["service"]),
+       last_id, slug, esc(sess["user"]))
+
+
 def render_member_page():
     """Member entry (lobby2.cfm / login.cfm) — new code, lobby look.
     v1: any password is accepted; no member accounts are provisioned yet."""
@@ -1392,6 +1578,8 @@ class Handler(BaseHTTPRequestHandler):
         msgs = db_messages(slug, sess["history"], user=sess["user"])
         if info.get("aol"):
             self._send(200, render_aol_room_page(slug, sess, msgs))
+        elif info.get("messenger"):
+            self._send(200, render_messenger_room_page(slug, sess, msgs))
         else:
             self._send(200, render_room_page(slug, sess, msgs))
 

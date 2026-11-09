@@ -22,6 +22,7 @@ import urllib.parse
 import urllib.request
 from http.cookiejar import CookieJar
 
+from server import ROOMS as SERVER_ROOMS  # the live room table (skins)
 from server import SERVICES  # the retro chat services (Paul, 2026-11-09)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -1109,6 +1110,7 @@ def run_services_tests(base):
     for sv in SERVICES:
         slug = sv["slug"]
         room = slug + "-chat"
+        skin = SERVER_ROOMS[room]["skin"]
         c = Client(base)
         s, body, _ = c.get("/%s.html" % slug)
         check("services", "%s landing page serves with gate + handle form"
@@ -1116,7 +1118,9 @@ def run_services_tests(base):
               s == 200 and sv["name"].encode() in body
               and b"21 and over" in body
               and ('action="/%s"' % room).encode() in body
-              and b'name="confirm"' in body, "status=%d" % s)
+              and b'name="confirm"' in body
+              and ('bgcolor="%s"' % skin["title"]).encode() in body,
+              "status=%d" % s)
         check("services", "%s page links all fourteen services" % slug,
               all(('href="/%s.html"' % t["slug"]).encode() in body
                   for t in SERVICES), "")
@@ -1127,13 +1131,20 @@ def run_services_tests(base):
         check("services", "%s entry without confirm bounces home" % slug,
               b"ADULTS ONLY" in body
               and sv["join"].encode() not in body, "")
-        # entry with confirm -> in the room
+        # entry with confirm -> in the room, wearing its own skin
         s, body, _ = c.post("/" + room, {"USER": "SvcTest",
                                           "SAYS": "<b>%s</b>" % sv["join"],
                                           "HISTORY": "8", "confirm": "21"})
-        check("services", "%s entry with confirm reaches the room" % slug,
+        check("services", "%s room wears its own skin: title bar %s, "
+              "member list + IM box, no AOL pickers" % (slug, skin["title"]),
               s == 200 and sv["join"].encode() in body
-              and b"21 and over" in body, "status=%d" % s)
+              and b"21 and over" in body
+              and ('bgcolor="%s"' % skin["title"]).encode() in body
+              and b"People in this room:" in body
+              and ('action="/%s/whisper"' % room).encode() in body
+              and ('action="/%s/action"' % room).encode() in body
+              and b'AOL Chat' not in body
+              and b'name="color"' not in body, "status=%d" % s)
 
 
 def run_board_migration_tests():
