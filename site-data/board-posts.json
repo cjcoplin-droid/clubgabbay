@@ -1,12 +1,3 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "name": "E2EPoster",
-      "to": "",
-      "subject": "e2e",
-      "message": "board-backup-cycle-12345",
-      "ts": 1794246501.0514212
-    }
-  ]
+  "posts": []
 }
