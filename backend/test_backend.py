@@ -164,11 +164,12 @@ def run_tests(base):
     anon = Client(base)
     s, body, _ = anon.get("/")
     check("site", "homepage / returns 200 + Enter ClubGabbay -> /chat.htm, "
-          "no webdates/email (Paul 2026-11-09)",
+          "no webdates/email/linkexchange (Paul 2026-11-09)",
           s == 200 and b"Enter ClubGabbay" in body
           and b'href="/chat.htm"' in body
           and b"webdates" not in body.lower()
-          and b"comments@clubgabbay.com" not in body,
+          and b"comments@clubgabbay.com" not in body
+          and b"linkexchange" not in body.lower(),
           "status=%d" % s)
     # Removed pages (Paul 2026-11-09): the /main.htm frameset (menu +
     # Michael message) is not live, and WebDates is gone.
@@ -613,7 +614,9 @@ def write_report():
                  "/menu.cfm and /webdates.cfm are removed from the live "
                  "site; the email line and WebDates block are off the "
                  "landing page. The landing page is now just a link to "
-                 "the chat.")
+                 "the chat. (Also 2026-11-09: the dead LinkExchange banner "
+                 "at the top of the landing page is gone — the ad server "
+                 "is long dead and it rendered as a broken-image box.)")
     lines.append("- Member accounts are not provisioned (v1 accepts any "
                  "password on `/lobby2.cfm` and flags the session as a "
                  "member). Real member auth is a later decision.")
