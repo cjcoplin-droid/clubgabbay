@@ -249,27 +249,27 @@ SERVICES = [
              "display pictures, and adding friends by email. The sound "
              "of a friend coming online.",
      "join": "Joins MSN Chat...",
-     "skin": {'nudge': 'Nudge', 'title_style': 'background:linear-gradient(#3A7BD5, #7FB5E8);', 'dp': True}},
+     "skin": {'nudge': 'Nudge', 'title_style': 'background:linear-gradient(#3A7BD5, #7FB5E8);', 'dp': True, 'sound': 'ding-msn'}},
     {"slug": "yahoo", "name": "Yahoo! Chat", "room": "Yahoo! Chat",
      "bgcolor": "#6001D2",
      "desc": "Public chat rooms divided by interests, age groups, places "
              "and topics -- walk in, pick a room, talk to strangers.",
      "join": "Joins Yahoo! Chat...",
-     "skin": {'nudge': 'BUZZ!', 'smiley': True}},
+     "skin": {'nudge': 'BUZZ!', 'smiley': True, 'sound': 'ding-yahoo'}},
     {"slug": "icq", "name": "ICQ", "room": "ICQ Chat",
      "bgcolor": "#00A000",
      "desc": "One of the first instant messengers -- number-based "
              "usernames, the famous 'Uh-oh!' sound, and a flower that "
              "told you who was online.",
      "join": "Joins ICQ Chat...",
-     "skin": {'win': '#E8F5E8', 'body': '#C8E6C8', 'channel': '#icq_usa', 'flower': True, 'footer_note': 'Uh-oh!'}},
+     "skin": {'win': '#E8F5E8', 'body': '#C8E6C8', 'channel': '#icq_usa', 'flower': True, 'footer_note': 'Uh-oh!', 'sound': 'uhoh'}},
     {"slug": "mirc", "name": "mIRC", "room": "mIRC Chat",
      "bgcolor": "#000080",
      "desc": "The old IRC network -- channels like #Canada, #Gaming and "
              "#Singles, where a nickname and a channel were all you "
              "needed.",
      "join": "Joins mIRC Chat...",
-     "skin": {'channel': '#Canada', 'chat_font': 'Courier New', 'join': '#808080', 'quit': '#808080', 'topic': True, 'statusbar': True}},
+     "skin": {'channel': '#Canada', 'chat_font': 'Courier New', 'join': '#808080', 'quit': '#808080', 'topic': True, 'statusbar': True, 'sound': 'beep'}},
     {"slug": "excite", "name": "Excite Chat", "room": "Excite Chat",
      "bgcolor": "#CC0000",
      "desc": "Public chat rooms where strangers could meet and talk -- "
@@ -354,7 +354,11 @@ SKIN_DEFAULT = {"fg": "white", "win": "#D4D0C8", "body": "#C0C0C0",
                 "topic": False, "statusbar": False,
                 "sidebar": None, "side_fg": None, "side_link": None,
                 "chat_bg_css": None, "room_bg_css": None,
-                "avatars": False, "habbo_room": False}
+                "avatars": False, "habbo_room": False,
+                # message sound (Paul, 2026-11-09): the sound this
+                # messenger played for a new message -- uhoh (ICQ),
+                # ding-msn, ding-yahoo, beep (mIRC). None = silent.
+                "sound": None}
 for _s in SERVICES:
     _skin = dict(SKIN_DEFAULT)
     _skin["title"] = _s["bgcolor"]
@@ -942,6 +946,91 @@ setInterval(poll, 4000);
        last_id, slug)
 
 
+# Message sounds (Paul, 2026-11-09): the messengers that had a sound
+# for a new message get one, synthesized in the browser with the Web
+# Audio API -- no audio files, no copied recordings. ICQ's "Uh-oh!" was
+# a voice, so this is the two-note shape of it, not the clip. The sound
+# plays only for a new message from someone else, never your own, and
+# never on page load. A Sound checkbox on the room page turns it off;
+# the choice sticks in localStorage.
+SOUND_JS_TEMPLATE = """var msgSound = "__SOUND_NAME__";
+var soundOn = true;
+try { soundOn = (localStorage.getItem('gabbay_sound') !== 'off'); } catch(e) {}
+var audioCtx = null;
+function initAudio(){
+  if(!audioCtx){
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { audioCtx = null; }
+  }
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+document.addEventListener('click', initAudio, {once:true});
+document.addEventListener('keydown', initAudio, {once:true});
+function tone(freq, t0, dur, type, vol, endFreq){
+  if(!audioCtx) return;
+  var o = audioCtx.createOscillator();
+  var g = audioCtx.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(freq, t0);
+  if(endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t0 + dur);
+  g.gain.setValueAtTime(vol || 0.2, t0);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+function playMsgSound(){
+  if(!soundOn || !audioCtx || audioCtx.state !== 'running') return;
+  var t = audioCtx.currentTime + 0.01;
+  if(msgSound === 'uhoh'){
+    tone(300, t, 0.15, 'sine', 0.2);
+    tone(380, t + 0.15, 0.25, 'sine', 0.2, 300);
+  } else if(msgSound === 'ding-msn'){
+    tone(659, t, 0.18, 'sine', 0.2);
+    tone(988, t + 0.18, 0.22, 'sine', 0.2);
+  } else if(msgSound === 'ding-yahoo'){
+    tone(784, t, 0.15, 'sine', 0.2);
+    tone(1175, t + 0.15, 0.2, 'sine', 0.2);
+  } else if(msgSound === 'ding-aol'){
+    tone(523, t, 0.18, 'sine', 0.2);
+    tone(784, t + 0.18, 0.22, 'sine', 0.2);
+  } else if(msgSound === 'beep'){
+    tone(880, t, 0.12, 'square', 0.12);
+  }
+}
+function maybePlaySound(msgs){
+  var heard = false;
+  msgs.forEach(function(m){
+    if(m.user !== me && (m.kind === 'say' || m.kind === 'action' || m.kind === 'whisper')) heard = true;
+  });
+  if(heard) playMsgSound();
+}
+function setSound(on){
+  soundOn = on;
+  try { localStorage.setItem('gabbay_sound', on ? 'on' : 'off'); } catch(e) {}
+}
+(function(){
+  var cb = document.getElementById('sound-toggle');
+  if(cb) cb.checked = soundOn;
+})();
+"""
+
+
+def sound_js(sound):
+    """The message-sound script for one room (sound = uhoh, ding-msn,
+    ding-yahoo, ding-aol, beep, or None for no sound)."""
+    if not sound:
+        return ""
+    return SOUND_JS_TEMPLATE.replace("__SOUND_NAME__", sound)
+
+
+def sound_toggle_html(sound):
+    """The Sound on/off checkbox, shown only in rooms that have a
+    sound to disable."""
+    if not sound:
+        return ""
+    return (' <label><input type="checkbox" id="sound-toggle" checked '
+            'onchange="setSound(this.checked);"> Sound</label>')
+
+
 def render_aol_room_page(slug, sess, initial_msgs):
     """AOL Chat (Paul, 2026-11-09): the same room engine in an AOL 4.0
     chat-room skin -- blue title bar, chat on the left, member list on
@@ -972,6 +1061,8 @@ def render_aol_room_page(slug, sess, initial_msgs):
                             if u.split(" (member)")[0] != me)
     lines = "".join(render_msg(m) for m in initial_msgs)
     last_id = initial_msgs[-1]["id"] if initial_msgs else 0
+    aol_sound_toggle = sound_toggle_html("ding-aol")
+    aol_sound_js = sound_js("ding-aol")
     return """<html><head><title>AOL Chat</title></head>
 <body bgcolor="#C0C0C0" text="black" link="blue" vlink="purple">
 <center>
@@ -993,7 +1084,7 @@ def render_aol_room_page(slug, sess, initial_msgs):
 <tr><td colspan="2">
 <form action="/%s/post" method="post">
 <input type="text" name="text" size="50" maxlength="500">
-<input type="submit" value="Send"><br>
+<input type="submit" value="Send">%s<br>
 <font size="-1">Color: <select name="color">%s</select>
 Font: <select name="font">%s</select></font>
 </form>
@@ -1043,6 +1134,7 @@ AOL Chat -- a fan-made tribute to the 1990s.
 var lastId = %d;
 var room = "%s";
 var me = "%s";
+%s
 function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function lineHtml(m){
   if(m.kind==='join') return '<b>'+escHtml(m.user)+' '+escHtml(m.text)+'</b><br>';
@@ -1089,6 +1181,7 @@ function poll(){
         added++;
       });
       document.getElementById('members').innerHTML = membersHtml(data.presence);
+      maybePlaySound(data.messages);
       // Only follow new messages when the reader is already near the
       // bottom of the chat box. Never yank it while someone is typing
       // or reading back (Paul, 2026-11-09).
@@ -1102,11 +1195,11 @@ function poll(){
 setInterval(poll, 4000);
 </script>
 </body></html>
-""" % (lines, members, slug, color_opts, font_opts,
+""" % (lines, members, slug, aol_sound_toggle, color_opts, font_opts,
        slug, action_opts, aol_user_opts, slug, slug, history_opts,
        slug, esc(info["name"]),
        esc(sess["user"]), " (member)" if sess.get("member") else "",
-       last_id, slug, esc(sess["user"]))
+       last_id, slug, esc(sess["user"]), aol_sound_js)
 
 
 # Messenger skins v3 (Paul, 2026-11-09): the look, drawn properly.
@@ -1335,6 +1428,8 @@ def render_messenger_room_page(slug, sess, initial_msgs):
     if skin["nudge"]:
         nudge_html = (' <input type="button" value="%s" '
                       'onclick="shakePane();">' % esc(skin["nudge"]))
+    sound_toggle = sound_toggle_html(skin["sound"])
+    sound_js_code = sound_js(skin["sound"])
     footer_html = esc(info["service"])
     if skin["footer_note"]:
         footer_html += " -- " + esc(skin["footer_note"])
@@ -1368,7 +1463,7 @@ def render_messenger_room_page(slug, sess, initial_msgs):
 <tr><td colspan="2">
 <form action="/%s/post" method="post">
 <input type="text" name="text" size="50" maxlength="500">
-%s%s
+%s%s%s
 </form>
 </td></tr>
 <tr><td colspan="2">
@@ -1418,6 +1513,7 @@ Click a name on the right to send them a private message.</font></p>
 var lastId = %d;
 var room = "%s";
 var me = "%s";
+%s
 var joinColor = "%s";
 var quitColor = "%s";
 var voiceDot = %s;
@@ -1483,6 +1579,7 @@ function poll(){
         }
       });
       document.getElementById('members').innerHTML = membersHtml(data.presence);
+      maybePlaySound(data.messages);
       var su = document.getElementById('status-users');
       if(su) su.textContent = data.presence.length;
       if(added>0){
@@ -1504,7 +1601,7 @@ setInterval(poll, 4000);
        video_html, avatars_html, habbo_room_html,
        chat_style, lines, statusbar_html,
        side_bg, side_fg, top8_html, members, rooms_html,
-       slug, send_btn, nudge_html,
+       slug, send_btn, nudge_html, sound_toggle,
        slug, action_opts, user_opts,
        skin["win"], skin["title"], skin["fg"], skin["title"], skin["fg"],
        slug,
@@ -1513,7 +1610,7 @@ setInterval(poll, 4000);
        slug, esc(info["service"]), more,
        esc(sess["user"]), " (member)" if sess.get("member") else "",
        footer_html,
-       last_id, slug, esc(sess["user"]),
+       last_id, slug, esc(sess["user"]), sound_js_code,
        skin["join"], skin["quit"],
        "true" if skin["voice_dot"] else "false",
        "true" if skin["dp"] else "false",

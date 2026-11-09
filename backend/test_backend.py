@@ -788,6 +788,12 @@ def run_aol_tests(base):
           and b'value="Send"' in body
           and b"aol-handles/board/" in body
           and b"Club Gabbay" not in body, "status=%d" % s)
+    check("aol", "message sound: AIM ding + Sound toggle, plays only for others",
+          b'sound-toggle' in body
+          and b'msgSound = "ding-aol"' in body
+          and b'maybePlaySound(data.messages)' in body
+          and b"gabbay_sound" in body
+          and b"localStorage" in body, "status=%d" % s)
     # PM round-trip in the AOL room: sender + recipient only
     w1, w2, w3 = Client(base), Client(base), Client(base)
     gate(w1); gate(w2); gate(w3)
@@ -1202,6 +1208,19 @@ def run_services_tests(base):
               and ('font-family:%s;' % skin["chat_font"]).encode() in body
               and ('color="%s"' % skin["join"]).encode() in body
               and all(n in body for n, _ in sig), "status=%d" % s)
+        # message sounds (Paul, 2026-11-09): the messengers that had one
+        # get one (ICQ Uh-oh, MSN/Yahoo ding, mIRC beep) + a Sound toggle
+        # that sticks in localStorage; the rest stay silent.
+        sound = {"icq": "uhoh", "msn": "ding-msn",
+                 "yahoo": "ding-yahoo", "mirc": "beep"}.get(slug)
+        check("services", "%s message sound: %s + toggle, plays only for others"
+              % (slug, sound or "silent"),
+              (b'sound-toggle' in body
+               and ('msgSound = "%s"' % sound).encode() in body
+               and b'maybePlaySound(data.messages)' in body
+               and b"gabbay_sound" in body) if sound else
+              (b'sound-toggle' not in body
+               and b'playMsgSound' not in body), "status=%d" % s)
 
 
 def run_board_migration_tests():
