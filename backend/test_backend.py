@@ -1061,6 +1061,10 @@ def run_landing_tests(base):
     check("landing", "homepage has a Have Discord? link (Paul, 2026-11-09)",
           b"Have Discord?" in body
           and b"discord.com/invite/" in body, "")
+    check("landing", "homepage carries the TheOldNet webring widget (Paul, 2026-11-09)",
+          b"theoldnet-webring" in body
+          and b"4426ccce3a3ac890584bf223872b964d" in body
+          and b"webring.theoldnet.com" in body, "")
     s, body, _ = anon.get("/under21.html")
     check("landing", "under-21 stop page serves",
           s == 200 and b"adults 21 and over" in body
