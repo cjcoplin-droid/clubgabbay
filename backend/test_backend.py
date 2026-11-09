@@ -163,11 +163,19 @@ def run_tests(base):
     # ---- site shell: homepage -> Enter -> chat directory
     anon = Client(base)
     s, body, _ = anon.get("/")
-    check("site", "homepage / returns 200 + Enter ClubGabbay",
-          s == 200 and b"Enter ClubGabbay" in body, "status=%d" % s)
-    s, body, _ = anon.get("/main.htm")
-    check("site", "/main.htm frameset 200", s == 200 and b"frameset" in body,
+    check("site", "homepage / returns 200 + Enter ClubGabbay -> /chat.htm, "
+          "no webdates/email (Paul 2026-11-09)",
+          s == 200 and b"Enter ClubGabbay" in body
+          and b'href="/chat.htm"' in body
+          and b"webdates" not in body.lower()
+          and b"comments@clubgabbay.com" not in body,
           "status=%d" % s)
+    # Removed pages (Paul 2026-11-09): the /main.htm frameset (menu +
+    # Michael message) is not live, and WebDates is gone.
+    for gone in ["/main.htm", "/welcome.htm", "/menu.cfm", "/webdates.cfm"]:
+        s, body, _ = anon.get(gone)
+        check("site", "%s removed 404 (Paul 2026-11-09)" % gone,
+              s == 404, "status=%d" % s)
     s, body, _ = anon.get("/chat.htm")
     check("site", "/chat.htm directory 200", s == 200 and b"Lobby" in body,
           "status=%d" % s)
@@ -327,7 +335,7 @@ def run_tests(base):
                 return 200
         return 404
 
-    for page in ["/", "/chat.htm", "/chat2.htm", "/main.htm"]:
+    for page in ["/", "/chat.htm", "/chat2.htm"]:
         s, body, _ = anon.get(page)
         links = re.findall(rb'(?:src|href)="([^"]+)"', body)
         broken, mismatched = [], []
@@ -600,6 +608,12 @@ def write_report():
     lines.append("- Landing page carries the approved blurb above Enter "
                  "(plus the monitoring / 18+ / private-whisper notes) on "
                  "all three homepage variants.")
+    lines.append("- 2026-11-09 (Paul): Enter ClubGabbay on the landing page "
+                 "now links straight to /chat.htm; /main.htm, /welcome.htm, "
+                 "/menu.cfm and /webdates.cfm are removed from the live "
+                 "site; the email line and WebDates block are off the "
+                 "landing page. The landing page is now just a link to "
+                 "the chat.")
     lines.append("- Member accounts are not provisioned (v1 accepts any "
                  "password on `/lobby2.cfm` and flags the session as a "
                  "member). Real member auth is a later decision.")
