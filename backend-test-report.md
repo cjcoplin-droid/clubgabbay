@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 14:55 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 18:48 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 603 — **603 PASS, 0 FAIL**
+- Checks run: 640 — **640 PASS, 0 FAIL**
 - Rooms walked: 31 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol, msn-chat, yahoo-chat, icq-chat, mirc-chat, excite-chat, paltalk-chat, lycos-chat, palace-chat, habbo-chat, powwow-chat, compuserve-chat, prodigy-chat, xfire-chat, myspace-chat)
 
 ## Per-room results
@@ -361,8 +361,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | myspace-chat | jump posts join line in lobby | PASS |  |
 | myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest4090'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest4090', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest2896'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest2896', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -388,6 +388,12 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | GET /api/board/posts?board=clubgabbay filters to the main board | PASS | status=200 |
 | board | GET /api/board/posts?board=hollywood is empty (no posts yet) | PASS | status=200 |
 | board | GET /api/board/posts?board=nope is 404 | PASS | status=404 |
+| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 1, "total": 33}' |
+| visits | landing page loads (200) and carries the counter | PASS | status=200 |
+| visits | first landing visit counts one unique person | PASS | unique=2 total=35 |
+| visits | same person reloading does NOT count again (unique stays) | PASS | unique=2 total=36 |
+| visits | a different visitor IP counts as a new person | PASS | unique=3 |
+| visits | landing page has the donations / Ko-fi tip link | PASS |  |
 | board | markup post accepted (stored, escaped at render) | PASS | status=200 |
 | board | markup in a post is escaped, never rendered | PASS |  |
 | board | banned word in board post is blocked (403) | PASS | status=403 |
@@ -412,6 +418,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | aol | AOL entry page serves with its handle form | PASS | status=200 |
 | aol | GET /aol w/o session redirects to entry page | PASS | status=303 loc=/aol.html |
 | aol | room page is the AOL skin with click-to-PM | PASS | status=200 |
+| aol | message sound: AIM ding + Sound toggle, plays only for others | PASS | status=200 |
 | aol | PM visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
 | aol | chat directory lists AOL Chat | PASS | status=200 |
 | aol | handles board page serves with its own form | PASS | status=200 |
@@ -433,13 +440,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794261342.5814369, 'color': 'red', 'font': 'Courier New', 'time': '14:55'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794275277.8030117, 'color': 'red', 'font': 'Courier New', 'time': '18:47'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794261344.732357, 'color': None, 'font': None, 'time': '14:55'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794275279.955179, 'color': None, 'font': None, 'time': '18:47'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794261346.9690351, 'color': None, 'font': None, 'time': '14:55'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794275282.1867533, 'color': None, 'font': None, 'time': '18:48'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
@@ -456,6 +463,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | landing | homepage is the new landing page: ADULTS ONLY gate | PASS | status=200 |
 | landing | homepage says 21, never 18; no fake counts, no Netscape | PASS |  |
 | landing | homepage links all fourteen service pages | PASS |  |
+| landing | homepage has a Have Discord? link (Paul, 2026-11-09) | PASS |  |
+| landing | homepage carries the TheOldNet webring widget (Paul, 2026-11-09) | PASS |  |
 | landing | under-21 stop page serves | PASS | status=200 |
 | landing | fine print carries the 21+ note + terms of entry | PASS | status=200 |
 | landing | age gate without confirm bounces to / | PASS | status=303 loc=/ |
@@ -472,71 +481,99 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | services | msn entry without confirm bounces home | PASS |  |
 | services | msn room wears its own skin: title bar #0078D7, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | msn v2+v3 chrome: Chat Rooms panel, MSN Chat tab, styled Send Send, chat white/Tahoma, colored joins, Nudge, gradient title, display pictures | PASS | status=200 |
+| services | msn message sound: ding-msn + toggle, plays only for others | PASS | status=200 |
+| services | msn permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | yahoo landing page serves with gate + handle form | PASS | status=200 |
 | services | yahoo page links all fourteen services | PASS |  |
 | services | yahoo entry without confirm bounces home | PASS |  |
 | services | yahoo room wears its own skin: title bar #6001D2, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | yahoo v2+v3 chrome: Chat Rooms panel, Yahoo! Chat tab, styled Send Send, chat white/Tahoma, colored joins, BUZZ!, smiley | PASS | status=200 |
+| services | yahoo message sound: ding-yahoo + toggle, plays only for others | PASS | status=200 |
+| services | yahoo permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | icq landing page serves with gate + handle form | PASS | status=200 |
 | services | icq page links all fourteen services | PASS |  |
 | services | icq entry without confirm bounces home | PASS |  |
 | services | icq room wears its own skin: title bar #00A000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | icq v2+v3 chrome: Chat Rooms panel, #icq_usa tab, styled Send Send, chat white/Tahoma, colored joins, flower mark, flower petals | PASS | status=200 |
+| services | icq message sound: uhoh + toggle, plays only for others | PASS | status=200 |
+| services | icq permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | mirc landing page serves with gate + handle form | PASS | status=200 |
 | services | mirc page links all fourteen services | PASS |  |
 | services | mirc entry without confirm bounces home | PASS |  |
 | services | mirc room wears its own skin: title bar #000080, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | mirc v2+v3 chrome: Chat Rooms panel, #Canada tab, styled Send Send, chat white/Courier New, colored joins, monospace, topic line, status bar | PASS | status=200 |
+| services | mirc message sound: beep + toggle, plays only for others | PASS | status=200 |
+| services | mirc permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | excite landing page serves with gate + handle form | PASS | status=200 |
 | services | excite page links all fourteen services | PASS |  |
 | services | excite entry without confirm bounces home | PASS |  |
 | services | excite room wears its own skin: title bar #CC0000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | excite v2+v3 chrome: Chat Rooms panel, Excite Chat tab, styled Send Send, chat white/Tahoma, colored joins, portal masthead | PASS | status=200 |
+| services | excite message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | excite permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | paltalk landing page serves with gate + handle form | PASS | status=200 |
 | services | paltalk page links all fourteen services | PASS |  |
 | services | paltalk entry without confirm bounces home | PASS |  |
 | services | paltalk room wears its own skin: title bar #0099CC, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | paltalk v2+v3 chrome: Chat Rooms panel, Paltalk Chat tab, styled Send Send, chat white/Tahoma, colored joins, video strip | PASS | status=200 |
+| services | paltalk message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | paltalk permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | lycos landing page serves with gate + handle form | PASS | status=200 |
 | services | lycos page links all fourteen services | PASS |  |
 | services | lycos entry without confirm bounces home | PASS |  |
 | services | lycos room wears its own skin: title bar #FF6600, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | lycos v2+v3 chrome: Chat Rooms panel, Lycos Chat tab, styled Send Send, chat white/Tahoma, colored joins, black/yellow masthead | PASS | status=200 |
+| services | lycos message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | lycos permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | palace landing page serves with gate + handle form | PASS | status=200 |
 | services | palace page links all fourteen services | PASS |  |
 | services | palace entry without confirm bounces home | PASS |  |
 | services | palace room wears its own skin: title bar #993399, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | palace v2+v3 chrome: Chat Rooms panel, The Palace Chat tab, styled Send Send, chat #87CEEB/Comic Sans MS, colored joins, playful font, smiley avatars + bubbles, backdrop | PASS | status=200 |
+| services | palace message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | palace permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | habbo landing page serves with gate + handle form | PASS | status=200 |
 | services | habbo page links all fourteen services | PASS |  |
 | services | habbo entry without confirm bounces home | PASS |  |
 | services | habbo room wears its own skin: title bar #E6B800, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | habbo v2+v3 chrome: Chat Rooms panel, Habbo Hotel Chat tab, styled Send Send, chat #003399/Verdana, colored joins, dark chat log, pixel floor, HC sofa | PASS | status=200 |
+| services | habbo message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | habbo permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | powwow landing page serves with gate + handle form | PASS | status=200 |
 | services | powwow page links all fourteen services | PASS |  |
 | services | powwow entry without confirm bounces home | PASS |  |
 | services | powwow room wears its own skin: title bar #006666, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | powwow v2+v3 chrome: Chat Rooms panel, PowWow Chat tab, styled Send Send, chat white/Tahoma, colored joins, voice dot | PASS | status=200 |
+| services | powwow message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | powwow permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | compuserve landing page serves with gate + handle form | PASS | status=200 |
 | services | compuserve page links all fourteen services | PASS |  |
 | services | compuserve entry without confirm bounces home | PASS |  |
 | services | compuserve room wears its own skin: title bar #003366, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | compuserve v2+v3 chrome: Chat Rooms panel, CB Channel 1 tab, styled GO Send, chat #000000/Courier New, colored joins, GO button | PASS | status=200 |
+| services | compuserve message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | compuserve permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | prodigy landing page serves with gate + handle form | PASS | status=200 |
 | services | prodigy page links all fourteen services | PASS |  |
 | services | prodigy entry without confirm bounces home | PASS |  |
 | services | prodigy room wears its own skin: title bar #800000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | prodigy v2+v3 chrome: Chat Rooms panel, Prodigy Chat tab, styled Send Send, chat white/Tahoma, colored joins, welcome strip, blue sidebar links | PASS | status=200 |
+| services | prodigy message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | prodigy permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | xfire landing page serves with gate + handle form | PASS | status=200 |
 | services | xfire page links all fourteen services | PASS |  |
 | services | xfire entry without confirm bounces home | PASS |  |
 | services | xfire room wears its own skin: title bar #000000, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | xfire v2+v3 chrome: Chat Rooms panel, Xfire Chat tab, styled Send Send, chat #1A1A1A/Tahoma, colored joins, dark chat | PASS | status=200 |
+| services | xfire message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | xfire permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | services | myspace landing page serves with gate + handle form | PASS | status=200 |
 | services | myspace page links all fourteen services | PASS |  |
 | services | myspace entry without confirm bounces home | PASS |  |
 | services | myspace room wears its own skin: title bar #003399, member list + IM box, no AOL pickers | PASS | status=200 |
 | services | myspace v2+v3 chrome: Chat Rooms panel, MySpace Chat tab, styled Send Send, chat white/Tahoma, colored joins, Top 8 strip | PASS | status=200 |
+| services | myspace message sound: silent + toggle, plays only for others | PASS | status=200 |
+| services | myspace permanent join lines: Mira + 1990calling at the top | PASS | status=200 |
 | board | db_init adds the board column to an old board DB | PASS | cols=['id', 'name', 'to_name', 'subject', 'message', 'ts', 'board'] |
 | board | old post reads back on the main board | PASS |  |
 | board | new post lands on its neighborhood board | PASS |  |
@@ -616,7 +653,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | known archive gap /images/bg/soulsearch_bg.jpg returns 404 (expected) | PASS | status=404 |
 | homepage carries the approved blurb | PASS |  |
 | homepage notes monitoring / 18+ / private whispers | PASS |  |
-| link check / (23 links): server matches archive | PASS | all resolve |
+| link check / (32 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate', '//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate', '//webring.theoldnet.com/widget/widget.js'] |
 | link check /chat.htm (19 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
 | link check /chat2.htm (33 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
@@ -1029,6 +1066,12 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - board — GET /api/board/posts?board=clubgabbay filters to the main board
 - board — GET /api/board/posts?board=hollywood is empty (no posts yet)
 - board — GET /api/board/posts?board=nope is 404
+- visits — GET /api/visits returns unique + total
+- visits — landing page loads (200) and carries the counter
+- visits — first landing visit counts one unique person
+- visits — same person reloading does NOT count again (unique stays)
+- visits — a different visitor IP counts as a new person
+- visits — landing page has the donations / Ko-fi tip link
 - board — markup post accepted (stored, escaped at render)
 - board — markup in a post is escaped, never rendered
 - board — banned word in board post is blocked (403)
@@ -1053,6 +1096,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - aol — AOL entry page serves with its handle form
 - aol — GET /aol w/o session redirects to entry page
 - aol — room page is the AOL skin with click-to-PM
+- aol — message sound: AIM ding + Sound toggle, plays only for others
 - aol — PM visible to sender + recipient only, not others
 - aol — chat directory lists AOL Chat
 - aol — handles board page serves with its own form
@@ -1097,6 +1141,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - landing — homepage is the new landing page: ADULTS ONLY gate
 - landing — homepage says 21, never 18; no fake counts, no Netscape
 - landing — homepage links all fourteen service pages
+- landing — homepage has a Have Discord? link (Paul, 2026-11-09)
+- landing — homepage carries the TheOldNet webring widget (Paul, 2026-11-09)
 - landing — under-21 stop page serves
 - landing — fine print carries the 21+ note + terms of entry
 - landing — age gate without confirm bounces to /
@@ -1113,71 +1159,99 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - services — msn entry without confirm bounces home
 - services — msn room wears its own skin: title bar #0078D7, member list + IM box, no AOL pickers
 - services — msn v2+v3 chrome: Chat Rooms panel, MSN Chat tab, styled Send Send, chat white/Tahoma, colored joins, Nudge, gradient title, display pictures
+- services — msn message sound: ding-msn + toggle, plays only for others
+- services — msn permanent join lines: Mira + 1990calling at the top
 - services — yahoo landing page serves with gate + handle form
 - services — yahoo page links all fourteen services
 - services — yahoo entry without confirm bounces home
 - services — yahoo room wears its own skin: title bar #6001D2, member list + IM box, no AOL pickers
 - services — yahoo v2+v3 chrome: Chat Rooms panel, Yahoo! Chat tab, styled Send Send, chat white/Tahoma, colored joins, BUZZ!, smiley
+- services — yahoo message sound: ding-yahoo + toggle, plays only for others
+- services — yahoo permanent join lines: Mira + 1990calling at the top
 - services — icq landing page serves with gate + handle form
 - services — icq page links all fourteen services
 - services — icq entry without confirm bounces home
 - services — icq room wears its own skin: title bar #00A000, member list + IM box, no AOL pickers
 - services — icq v2+v3 chrome: Chat Rooms panel, #icq_usa tab, styled Send Send, chat white/Tahoma, colored joins, flower mark, flower petals
+- services — icq message sound: uhoh + toggle, plays only for others
+- services — icq permanent join lines: Mira + 1990calling at the top
 - services — mirc landing page serves with gate + handle form
 - services — mirc page links all fourteen services
 - services — mirc entry without confirm bounces home
 - services — mirc room wears its own skin: title bar #000080, member list + IM box, no AOL pickers
 - services — mirc v2+v3 chrome: Chat Rooms panel, #Canada tab, styled Send Send, chat white/Courier New, colored joins, monospace, topic line, status bar
+- services — mirc message sound: beep + toggle, plays only for others
+- services — mirc permanent join lines: Mira + 1990calling at the top
 - services — excite landing page serves with gate + handle form
 - services — excite page links all fourteen services
 - services — excite entry without confirm bounces home
 - services — excite room wears its own skin: title bar #CC0000, member list + IM box, no AOL pickers
 - services — excite v2+v3 chrome: Chat Rooms panel, Excite Chat tab, styled Send Send, chat white/Tahoma, colored joins, portal masthead
+- services — excite message sound: silent + toggle, plays only for others
+- services — excite permanent join lines: Mira + 1990calling at the top
 - services — paltalk landing page serves with gate + handle form
 - services — paltalk page links all fourteen services
 - services — paltalk entry without confirm bounces home
 - services — paltalk room wears its own skin: title bar #0099CC, member list + IM box, no AOL pickers
 - services — paltalk v2+v3 chrome: Chat Rooms panel, Paltalk Chat tab, styled Send Send, chat white/Tahoma, colored joins, video strip
+- services — paltalk message sound: silent + toggle, plays only for others
+- services — paltalk permanent join lines: Mira + 1990calling at the top
 - services — lycos landing page serves with gate + handle form
 - services — lycos page links all fourteen services
 - services — lycos entry without confirm bounces home
 - services — lycos room wears its own skin: title bar #FF6600, member list + IM box, no AOL pickers
 - services — lycos v2+v3 chrome: Chat Rooms panel, Lycos Chat tab, styled Send Send, chat white/Tahoma, colored joins, black/yellow masthead
+- services — lycos message sound: silent + toggle, plays only for others
+- services — lycos permanent join lines: Mira + 1990calling at the top
 - services — palace landing page serves with gate + handle form
 - services — palace page links all fourteen services
 - services — palace entry without confirm bounces home
 - services — palace room wears its own skin: title bar #993399, member list + IM box, no AOL pickers
 - services — palace v2+v3 chrome: Chat Rooms panel, The Palace Chat tab, styled Send Send, chat #87CEEB/Comic Sans MS, colored joins, playful font, smiley avatars + bubbles, backdrop
+- services — palace message sound: silent + toggle, plays only for others
+- services — palace permanent join lines: Mira + 1990calling at the top
 - services — habbo landing page serves with gate + handle form
 - services — habbo page links all fourteen services
 - services — habbo entry without confirm bounces home
 - services — habbo room wears its own skin: title bar #E6B800, member list + IM box, no AOL pickers
 - services — habbo v2+v3 chrome: Chat Rooms panel, Habbo Hotel Chat tab, styled Send Send, chat #003399/Verdana, colored joins, dark chat log, pixel floor, HC sofa
+- services — habbo message sound: silent + toggle, plays only for others
+- services — habbo permanent join lines: Mira + 1990calling at the top
 - services — powwow landing page serves with gate + handle form
 - services — powwow page links all fourteen services
 - services — powwow entry without confirm bounces home
 - services — powwow room wears its own skin: title bar #006666, member list + IM box, no AOL pickers
 - services — powwow v2+v3 chrome: Chat Rooms panel, PowWow Chat tab, styled Send Send, chat white/Tahoma, colored joins, voice dot
+- services — powwow message sound: silent + toggle, plays only for others
+- services — powwow permanent join lines: Mira + 1990calling at the top
 - services — compuserve landing page serves with gate + handle form
 - services — compuserve page links all fourteen services
 - services — compuserve entry without confirm bounces home
 - services — compuserve room wears its own skin: title bar #003366, member list + IM box, no AOL pickers
 - services — compuserve v2+v3 chrome: Chat Rooms panel, CB Channel 1 tab, styled GO Send, chat #000000/Courier New, colored joins, GO button
+- services — compuserve message sound: silent + toggle, plays only for others
+- services — compuserve permanent join lines: Mira + 1990calling at the top
 - services — prodigy landing page serves with gate + handle form
 - services — prodigy page links all fourteen services
 - services — prodigy entry without confirm bounces home
 - services — prodigy room wears its own skin: title bar #800000, member list + IM box, no AOL pickers
 - services — prodigy v2+v3 chrome: Chat Rooms panel, Prodigy Chat tab, styled Send Send, chat white/Tahoma, colored joins, welcome strip, blue sidebar links
+- services — prodigy message sound: silent + toggle, plays only for others
+- services — prodigy permanent join lines: Mira + 1990calling at the top
 - services — xfire landing page serves with gate + handle form
 - services — xfire page links all fourteen services
 - services — xfire entry without confirm bounces home
 - services — xfire room wears its own skin: title bar #000000, member list + IM box, no AOL pickers
 - services — xfire v2+v3 chrome: Chat Rooms panel, Xfire Chat tab, styled Send Send, chat #1A1A1A/Tahoma, colored joins, dark chat
+- services — xfire message sound: silent + toggle, plays only for others
+- services — xfire permanent join lines: Mira + 1990calling at the top
 - services — myspace landing page serves with gate + handle form
 - services — myspace page links all fourteen services
 - services — myspace entry without confirm bounces home
 - services — myspace room wears its own skin: title bar #003399, member list + IM box, no AOL pickers
 - services — myspace v2+v3 chrome: Chat Rooms panel, MySpace Chat tab, styled Send Send, chat white/Tahoma, colored joins, Top 8 strip
+- services — myspace message sound: silent + toggle, plays only for others
+- services — myspace permanent join lines: Mira + 1990calling at the top
 - board — db_init adds the board column to an old board DB
 - board — old post reads back on the main board
 - board — new post lands on its neighborhood board
@@ -1221,7 +1295,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - site — homepage notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
-- site — link check / (23 links): server matches archive
+- site — link check / (32 links): server matches archive
 - site — link check /chat.htm (19 links): server matches archive
 - site — link check /chat2.htm (33 links): server matches archive
 - site — message survives server restart (SQLite persistence)
