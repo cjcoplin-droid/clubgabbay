@@ -248,8 +248,11 @@ def portal(h):
 
 
 def index():
-    heading = ('<center><img src="/images/neighborhoods/geocities-logo.jpg">'
-               '</center>\n'
+    # Our own 8-bit pixel G (Paul, 2026-11-09) -- an original design in
+    # the spirit of the old GeoCities mark, not the trademarked logo
+    # image. People still know what it is, but it is ours.
+    heading = ('<center><img src="/images/neighborhoods/pixel-g-8bit.png" '
+               'width="150" height="150" alt="GeoCities"></center>\n'
                '<center><font size="+3"><strong>The old GeoCities '
                'neighborhoods</strong></font></center>\n'
                '<center><font size="+1">Five neighborhoods, the way they '

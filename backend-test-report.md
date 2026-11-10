@@ -1,6 +1,6 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-09 18:48 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-09 19:59 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
@@ -361,8 +361,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | myspace-chat | jump posts join line in lobby | PASS |  |
 | myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest2896'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest2896', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest1426'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest1426', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -388,11 +388,11 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | GET /api/board/posts?board=clubgabbay filters to the main board | PASS | status=200 |
 | board | GET /api/board/posts?board=hollywood is empty (no posts yet) | PASS | status=200 |
 | board | GET /api/board/posts?board=nope is 404 | PASS | status=404 |
-| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 1, "total": 33}' |
+| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 25, "total": 33}' |
 | visits | landing page loads (200) and carries the counter | PASS | status=200 |
-| visits | first landing visit counts one unique person | PASS | unique=2 total=35 |
-| visits | same person reloading does NOT count again (unique stays) | PASS | unique=2 total=36 |
-| visits | a different visitor IP counts as a new person | PASS | unique=3 |
+| visits | first landing visit counts one unique person | PASS | unique=26 total=35 |
+| visits | same person reloading does NOT count again (unique stays) | PASS | unique=26 total=36 |
+| visits | a different visitor IP counts as a new person | PASS | unique=27 |
 | visits | landing page has the donations / Ko-fi tip link | PASS |  |
 | board | markup post accepted (stored, escaped at render) | PASS | status=200 |
 | board | markup in a post is escaped, never rendered | PASS |  |
@@ -440,13 +440,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794275277.8030117, 'color': 'red', 'font': 'Courier New', 'time': '18:47'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794279584.0757275, 'color': 'red', 'font': 'Courier New', 'time': '19:59'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794275279.955179, 'color': None, 'font': None, 'time': '18:47'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794279586.2278662, 'color': None, 'font': None, 'time': '19:59'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794275282.1867533, 'color': None, 'font': None, 'time': '18:48'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794279588.4541163, 'color': None, 'font': None, 'time': '19:59'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
@@ -588,7 +588,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | neighborhoods | button sunsetstrip.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | button area51.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | button westhollywood.gif serves as a GIF | PASS | status=200 |
-| neighborhoods | GeoCities era logo serves | PASS | status=200 |
+| neighborhoods | our own 8-bit pixel G serves (not the trademarked logo) | PASS | status=200 |
 | neighborhoods | original background background.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | original background area_glow.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | /neighborhoods/hollywood.html uses its own background | PASS | status=200 |
@@ -653,9 +653,9 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | known archive gap /images/bg/soulsearch_bg.jpg returns 404 (expected) | PASS | status=404 |
 | homepage carries the approved blurb | PASS |  |
 | homepage notes monitoring / 18+ / private whispers | PASS |  |
-| link check / (32 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate', '//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate', '//webring.theoldnet.com/widget/widget.js'] |
-| link check /chat.htm (19 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['lobby_sm.jpg'] |
-| link check /chat2.htm (33 links): server matches archive | PASS | all resolve |
+| link check / (35 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate', '//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate', '//webring.theoldnet.com/widget/widget.js'] |
+| link check /chat.htm (26 links): server matches archive | PASS | all resolve |
+| link check /chat2.htm (34 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
 
 ## What passed
@@ -1266,7 +1266,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - neighborhoods — button sunsetstrip.gif serves as a GIF
 - neighborhoods — button area51.gif serves as a GIF
 - neighborhoods — button westhollywood.gif serves as a GIF
-- neighborhoods — GeoCities era logo serves
+- neighborhoods — our own 8-bit pixel G serves (not the trademarked logo)
 - neighborhoods — original background background.gif serves as a GIF
 - neighborhoods — original background area_glow.gif serves as a GIF
 - neighborhoods — /neighborhoods/hollywood.html uses its own background
@@ -1295,9 +1295,9 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - site — homepage notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
-- site — link check / (32 links): server matches archive
-- site — link check /chat.htm (19 links): server matches archive
-- site — link check /chat2.htm (33 links): server matches archive
+- site — link check / (35 links): server matches archive
+- site — link check /chat.htm (26 links): server matches archive
+- site — link check /chat2.htm (34 links): server matches archive
 - site — message survives server restart (SQLite persistence)
 - board — board post survives server restart (stays up)
 

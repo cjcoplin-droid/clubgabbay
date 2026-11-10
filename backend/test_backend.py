@@ -646,9 +646,10 @@ def run_board_tests(base):
     check("visits", "a different visitor IP counts as a new person",
           data.get("unique") == u0 + 2, "unique=%s" % data.get("unique"))
     # donations section on the landing page (Paul, 2026-11-09)
+    # tip link points at cjcoplin (yesdearspoons page cannot accept tips)
     s, body, _ = b.get("/")
     check("visits", "landing page has the donations / Ko-fi tip link",
-          b"ko-fi.com/yesdearspoons" in body
+          b"ko-fi.com/cjcoplin" in body
           and b"donations are welcome" in body, "")
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
@@ -806,7 +807,7 @@ def run_aol_tests(base):
           s == 200 and b'action="/aol"' in body
           and b'name="USER"' in body
           and b"aol-handles/board/" in body
-          and b"Club Gabbay" not in body, "status=%d" % s)
+          and b"Club Gabbay Home" in body, "status=%d" % s)
     s, _, h = raw_get(base, "/aol")
     check("aol", "GET /aol w/o session redirects to entry page",
           s in (301, 302, 303) and "aol.html" in h.get("Location", ""),
@@ -861,7 +862,7 @@ def run_aol_tests(base):
           and b'action="/aol-handles/board/post"' in body
           and b"Old AOL handles message board" in body
           and b"screen name" in body
-          and b"Club Gabbay" not in body, "status=%d" % s)
+          and b"Club Gabbay Home" in body, "status=%d" % s)
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/aol-handles/board/post",
                      {"to": "", "from": "AolPoster", "subject": "hi",
@@ -1368,9 +1369,9 @@ def run_neighborhood_pages_tests(base):
               s == 200 and body[:6] in (b"GIF87a", b"GIF89a")
               and "image/gif" in h.get("Content-Type", ""),
               "status=%d" % s)
-    s, _, h = b.get("/images/neighborhoods/geocities-logo.jpg")
-    check("neighborhoods", "GeoCities era logo serves",
-          s == 200 and "image/jpeg" in h.get("Content-Type", ""),
+    s, _, h = b.get("/images/neighborhoods/pixel-g-8bit.png")
+    check("neighborhoods", "our own 8-bit pixel G serves (not the trademarked logo)",
+          s == 200 and "image/png" in h.get("Content-Type", ""),
           "status=%d" % s)
     # the original background images serve (Wayback, Dec 1996)
     for bg in ("background.gif", "area_glow.gif"):

@@ -1016,6 +1016,7 @@ Show last
 <p><font size="-1">
 <a href="/%s/leave">Leave %s</a> |
 <a href="/chat.htm">Chat Directory</a> |
+<a href="/">Club Gabbay Home</a> |
 <a href="#" onclick="location.reload(); return false;">Refresh</a>
 </font></p>
 <p><font size="-1">You are chatting as <b>%s</b>%s.
@@ -1923,7 +1924,7 @@ def render_board_page(board="clubgabbay"):
             head, archive = raw, ""
         if posts:
             new_html += '<center><b>— Messages from 1997 —</b></center>\n'
-        return head + sep + "\n" + form + new_html + archive + "</body></html>\n"
+        return head + sep + "\n" + form + new_html + archive + '<hr noshade>\n<p align="center"><a href="/">Back to the Club Gabbay home page</a></p>\n</body></html>\n'
     if board in STANDALONE_BOARDS:
         info = STANDALONE_BOARDS[board]
         body = new_html or ('<center><i>No messages yet — be the first to '
@@ -1938,6 +1939,7 @@ def render_board_page(board="clubgabbay"):
                 '<p><font size="+1">%s</font></p>\n'
                 '%s%s'
                 '<hr>\n<p><a href="%s">%s</a> | '
+                '<a href="/">Club Gabbay Home</a> | '
                 '<a href="/fine-print.html">Fine print</a></p>\n'
                 '<font color=gray size=2>%s</font>\n'
                 '</body></html>\n'
