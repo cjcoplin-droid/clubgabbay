@@ -1,6 +1,6 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-10 00:02 MST (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-10 07:48 UTC (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
@@ -361,8 +361,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | myspace-chat | jump posts join line in lobby | PASS |  |
 | myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest9430'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest9430', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest6206'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6206', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -388,11 +388,11 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | GET /api/board/posts?board=clubgabbay filters to the main board | PASS | status=200 |
 | board | GET /api/board/posts?board=hollywood is empty (no posts yet) | PASS | status=200 |
 | board | GET /api/board/posts?board=nope is 404 | PASS | status=404 |
-| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 48, "total": 33}' |
+| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 55, "total": 33}' |
 | visits | landing page loads (200) and carries the counter | PASS | status=200 |
-| visits | first landing visit counts one unique person | PASS | unique=49 total=35 |
-| visits | same person reloading does NOT count again (unique stays) | PASS | unique=49 total=36 |
-| visits | a different visitor IP counts as a new person | PASS | unique=50 |
+| visits | first landing visit counts one unique person | PASS | unique=56 total=35 |
+| visits | same person reloading does NOT count again (unique stays) | PASS | unique=56 total=36 |
+| visits | a different visitor IP counts as a new person | PASS | unique=57 |
 | visits | landing page has the donations / Ko-fi tip link | PASS |  |
 | board | markup post accepted (stored, escaped at render) | PASS | status=200 |
 | board | markup in a post is escaped, never rendered | PASS |  |
@@ -440,13 +440,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794294127.4042609, 'color': 'red', 'font': 'Courier New', 'time': '00:02'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794296905.6912494, 'color': 'red', 'font': 'Courier New', 'time': '07:48'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794294129.6219945, 'color': None, 'font': None, 'time': '00:02'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794296907.856088, 'color': None, 'font': None, 'time': '07:48'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794294131.9281795, 'color': None, 'font': None, 'time': '00:02'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794296910.0994148, 'color': None, 'font': None, 'time': '07:48'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
