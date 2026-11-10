@@ -40,6 +40,16 @@ is charged for.</font>
 <TABLE cellpadding=8 border=0>
 <TR bgcolor="ffffcc">
 <TD><center>
+<font size="+1"><strong>Visitors so far: <span id="visitor-count">...</span></strong></font><br>
+<font size="-1">One count per person -- come back as often as you like, you only count once.</font>
+</center>
+</TD>
+</TR>
+</TABLE>
+<p>
+<TABLE cellpadding=8 border=0>
+<TR bgcolor="ffffcc">
+<TD><center>
 <font size="+1"><strong>ADULTS ONLY &mdash; 21 and over.</strong></font><br>
 <font size="-1">These chat rooms are intended for adults 21 and over.
 By entering, you confirm that you are at least 21 years of age.
@@ -120,11 +130,32 @@ that remember Club Gabbay.</font><br>
 <a href="/myspace.html">MySpace</a></font>
 </p>
 <p>
+<TABLE cellpadding=8 border=0>
+<TR bgcolor="abcdef">
+<TD><center>
+<font size="+1"><strong>Keeping the lights on</strong></font><br>
+<font size="-1">This place runs on love, not money. Nothing here is for sale and nothing is charged for. If you would like to help keep it going, donations are welcome -- <a href="https://ko-fi.com/yesdearspoons">leave a tip on Ko-fi</a>. Every bit helps.</font>
+</center>
+</TD>
+</TR>
+</TABLE>
+<p>
 <a id="theoldnet-webring-href" href="//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate" data-website-id="4426ccce3a3ac890584bf223872b964d"><img src="//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image" alt="TheOldNet Webring" border="0" width="468" height="60"></a><br>
 <font size="-1"> Proud member of TheOldNet <a href="//webring.theoldnet.com/"><b>Webring</b></a>! Check some other cool websites!<br>
 [<a class="theoldnet-webring-nav" data-nav="previous" href="//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate">Previous site</a>] - [<a class="theoldnet-webring-nav" data-nav="random" href="//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate">Random site</a>] - [<a class="theoldnet-webring-nav" data-nav="next" href="//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate">Next site</a>] </font>
 <script type="text/javascript" src="//webring.theoldnet.com/widget/widget.js"></script>
 </p>
+<script type="text/javascript">
+(function(){
+  var el = document.getElementById('visitor-count');
+  if (!el) return;
+  try {
+    fetch('/api/visits').then(function(r){ return r.json(); }).then(function(d){
+      el.textContent = d.unique;
+    }).catch(function(){ el.textContent = '?'; });
+  } catch (e) { el.textContent = '?'; }
+})();
+</script>
 <hr>
 <font color=gray size=2>A fan-run homage to the 1996-1999 Club Gabbay. Not affiliated with the original owners.
 <br><font color=gray size=1><a href="/fine-print.html">Fine print</a></font>

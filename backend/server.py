@@ -435,6 +435,20 @@ def db_init(path):
         except sqlite3.OperationalError:
             pass  # column already there
         db.execute("CREATE INDEX IF NOT EXISTS idx_msg_room ON messages(room, id)")
+        # Visitor counter (Paul, 2026-11-09): a real counter — one per
+        # person, not per page load, so one visitor refreshing 100 times
+        # counts once. ip_hash is a salted SHA-256 of the visitor IP
+        # (never the raw IP); first_seen is when they first landed.
+        db.execute("""CREATE TABLE IF NOT EXISTS visits (
+            ip_hash TEXT PRIMARY KEY,
+            first_seen REAL NOT NULL)""")
+        # meta: small key/value store (visit baseline + total hits).
+        # The baseline is the unique count restored from the backup file
+        # on boot (the free host's disk is ephemeral, like the board);
+        # the live unique total is baseline + COUNT(*) from visits.
+        db.execute("""CREATE TABLE IF NOT EXISTS meta (
+            key TEXT PRIMARY KEY, value TEXT NOT NULL)""")
+        db.commit()
         # AOL message colors/fonts (Paul, 2026-11-09): nullable columns;
         # old rows read back with None = default rendering.
         for col in ("color TEXT", "font TEXT"):
@@ -523,6 +537,116 @@ def db_board_posts(limit=200, board=None):
                 (board, limit)).fetchall()
     return [{"id": r[0], "board": r[1], "name": r[2], "to": r[3],
              "subject": r[4], "message": r[5], "ts": r[6]} for r in rows]
+
+
+# ---------------------------------------------------------------- visits
+# Visitor counter (Paul, 2026-11-09): one count per PERSON, not per page
+# load, so one visitor refreshing 100 times counts once. The seen-set
+# lives in the visits table (ephemeral, resets on deploy — a returning
+# visitor after a deploy counts once more, a small effect). The durable
+# total is the baseline in meta, restored on boot from the backup file
+# (site-data/visits.json, GitHub is the store, same as the board) and
+# backed up by an external job. Displayed unique = baseline + live rows.
+VISITS_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "site-data", "visits.json")
+_VISIT_SALT = "clubgabbay-visits-v1"
+
+
+def _visit_ip_hash(ip):
+    import hashlib
+    return hashlib.sha256((_VISIT_SALT + "|" + (ip or "")).encode("utf-8")
+                          ).hexdigest()
+
+
+def visit_baseline():
+    with db_lock:
+        row = db.execute("SELECT value FROM meta WHERE key='visit_baseline'"
+                         ).fetchone()
+    try:
+        return int(row[0]) if row else 0
+    except (TypeError, ValueError):
+        return 0
+
+
+def visit_unique_count():
+    with db_lock:
+        n = db.execute("SELECT COUNT(*) FROM visits").fetchone()[0]
+    return visit_baseline() + n
+
+
+def visit_total_hits():
+    with db_lock:
+        row = db.execute("SELECT value FROM meta WHERE key='visit_hits'"
+                         ).fetchone()
+    try:
+        return int(row[0]) if row else 0
+    except (TypeError, ValueError):
+        return 0
+
+
+def record_visit(ip):
+    """Record a landing-page visit. Returns (is_new_person, unique, hits).
+    is_new_person is True only the first time this IP is seen in this
+    server run. Every load bumps total hits; only a new IP bumps unique."""
+    h = _visit_ip_hash(ip)
+    now = time.time()
+    with db_lock:
+        cur = db.execute("INSERT OR IGNORE INTO visits (ip_hash, first_seen)"
+                         " VALUES (?, ?)", (h, now))
+        is_new = cur.rowcount == 1
+        row = db.execute("SELECT value FROM meta WHERE key='visit_hits'"
+                         ).fetchone()
+        try:
+            hits = int(row[0]) if row else 0
+        except (TypeError, ValueError):
+            hits = 0
+        hits += 1
+        db.execute("INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)",
+                   ("visit_hits", str(hits)))
+        db.commit()
+    return is_new, visit_unique_count(), hits
+
+
+def restore_visits():
+    """Re-seed the visit baseline from the backup file (site-data/
+    visits.json — the last committed count, GitHub is the store). Only
+    sets the baseline when none is stored yet, so a running server is
+    never rewound. Returns the baseline restored (0 when nothing)."""
+    try:
+        with db_lock:
+            row = db.execute("SELECT value FROM meta"
+                             " WHERE key='visit_baseline'").fetchone()
+        if row:
+            return 0
+        if not os.path.exists(VISITS_FILE):
+            return 0
+        with open(VISITS_FILE, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+        base = int(data.get("unique", 0))
+        if base <= 0:
+            return 0
+        with db_lock:
+            db.execute("INSERT OR REPLACE INTO meta (key, value)"
+                       " VALUES (?, ?)", ("visit_baseline", str(base)))
+            db.commit()
+        return base
+    except Exception as e:  # noqa: BLE001 - restore must never block startup
+        sys.stderr.write("visits restore failed: %s\n" % e)
+        return 0
+
+
+def client_ip(handler):
+    """Real visitor IP. Render sits behind a proxy, so the direct peer is
+    the proxy — the original client comes in X-Forwarded-For (first
+    entry). Falls back to the direct peer when the header is absent
+    (local runs, direct connections)."""
+    xff = handler.headers.get("X-Forwarded-For") or ""
+    if xff:
+        first = xff.split(",")[0].strip()
+        if first:
+            return first
+    return handler.client_address[0]
 
 
 def restore_board_posts(url=None):
@@ -2236,6 +2360,13 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._json(200, {"posts": db_board_posts(board=b)})
             return
+        if path == "/api/visits":
+            # visitor counter (Paul, 2026-11-09): unique = one per person
+            # (IP dedup); total = every landing-page load. The backup job
+            # reads this; the landing page JS reads it to show the count.
+            self._json(200, {"unique": visit_unique_count(),
+                             "total": visit_total_hits()})
+            return
         if path.startswith("/api/") and "/messages" in path:
             parts = [p for p in path.split("/") if p]
             if len(parts) >= 3 and self._room_or_none(parts[1]):
@@ -2278,6 +2409,10 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, render_board_page())
             return
         if fpath:
+            if path in ("/", "/index.html"):
+                # landing page load = a visit. One per person (IP dedup),
+                # so refreshes don't inflate it (Paul, 2026-11-09).
+                record_visit(client_ip(self))
             try:
                 with open(fpath, "rb") as fh:
                     data = fh.read()
@@ -2361,6 +2496,10 @@ def main():
     if restored:
         sys.stderr.write("board restore: %d post(s) re-seeded from backup\n"
                          % restored)
+    vbase = restore_visits()
+    if vbase:
+        sys.stderr.write("visits restore: baseline %d unique visitor(s) "
+                         "from backup\n" % vbase)
     # warn about room backgrounds the archive never captured
     for slug, info in ROOMS.items():
         if info.get("bg") and not static_exists(info["bg"]):

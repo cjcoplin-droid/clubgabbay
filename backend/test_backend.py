@@ -613,6 +613,43 @@ def run_board_tests(base):
     s, _, _ = b.get("/api/board/posts?board=nope")
     check("board", "GET /api/board/posts?board=nope is 404",
           s == 404, "status=%d" % s)
+    # visitor counter (Paul, 2026-11-09): one count per person, not per
+    # page load — one visitor refreshing 100 times counts once. Use
+    # fresh X-Forwarded-For IPs: the test client (127.0.0.1) already
+    # loaded the homepage in earlier checks, so it is not a new person.
+    s, body, _ = b.get("/api/visits")
+    data = json.loads(body.decode("utf-8"))
+    check("visits", "GET /api/visits returns unique + total",
+          s == 200 and "unique" in data and "total" in data,
+          "status=%d body=%s" % (s, body[:80]))
+    u0 = data.get("unique", 0)
+    t0 = data.get("total", 0)
+    s, body, _ = b.get("/")
+    check("visits", "landing page loads (200) and carries the counter",
+          s == 200 and b'id="visitor-count"' in body, "status=%d" % s)
+    s, body, _ = b.get("/", headers={"X-Forwarded-For": "198.51.100.1"})
+    s, body, _ = b.get("/api/visits")
+    data = json.loads(body.decode("utf-8"))
+    check("visits", "first landing visit counts one unique person",
+          data.get("unique") == u0 + 1 and data.get("total") == t0 + 2,
+          "unique=%s total=%s" % (data.get("unique"), data.get("total")))
+    s, body, _ = b.get("/", headers={"X-Forwarded-For": "198.51.100.1"})
+    s, body, _ = b.get("/api/visits")
+    data = json.loads(body.decode("utf-8"))
+    check("visits", "same person reloading does NOT count again (unique stays)",
+          data.get("unique") == u0 + 1 and data.get("total") == t0 + 3,
+          "unique=%s total=%s" % (data.get("unique"), data.get("total")))
+    # a different IP (via X-Forwarded-For, the proxy header) counts
+    s, body, _ = b.get("/", headers={"X-Forwarded-For": "198.51.100.2"})
+    s, body, _ = b.get("/api/visits")
+    data = json.loads(body.decode("utf-8"))
+    check("visits", "a different visitor IP counts as a new person",
+          data.get("unique") == u0 + 2, "unique=%s" % data.get("unique"))
+    # donations section on the landing page (Paul, 2026-11-09)
+    s, body, _ = b.get("/")
+    check("visits", "landing page has the donations / Ko-fi tip link",
+          b"ko-fi.com/yesdearspoons" in body
+          and b"donations are welcome" in body, "")
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/messages/post",
