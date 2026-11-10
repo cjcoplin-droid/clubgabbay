@@ -18,8 +18,9 @@ await to the left, and behind them a delicious assortment of appetizers.
 </blockquote>
 <center><font size="-1"><i>This room is intended for adults 21 and over.</i></font></center>
 <center>
+<font size="-1"><i>Pick a nickname for this room. No account, no password -- just a display name.</i></font><br>
 <form action="../lobby" method=post target="_top">
-Name:
+Chat nickname (display name only -- no password, no account):
 <input name="USER" size=12 maxlength=12>
 <input type=hidden name="SAYS" value="<b>Joins The Lobby...</b>">
 <input type=hidden name="HISTORY" value="8">
