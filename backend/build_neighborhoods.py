@@ -214,6 +214,8 @@ def portal(h):
             '<a href="/neighborhoods/%s/board/">leave a message on the %s '
             'board</a> -- say what your address was, who you remember, and '
             'where life took you.</p>\n'
+            '<center><font size="-1"><i>The neighborhood chats are for '
+            'adults 21 and over.</i></font></center>\n'
             '<hr noshade>\n'
             '<center><b>The suburbs of %s</b></center>\n'
             '<p>When a neighborhood filled up, the volunteer Community Leaders '
@@ -258,7 +260,9 @@ def index():
                '<center><font size="+1">Five neighborhoods, the way they '
                'were -- fan-made portals, each with its own board and chat '
                'room</font>'
-               '</center>')
+               '</center>\n'
+               '<center><font size="-1"><i>The neighborhood chats are for '
+               'adults 21 and over.</i></font></center>')
     rows = []
     for h in HOODS:
         rows.append('<li><img src="/images/neighborhoods/%s.gif"> '

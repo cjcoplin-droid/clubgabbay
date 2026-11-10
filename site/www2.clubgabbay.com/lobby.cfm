@@ -18,24 +18,15 @@ await to the left, and behind them a delicious assortment of appetizers.
 </blockquote>
 <center><font size="-1"><i>This room is intended for adults 21 and over.</i></font></center>
 <center>
-
-
-<form action="lobby2.cfm" method=post target="_top">
-<input type=submit value="Members Enter Lobby Here">
-</form>
-
-
-<!-- GUEST ENTRANCE>
 <form action="../lobby" method=post target="_top">
-
-<INPUT TYPE=hidden NAME="USER" VALUE="Guest1251">
-
+Name:
+<input name="USER" size=12 maxlength=12>
 <input type=hidden name="SAYS" value="<b>Joins The Lobby...</b>">
 <input type=hidden name="HISTORY" value="8">
 <input type="checkbox" name="confirm" value="21"> I am 21 or older<br>
-<input type=submit value="Guest Entrance Here"> 
+<input type=submit value="Enter the Lobby">
 <hr>
-</form> 
+</form>
 <hr noshade>
 Club Gabbay -- a fan-run homage to the 1996-1999 original.
 </body>
