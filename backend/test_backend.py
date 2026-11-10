@@ -233,10 +233,11 @@ def run_tests(base):
     anon = Client(base)
     gate(anon)
     s, body, _ = anon.get("/")
-    check("site", "homepage / returns 200 + Enter ClubGabbay -> /chat.htm, "
-          "no webdates/email/linkexchange (Paul 2026-11-09)",
+    check("site", "homepage / returns 200 + Enter ClubGabbay age gate, "
+          "no webdates/email/linkexchange (Paul 2026-11-09; 2026-11-10: "
+          "rooms/links moved to /chat.htm, gate is the way in)",
           s == 200 and b"Enter ClubGabbay" in body
-          and b'href="/chat.htm"' in body
+          and b'action="/age-gate"' in body
           and b"webdates" not in body.lower()
           and b"comments@clubgabbay.com" not in body
           and b"linkexchange" not in body.lower(),
@@ -416,12 +417,16 @@ def run_tests(base):
     # ---- neighborhood portals: five, same template (Paul, 2026-11-09)
     run_neighborhood_pages_tests(base)
 
-    # ---- homepage blurb + monitoring notes
+    # ---- homepage blurb + monitoring notes (Paul, 2026-11-10: the
+    # rules/monitoring notes moved to the chat directory with the rest
+    # of the hub content; the landing page is welcome + gate only)
     s, body, _ = anon.get("/")
     check("site", "homepage carries the approved blurb",
           b"Club Gabbay Chat is back" in body, "")
-    check("site", "homepage notes monitoring / 18+ / private whispers",
-          b"Whispers are private and unmonitored" in body, "")
+    s, body, _ = anon.get("/chat.htm")
+    check("site", "chat directory notes monitoring / 18+ / private whispers",
+          s == 200 and b"Whispers are private and unmonitored" in body,
+          "status=%d" % s)
     # the blocklist itself is never served
     s, _, _ = anon.get("/blocklist.txt")
     check("filter", "blocklist is not served over HTTP (/blocklist.txt 404)",
@@ -645,12 +650,13 @@ def run_board_tests(base):
     data = json.loads(body.decode("utf-8"))
     check("visits", "a different visitor IP counts as a new person",
           data.get("unique") == u0 + 2, "unique=%s" % data.get("unique"))
-    # donations section on the landing page (Paul, 2026-11-09)
-    # tip link points at cjcoplin (yesdearspoons page cannot accept tips)
-    s, body, _ = b.get("/")
-    check("visits", "landing page has the donations / Ko-fi tip link",
-          b"ko-fi.com/cjcoplin" in body
-          and b"donations are welcome" in body, "")
+    # donations section moved to the chat directory (Paul, 2026-11-10):
+    # landing page is welcome + age gate only now. Tip link points at
+    # cjcoplin (yesdearspoons page cannot accept tips)
+    s, body, _ = b.get("/chat.htm")
+    check("visits", "chat directory has the donations / Ko-fi tip link",
+          s == 200 and b"ko-fi.com/cjcoplin" in body
+          and b"donations are welcome" in body, "status=%d" % s)
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/messages/post",
@@ -1077,32 +1083,46 @@ def run_21plus_tests(base):
 
 def run_landing_tests(base):
     """New landing page + age gate (Paul, 2026-11-09): the homepage is
-    super clear -- what the site is, the 21+ gate, the rules in plain
-    words, what's inside. The gate is enforced: the chat directories
-    and room entries need the flag or the entry form's confirm box.
-    No age is stored, no ID is asked for."""
+    welcome + the 21+ gate only (Paul, 2026-11-10: rules, what's
+    inside, services, Discord, webring all moved to /chat.htm, the
+    hub you land on after the gate). The gate is enforced: the chat
+    directories and room entries need the flag or the entry form's
+    confirm box. No age is stored, no ID is asked for."""
     anon = Client(base)
     s, body, _ = anon.get("/")
     check("landing", "homepage is the new landing page: ADULTS ONLY gate",
           s == 200 and b"ADULTS ONLY" in body
           and b'action="/age-gate"' in body
-          and b"I am 21 or older" in body
-          and b"The rules, plainly" in body
-          and b"Whispers are private and unmonitored" in body,
+          and b"I am 21 or older" in body,
           "status=%d" % s)
     check("landing", "homepage says 21, never 18; no fake counts, no Netscape",
           b"18+" not in body and b"Netscape" not in body
           and b"9134" not in body and b"258" not in body, "")
-    check("landing", "homepage links all fourteen service pages",
-          all(('href="/%s.html"' % sv["slug"]).encode() in body
+    check("landing", "homepage is welcome + gate only: no rules, rooms, "
+          "services, Discord or webring (Paul, 2026-11-10)",
+          b"The rules, plainly" not in body
+          and b"Have Discord?" not in body
+          and b"theoldnet-webring" not in body
+          and b"ko-fi.com/cjcoplin" not in body, "")
+    # the moved content lives on the chat directory now (Paul, 2026-11-10):
+    # rules, what's inside, the fourteen service pages, Discord, webring
+    gated = Client(base)
+    gate(gated)
+    s, hub, _ = gated.get("/chat.htm")
+    check("landing", "chat directory carries the rules, plainly",
+          s == 200 and b"The rules, plainly" in hub
+          and b"Whispers are private and unmonitored" in hub,
+          "status=%d" % s)
+    check("landing", "chat directory links all fourteen service pages",
+          all(('href="/%s.html"' % sv["slug"]).encode() in hub
               for sv in SERVICES), "")
-    check("landing", "homepage has a Have Discord? link (Paul, 2026-11-09)",
-          b"Have Discord?" in body
-          and b"discord.com/invite/" in body, "")
-    check("landing", "homepage carries the TheOldNet webring widget (Paul, 2026-11-09)",
-          b"theoldnet-webring" in body
-          and b"4426ccce3a3ac890584bf223872b964d" in body
-          and b"webring.theoldnet.com" in body, "")
+    check("landing", "chat directory has a Have Discord? link (Paul, 2026-11-09)",
+          b"Have Discord?" in hub
+          and b"discord.com/invite/" in hub, "")
+    check("landing", "chat directory carries the TheOldNet webring widget (Paul, 2026-11-09)",
+          b"theoldnet-webring" in hub
+          and b"4426ccce3a3ac890584bf223872b964d" in hub
+          and b"webring.theoldnet.com" in hub, "")
     s, body, _ = anon.get("/under21.html")
     check("landing", "under-21 stop page serves",
           s == 200 and b"adults 21 and over" in body
@@ -1349,8 +1369,8 @@ def run_neighborhood_pages_tests(base):
                            (b"Hollywood", b"SiliconValley", b"SunsetStrip",
                             b"Area51", b"WestHollywood")),
           "status=%d" % s)
-    s, body, _ = b.get("/")
-    check("neighborhoods", "home page links the neighborhoods",
+    s, body, _ = b.get("/chat.htm")
+    check("neighborhoods", "chat directory links the neighborhoods",
           b'href="/neighborhoods/"' in body, "")
     # chat directory lists the five neighborhood rooms (Paul, 2026-11-09);
     # the archived file uses relative links, like the rest of its links.

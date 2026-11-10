@@ -1,11 +1,11 @@
 # Club Gabbay mirror — backend test report (spec step 5)
 
-Test run: 2026-11-10 07:48 UTC (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
+Test run: 2026-11-10 19:57 UTC (local only, http://127.0.0.1:8124, scratch DB test-chat.db)
 Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.py`.
 
 ## Summary
 
-- Checks run: 640 — **640 PASS, 0 FAIL**
+- Checks run: 642 — **642 PASS, 0 FAIL**
 - Rooms walked: 31 of 11 (lobby, blue, speakeasy, denim, hard, soul, jive, classical, paradise, anything-goes, jokeland, hollywood-chat, siliconvalley-chat, sunsetstrip-chat, area51-chat, westhollywood-chat, aol, msn-chat, yahoo-chat, icq-chat, mirc-chat, excite-chat, paltalk-chat, lycos-chat, palace-chat, habbo-chat, powwow-chat, compuserve-chat, prodigy-chat, xfire-chat, myspace-chat)
 
 ## Per-room results
@@ -361,8 +361,8 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | myspace-chat | jump posts join line in lobby | PASS |  |
 | myspace-chat | leave lobby redirects to chat directory | PASS | status=200 |
 | lobby | guest form (archived Guest1251) redirects to /lobby | PASS | status=200 |
-| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest6206'] |
-| lobby | member entry flagged (member) in presence | PASS | presence=['Guest6206', 'TestMember (member)'] |
+| lobby | guest gets fresh auto-name GuestNNNN (not literal 1251) | PASS | names=['Tlobby', 'Tlobby', 'Tmyspacec', 'Tmyspacec', 'Guest8425'] |
+| lobby | member entry flagged (member) in presence | PASS | presence=['Guest8425', 'TestMember (member)'] |
 | lobby | HISTORY=8 shows exactly last 8 of 12 posted | PASS | shown=['hist-msg-04', 'hist-msg-05', 'hist-msg-06', 'hist-msg-07', 'hist-msg-08', 'hist-msg-09', 'hist-msg-10', 'hist-msg-11'] |
 | lobby | rate limit: 2nd post within 2s is 429 | PASS | first=200 second=429 |
 | blue | whisper visible to sender + recipient only, not others | PASS | {'sender': True, 'recipient': True, 'other': False} |
@@ -388,12 +388,12 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | GET /api/board/posts?board=clubgabbay filters to the main board | PASS | status=200 |
 | board | GET /api/board/posts?board=hollywood is empty (no posts yet) | PASS | status=200 |
 | board | GET /api/board/posts?board=nope is 404 | PASS | status=404 |
-| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 55, "total": 33}' |
+| visits | GET /api/visits returns unique + total | PASS | status=200 body=b'{"unique": 61, "total": 33}' |
 | visits | landing page loads (200) and carries the counter | PASS | status=200 |
-| visits | first landing visit counts one unique person | PASS | unique=56 total=35 |
-| visits | same person reloading does NOT count again (unique stays) | PASS | unique=56 total=36 |
-| visits | a different visitor IP counts as a new person | PASS | unique=57 |
-| visits | landing page has the donations / Ko-fi tip link | PASS |  |
+| visits | first landing visit counts one unique person | PASS | unique=62 total=35 |
+| visits | same person reloading does NOT count again (unique stays) | PASS | unique=62 total=36 |
+| visits | a different visitor IP counts as a new person | PASS | unique=63 |
+| visits | chat directory has the donations / Ko-fi tip link | PASS | status=200 |
 | board | markup post accepted (stored, escaped at render) | PASS | status=200 |
 | board | markup in a post is escaped, never rendered | PASS |  |
 | board | banned word in board post is blocked (403) | PASS | status=403 |
@@ -440,13 +440,13 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | action | AOL room page has the action form | PASS | status=200 |
 | aol-style | AOL room page has color + font pickers | PASS | status=200 |
 | aol-style | colored post accepted | PASS | status=200 |
-| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794296905.6912494, 'color': 'red', 'font': 'Courier New', 'time': '07:48'}] |
+| aol-style | API carries the color + font | PASS | [{'id': 168, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-test-12345', 'to': None, 'ts': 1794340649.7628675, 'color': 'red', 'font': 'Courier New', 'time': '19:57'}] |
 | aol-style | colored message renders in its color + font | PASS |  |
 | aol-style | the color choice sticks in the session | PASS |  |
 | aol-style | injected color/font falls back to default | PASS | status=200 |
-| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794296907.856088, 'color': None, 'font': None, 'time': '07:48'}] |
+| aol-style | bad color/font stored as default (None) | PASS | [{'id': 169, 'user': 'AolSty', 'kind': 'say', 'text': 'aol-style-bad-12345', 'to': None, 'ts': 1794340651.9185069, 'color': None, 'font': None, 'time': '19:57'}] |
 | aol-style | injected markup never renders | PASS |  |
-| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794296910.0994148, 'color': None, 'font': None, 'time': '07:48'}] |
+| aol-style | lobby posts never carry a color/font | PASS | [{'id': 171, 'user': 'LobbySty', 'kind': 'say', 'text': 'lobby-style-test-12345', 'to': None, 'ts': 1794340654.1451838, 'color': None, 'font': None, 'time': '19:57'}] |
 | 21plus | lobby room page says 21 and over | PASS | status=200 |
 | 21plus | hollywood-chat room page says 21 and over | PASS | status=200 |
 | 21plus | aol room page says 21 and over | PASS | status=200 |
@@ -462,9 +462,11 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | 21plus | Anything Goes no longer says 18 anywhere | PASS |  |
 | landing | homepage is the new landing page: ADULTS ONLY gate | PASS | status=200 |
 | landing | homepage says 21, never 18; no fake counts, no Netscape | PASS |  |
-| landing | homepage links all fourteen service pages | PASS |  |
-| landing | homepage has a Have Discord? link (Paul, 2026-11-09) | PASS |  |
-| landing | homepage carries the TheOldNet webring widget (Paul, 2026-11-09) | PASS |  |
+| landing | homepage is welcome + gate only: no rules, rooms, services, Discord or webring (Paul, 2026-11-10) | PASS |  |
+| landing | chat directory carries the rules, plainly | PASS | status=200 |
+| landing | chat directory links all fourteen service pages | PASS |  |
+| landing | chat directory has a Have Discord? link (Paul, 2026-11-09) | PASS |  |
+| landing | chat directory carries the TheOldNet webring widget (Paul, 2026-11-09) | PASS |  |
 | landing | under-21 stop page serves | PASS | status=200 |
 | landing | fine print carries the 21+ note + terms of entry | PASS | status=200 |
 | landing | age gate without confirm bounces to / | PASS | status=303 loc=/ |
@@ -581,7 +583,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | board | restore seeds a neighborhood post onto its board | PASS | restored=1 |
 | board | restored neighborhood post is not on the main board | PASS |  |
 | neighborhoods | neighborhoods index serves | PASS | status=200 |
-| neighborhoods | home page links the neighborhoods | PASS |  |
+| neighborhoods | chat directory links the neighborhoods | PASS |  |
 | neighborhoods | chat directory lists all five neighborhood rooms | PASS | status=200 |
 | neighborhoods | button hollywood.gif serves as a GIF | PASS | status=200 |
 | neighborhoods | button siliconvalley.gif serves as a GIF | PASS | status=200 |
@@ -621,7 +623,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 
 | Check | Result | Detail |
 |---|---|---|
-| homepage / returns 200 + Enter ClubGabbay -> /chat.htm, no webdates/email/linkexchange (Paul 2026-11-09) | PASS | status=200 |
+| homepage / returns 200 + Enter ClubGabbay age gate, no webdates/email/linkexchange (Paul 2026-11-09; 2026-11-10: rooms/links moved to /chat.htm, gate is the way in) | PASS | status=200 |
 | /main.htm removed 404 (Paul 2026-11-09) | PASS | status=404 |
 | /welcome.htm removed 404 (Paul 2026-11-09) | PASS | status=404 |
 | /menu.cfm removed 404 (Paul 2026-11-09) | PASS | status=404 |
@@ -652,15 +654,15 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 | known archive gap /images/bg/paradise_bg.jpg returns 404 (expected) | PASS | status=404 |
 | known archive gap /images/bg/soulsearch_bg.jpg returns 404 (expected) | PASS | status=404 |
 | homepage carries the approved blurb | PASS |  |
-| homepage notes monitoring / 18+ / private whispers | PASS |  |
-| link check / (36 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate', '//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate', '//webring.theoldnet.com/widget/widget.js'] |
-| link check /chat.htm (26 links): server matches archive | PASS | all resolve |
+| chat directory notes monitoring / 18+ / private whispers | PASS | status=200 |
+| link check / (3 links): server matches archive | PASS | all resolve |
+| link check /chat.htm (58 links): server matches archive | PASS | pre-existing archive gaps (404, expected): ['//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/navigate', '//webring.theoldnet.com/widget/4426ccce3a3ac890584bf223872b964d/image', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/previous/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/random/navigate', '//webring.theoldnet.com/member/4426ccce3a3ac890584bf223872b964d/next/navigate', '//webring.theoldnet.com/widget/widget.js'] |
 | link check /chat2.htm (34 links): server matches archive | PASS | all resolve |
 | message survives server restart (SQLite persistence) | PASS | found=True |
 
 ## What passed
 
-- site — homepage / returns 200 + Enter ClubGabbay -> /chat.htm, no webdates/email/linkexchange (Paul 2026-11-09)
+- site — homepage / returns 200 + Enter ClubGabbay age gate, no webdates/email/linkexchange (Paul 2026-11-09; 2026-11-10: rooms/links moved to /chat.htm, gate is the way in)
 - site — /main.htm removed 404 (Paul 2026-11-09)
 - site — /welcome.htm removed 404 (Paul 2026-11-09)
 - site — /menu.cfm removed 404 (Paul 2026-11-09)
@@ -1071,7 +1073,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - visits — first landing visit counts one unique person
 - visits — same person reloading does NOT count again (unique stays)
 - visits — a different visitor IP counts as a new person
-- visits — landing page has the donations / Ko-fi tip link
+- visits — chat directory has the donations / Ko-fi tip link
 - board — markup post accepted (stored, escaped at render)
 - board — markup in a post is escaped, never rendered
 - board — banned word in board post is blocked (403)
@@ -1140,9 +1142,11 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - 21plus — Anything Goes no longer says 18 anywhere
 - landing — homepage is the new landing page: ADULTS ONLY gate
 - landing — homepage says 21, never 18; no fake counts, no Netscape
-- landing — homepage links all fourteen service pages
-- landing — homepage has a Have Discord? link (Paul, 2026-11-09)
-- landing — homepage carries the TheOldNet webring widget (Paul, 2026-11-09)
+- landing — homepage is welcome + gate only: no rules, rooms, services, Discord or webring (Paul, 2026-11-10)
+- landing — chat directory carries the rules, plainly
+- landing — chat directory links all fourteen service pages
+- landing — chat directory has a Have Discord? link (Paul, 2026-11-09)
+- landing — chat directory carries the TheOldNet webring widget (Paul, 2026-11-09)
 - landing — under-21 stop page serves
 - landing — fine print carries the 21+ note + terms of entry
 - landing — age gate without confirm bounces to /
@@ -1259,7 +1263,7 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - board — restore seeds a neighborhood post onto its board
 - board — restored neighborhood post is not on the main board
 - neighborhoods — neighborhoods index serves
-- neighborhoods — home page links the neighborhoods
+- neighborhoods — chat directory links the neighborhoods
 - neighborhoods — chat directory lists all five neighborhood rooms
 - neighborhoods — button hollywood.gif serves as a GIF
 - neighborhoods — button siliconvalley.gif serves as a GIF
@@ -1292,11 +1296,11 @@ Backend: `backend/server.py` (stdlib-only Python), test: `backend/test_backend.p
 - neighborhoods — portal westhollywood serves with its directory
 - neighborhoods — board page for westhollywood serves
 - site — homepage carries the approved blurb
-- site — homepage notes monitoring / 18+ / private whispers
+- site — chat directory notes monitoring / 18+ / private whispers
 - filter — blocklist is not served over HTTP (/blocklist.txt 404)
 - filter — blocklist is not served (/backend/blocklist.txt 404)
-- site — link check / (36 links): server matches archive
-- site — link check /chat.htm (26 links): server matches archive
+- site — link check / (3 links): server matches archive
+- site — link check /chat.htm (58 links): server matches archive
 - site — link check /chat2.htm (34 links): server matches archive
 - site — message survives server restart (SQLite persistence)
 - board — board post survives server restart (stays up)
