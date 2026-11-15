@@ -48,6 +48,16 @@ is charged for.</font>
 </TABLE>
 <p>
 <TABLE cellpadding=8 border=0>
+<TR bgcolor="ccffcc">
+<TD><center>
+<font size="+1"><strong><span id="online-count">...</span> <span id="online-word">people</span> online right now</strong></font><br>
+<font size="-1">In the chat rooms and around the site -- counted live, not made up. Active in the last couple of minutes.</font>
+</center>
+</TD>
+</TR>
+</TABLE>
+<p>
+<TABLE cellpadding=8 border=0>
 <TR bgcolor="ffffcc">
 <TD><center>
 <font size="+1"><strong>ADULTS ONLY &mdash; 21 and over.</strong></font><br>
@@ -74,6 +84,28 @@ If you are under 21, please do not enter.</font>
       el.textContent = d.unique;
     }).catch(function(){ el.textContent = '?'; });
   } catch (e) { el.textContent = '?'; }
+})();
+(function(){
+  // People online right now (Paul, 2026-11-15): the site-wide total
+  // from /api/online -- every room plus visitors just browsing.
+  // Polls every 30 seconds, which also keeps your own session fresh
+  // so you count while this tab is open.
+  var el = document.getElementById('online-count');
+  var word = document.getElementById('online-word');
+  if (!el) return;
+  function show(n){
+    el.textContent = n;
+    if (word) word.textContent = (n === 1) ? 'person' : 'people';
+  }
+  function poll(){
+    try {
+      fetch('/api/online').then(function(r){ return r.json(); }).then(function(d){
+        show(d.total);
+      }).catch(function(){ el.textContent = '?'; });
+    } catch (e) { el.textContent = '?'; }
+  }
+  poll();
+  setInterval(poll, 30000);
 })();
 </script>
 <hr>

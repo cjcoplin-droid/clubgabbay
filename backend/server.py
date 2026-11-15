@@ -724,9 +724,28 @@ def presence(room):
         names = []
         for s in sessions.values():
             if s.get("room") == room and now - s["last_seen"] < PRESENCE_TIMEOUT:
-                label = s["user"] + (" (member)" if s.get("member") else "")
+                label = s["user"] + ((" (member)") if s.get("member") else "")
                 names.append(label)
     return sorted(set(names))
+
+
+def online_now():
+    """Who is on the site right now (Paul, 2026-11-15): every session
+    seen within PRESENCE_TIMEOUT, in a room OR just browsing (age gate
+    passed, hub, board, landing page). One count per session -- a
+    browser is one person, however many times it refreshes. Returns
+    (total, {room_slug: count}) with only rooms that have someone."""
+    now = time.time()
+    with sessions_lock:
+        total = 0
+        rooms = {}
+        for s in sessions.values():
+            if now - s["last_seen"] < PRESENCE_TIMEOUT:
+                total += 1
+                room = s.get("room")
+                if room:
+                    rooms[room] = rooms.get(room, 0) + 1
+    return total, rooms
 
 
 def guest_name(room):
@@ -2066,7 +2085,12 @@ class Handler(BaseHTTPRequestHandler):
             if form.get("confirm") != "21":
                 self._redirect("/")
                 return
-        if sess is None or sess.get("room") != slug:
+        # One browser, one session (Paul, 2026-11-15): entering a room
+        # reuses the session from the age gate (or a previous room) --
+        # minting a fresh one here left the old session behind, so one
+        # person counted twice in the online total for ~2 minutes.
+        # The update below overwrites user/room/etc. anyway.
+        if sess is None:
             sid = new_sid()
             sess = {}
             with sessions_lock:
@@ -2368,6 +2392,28 @@ class Handler(BaseHTTPRequestHandler):
             # reads this; the landing page JS reads it to show the count.
             self._json(200, {"unique": visit_unique_count(),
                              "total": visit_total_hits()})
+            return
+        if path == "/api/online":
+            # online right now (Paul, 2026-11-15): the site-wide total --
+            # every session active in the last 120s, in rooms AND just
+            # browsing (gate passed, hub, board, landing page), plus a
+            # per-room breakdown. Real numbers only, never faked. The
+            # poll itself keeps the caller's session fresh (created if
+            # needed), so a visitor sitting on the landing page counts
+            # while the tab is open and drops off ~2 min after leaving.
+            sid, sess = get_session(self)
+            extra = None
+            if sess is None:
+                sid = new_sid()
+                sess = {}
+                with sessions_lock:
+                    sessions[sid] = sess
+                extra = {"Set-Cookie": "gabbay_sid=%s; Path=/; HttpOnly"
+                         % sid}
+            touch(sess)
+            total, rooms = online_now()
+            self._send(200, json.dumps({"total": total, "rooms": rooms}),
+                       "application/json", extra=extra)
             return
         if path.startswith("/api/") and "/messages" in path:
             parts = [p for p in path.split("/") if p]

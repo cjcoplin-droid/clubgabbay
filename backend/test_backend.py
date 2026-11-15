@@ -657,6 +657,66 @@ def run_board_tests(base):
     check("visits", "chat directory has the donations / Ko-fi tip link",
           s == 200 and b"ko-fi.com/cjcoplin" in body
           and b"donations are welcome" in body, "status=%d" % s)
+    # people online right now (Paul, 2026-11-15): GET /api/online is
+    # the site-wide total -- every session active in the last 120s, in
+    # rooms AND just browsing -- plus a per-room breakdown. Real
+    # numbers only. Deltas, not absolutes: earlier test clients are
+    # still active on the suite's server.
+    o1 = Client(base)
+    s, body, h = o1.get("/api/online")
+    d = json.loads(body.decode("utf-8")) if s == 200 else {}
+    check("online", "GET /api/online returns total + rooms",
+          s == 200 and "total" in d and "rooms" in d,
+          "status=%d body=%s" % (s, body[:80]))
+    t0 = d.get("total", 0)
+    check("online", "fresh visitor counts as one person online (self)",
+          t0 >= 1, "total=%s" % t0)
+    check("online", "first /api/online sets the session cookie",
+          "gabbay_sid" in (h.get("Set-Cookie") or ""), "")
+    s, body, _ = o1.get("/api/online")
+    d2 = json.loads(body.decode("utf-8")) if s == 200 else {}
+    check("online", "same visitor polling again does NOT double count",
+          d2.get("total") == t0, "total=%s was %s" % (d2.get("total"), t0))
+    # a second visitor entering the lobby adds exactly one (the gate
+    # session is reused on entry, Paul 2026-11-15 -- no double count)
+    lobby0 = d.get("rooms", {}).get("lobby", 0)
+    o2 = Client(base)
+    gate(o2)
+    s, _, _ = o2.post("/lobby", {"USER": "OnlineTest",
+                                 "SAYS": "<b>Joins The Lobby...</b>",
+                                 "HISTORY": "8"})
+    s, body, _ = o1.get("/api/online")
+    d3 = json.loads(body.decode("utf-8")) if s == 200 else {}
+    check("online", "one visitor entering the lobby adds exactly one "
+          "to the total",
+          d3.get("total") == t0 + 1,
+          "total=%s was %s" % (d3.get("total"), t0))
+    check("online", "lobby count rises by exactly one on entry",
+          d3.get("rooms", {}).get("lobby", 0) == lobby0 + 1,
+          "lobby=%s was %s" % (d3.get("rooms", {}).get("lobby"), lobby0))
+    # landing page shows the live count; hub has the big board button,
+    # the equal services grid, and per-room counts
+    s, body, _ = b.get("/")
+    check("online", "landing page shows 'people online right now' "
+          "and fetches /api/online",
+          s == 200 and b'id="online-count"' in body
+          and b"/api/online" in body, "status=%d" % s)
+    s, body, _ = b.get("/chat.htm")
+    check("online", "hub has a big Leave a message button to the board",
+          s == 200 and b">Leave a message</a>" in body
+          and b'href="/messages/"' in body, "status=%d" % s)
+    check("online", "hub services grid: all 15 services as equal tiles "
+          "with per-room counts",
+          s == 200 and all(
+              x in body for x in (b'data-room="aol"',
+                                  b'data-room="msn-chat"',
+                                  b'data-room="myspace-chat"',
+                                  b"Chat on the old services")),
+          "status=%d" % s)
+    check("online", "AOL is no longer singled out (no featured AOL row, "
+          "no small services link line)",
+          s == 200 and b"AOL Chat!" not in body
+          and b"More from the old days" not in body, "status=%d" % s)
     # HTML in a post is escaped, never rendered
     time.sleep(10.1)  # board rate limit: 1 post per 10s per IP
     s, _, _ = b.post("/messages/post",
